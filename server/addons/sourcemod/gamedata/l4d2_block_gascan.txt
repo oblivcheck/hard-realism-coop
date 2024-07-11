@@ -1,0 +1,49 @@
+"Games"
+{
+	"#default"
+	{
+		"Functions"
+		{
+			"CGasCan::ShouldStartAction"
+			{
+				"signature"		"CGasCan::ShouldStartAction"
+				"callconv"		"thiscall"
+				"return"		"int"
+				"this"			"ignore"
+				"arguments"
+				{
+					"a1"
+					{
+						"type"	"int"
+					}
+					"a2"
+					{
+						"type"	"cbaseentity"
+					}
+					"a3"
+					{
+						"type"	"cbaseentity"
+					}
+				}
+			}
+		}
+	}
+
+	"left4dead2"
+	{
+		"Signatures"
+		{
+			/*
+			 *  CGasCan::ShouldStartAction(int, int, CTerrorPlayer *, CPointPropUseTarget *)
+			 */
+			"CGasCan::ShouldStartAction"
+			{
+				"library"	"server"
+				"linux"		"@_ZN7CGasCan17ShouldStartActionEN17CBaseBackpackItem22BackpackItemActionTypeEP13CTerrorPlayerP11CBaseEntity"
+				"windows"	"\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x57\x8B\x2A\x85\x2A\x74\x2A\x8B\x2A\xE8\x2A\x2A\x2A\x2A\x84\x2A\x75"
+				/* ? ? ? ? ? ? ? 57 8B ? 85 ? 74 ? 8B ? E8 ? ? ? ? 84 ? 75 */
+				/* Search: "gascan_pour_blocked" */
+			}
+		}
+	}
+}

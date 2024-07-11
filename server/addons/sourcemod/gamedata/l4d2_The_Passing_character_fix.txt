@@ -1,0 +1,71 @@
+"Games"
+{
+    "left4dead2"
+    {
+		"Functions"
+		{
+			"GetPlayerByCharacter"
+			{
+				"signature"		"CTerrorPlayer::GetPlayerByCharacter"
+				"callconv"		"cdecl"
+				"return"		"int"
+				"this"			"ignore"
+				"arguments"
+				{
+					"a1"
+					{
+						"type"	"int"
+					}
+				}
+			}
+			"AddSurvivorBot"
+			{
+				"signature"		"CDirector::AddSurvivorBot"
+				"callconv"		"thiscall"
+				"return"		"int"
+				"this"			"address"
+				"arguments"
+				{
+					"a1"
+					{
+						"type"	"int"
+					}
+				}
+			}
+		}
+		"Signatures"
+		{
+			/**
+			 * CTerrorPlayer::GetPlayerByCharacter(SurvivorCharacterType)
+			 *
+			 * How to find on Windows:
+			 * 1. Locate the "WitchAttack::GetVictim" function.
+			 * 2. The only function call in "WitchAttack::GetVictim" should be this function.
+			 **/
+			"CTerrorPlayer::GetPlayerByCharacter"
+			{
+				"library"	"server"
+				"linux"		"@_ZN13CTerrorPlayer20GetPlayerByCharacterE21SurvivorCharacterType"
+				"mac"		"@_ZN13CTerrorPlayer20GetPlayerByCharacterE21SurvivorCharacterType"
+				"windows"	"\x2A\x2A\x2A\x2A\x2A\x2A\x83\x2A\x2A\x83\x2A\x2A\x75\x2A\x33\x2A\x8B\x2A\x5D\xC3\x50\xE8\x2A\x2A\x2A\x2A\x89"
+						/* ? ? ? ? ? ? 83 ? ? 83 ? ? 75 ? 33 ? 8B ? 5D C3 50 E8 ? ? ? ? 89 */
+			}
+			
+			/*
+				Search "Add a Survivor Bot." or "sb_add" string and go to first XRef to find CC_AddSurvivorBot
+				push    offset aAddASurvivorBo          ; "Add a Survivor Bot."
+				push    offset sub_???????? ; CC_AddSurvivorBot(CCommand const&) <- CC_AddSurvivorBot
+				push    offset aSbAdd                   ; "sb_add"
+			
+				CC_AddSurvivorBot function has two duplicate calls for CDirector::AddSurvivorBot
+			*/
+			"CDirector::AddSurvivorBot"
+			{
+				"library"	"server"
+				"linux"		"@_ZNK9CDirector14AddSurvivorBotE21SurvivorCharacterType"
+				"windows"	"\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x00\x00\x85\xC9\x2A\x2A\x2A\x2A\x00\x2A\x2A\x51\x2A\x2A\x2A\x2A\x2A\x83\xC4\x04"
+						/* ? ? ? ? ? ? ? ? ? ? ? ? 00 00 85 C9 ? ? ? ? 00 ? ? 51 ? ? ? ? ? 83 C4 04 */
+			}
+		}
+	}
+}

@@ -1,0 +1,122 @@
+"Games"
+{
+    "left4dead"
+    {
+		"Addresses"
+		{
+			"AddUpgrade"
+			{
+				"windows"
+				{
+					"signature"	"AddUpgrade"			
+				}
+				"linux"
+				{
+					"signature"	"AddUpgrade"
+				}
+			}
+		}
+
+		"Offsets"
+		{
+			"AddUpgrade_Offset"
+			{
+				"windows"		"271" // 0x10F
+				"linux"			"308" // 0x134
+			}
+			"AddUpgrade_Byte"
+			{
+				"windows"		"104" // 0x68
+				"linux"			"141" // 0x8D
+			}
+			"AddUpgrade_Count"
+			{
+				"windows"		"12"
+				"linux"			"18"
+			}
+		}
+    
+		"Signatures"
+		{
+			/* CTerrorPlayer::AddUpgrade */
+			"AddUpgrade"
+			{
+				"library"	"server"
+				"linux"		"@_ZN13CTerrorPlayer10AddUpgradeE19SurvivorUpgradeType"
+				"windows"	"\xA1\x2A\x2A\x2A\x2A\x83\x78\x30\x00\x57\x8B\xF9\x0F\x84\x2A\x2A\x2A\x2A\x8B\x4C\x24\x08"
+				/* A1 ? ? ? ? 83 78 30 00 57 8B F9 0F 84 ? ? ? ? 8B 4C 24 08 */
+				/* Search by "Player.AwardUpgrade" */
+			}
+			
+			/* CTerrorPlayer::RemoveUpgrade */
+			"RemoveUpgrade"
+			{
+				"library"	"server"
+				"linux"		"@_ZN13CTerrorPlayer13RemoveUpgradeE19SurvivorUpgradeType"
+				"windows"	"\x51\x53\x55\x8B\x6C\x24\x10\x8B\xD9\x56"
+				/* 51 53 55 8B 6C 24 10 8B D9 56 */
+				/* XRef from String "PlayerNeutralizedTongue" => CTerrorPlayer::OnGrabbedByTongue */
+			}
+		}
+    }
+    
+    "left4dead2"
+    {
+		"Addresses"
+		{
+			"AddUpgrade"
+			{
+				"windows"
+				{
+					"signature"	"AddUpgrade"			
+				}
+				"linux"
+				{
+					"signature"	"AddUpgrade"
+				}
+			}
+		}
+
+		"Offsets"
+		{
+			"AddUpgrade_Offset"
+			{
+				"windows"		"202" // 0xCA
+				"linux"			"128" // 0x80
+			}
+			"AddUpgrade_Byte"
+			{
+				"windows"		"104" // 0x68
+				"linux"			"199" // 0xC7
+			}
+			"AddUpgrade_Count"
+			{
+				"windows"		"12"
+				"linux"			"16"
+			}
+		}
+  
+		"Signatures"
+		{
+			/* CTerrorPlayer::AddUpgrade */
+			"AddUpgrade"
+			{
+				"library"	"server"
+				"linux"		"@_ZN13CTerrorPlayer10AddUpgradeE19SurvivorUpgradeType"
+				"windows"	"\x55\x8B\xEC\x81\xEC\x18\x01\x00\x00\xA1\x2A\x2A\x2A\x2A\x33\xC5\x89\x45\xFC\x53\x8B\x5D\x08\x56\x57"
+				/* 55 8B EC 81 EC 18 01 00 00 A1 ? ? ? ? 33 C5 89 45 FC 53 8B 5D 08 56 57 */
+				/* Search by "Player.AwardUpgrade" */
+			}
+			
+			/* CTerrorPlayer::RemoveUpgrade */
+			"RemoveUpgrade"
+			{
+				"library"	"server"
+				"linux"		"@_ZN13CTerrorPlayer13RemoveUpgradeE19SurvivorUpgradeType"
+				"windows"	"\x55\x8B\xEC\x8B\x01\x8B\x90\x2A\x2A\x2A\x2A\x6A\x00\xFF\xD2\x85\xC0\x74"
+				/* 55 8B EC 8B 01 8B 90 ? ? ? ? 6A 00 FF D2 85 C0 74 */
+				/* XRef from String "%s INVALID UPGRADE '%s'\n" => UpgradeRemove */
+			}
+		}
+    }
+}

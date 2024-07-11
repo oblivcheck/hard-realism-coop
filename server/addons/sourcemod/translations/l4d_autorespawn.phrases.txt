@@ -1,0 +1,196 @@
+/*
+	Following named colors are supported:
+	 - {orange}	(use instead of \x01 )
+	 - {cyan}	(use instead of \x03 )
+	 - {orange}	(use instead of \x04 )
+	 - {green}	(use instead of \x05 )
+*/
+
+"Phrases"
+{
+	"Prize1"
+	{
+		"en"		"{green}You robbed a warehouse by getting"
+		"ru"		"{green}Вы ограбили склад, получив"
+	}
+	"Prize2"
+	{
+		"en"		"{green}Passing by bushes, you noticed"
+		"ru"		"{green}Проходя мимо кустов, вы заметили"
+	}
+	"Prize3"
+	{
+		"en"		"{green}In front of a witch, you stole"
+		"ru"		"{green}Вы стащили на глазах у ведьмы"
+	}
+	"Prize4"
+	{
+		"en"		"{green}As a hero-defender, you were awarded"
+		"ru"		"{green}Как герою-защитнику, вам вручили"
+	}
+	"Prize5"
+	{
+		"en"		"{green}It was kept under your pillow, take away"
+		"ru"		"{green}Это хранилось у вас под подушкой, забирайте"
+	}
+	"Prize6"
+	{
+		"en"		"{green}The guardian angel protected you by giving"
+		"ru"		"{green}Ангел-хранитель защитил вас, дав"
+	}
+	"Prize7"
+	{
+		"en"		"{green}Using spare parts, you made"
+		"ru"		"{green}Вы смастерили из запчастей"
+	}
+	"Prize8"
+	{
+		"en"		"{green}Holy admin guards you and hands"
+		"ru"		"{green}Святой админ оберегает вас и вручает"
+	}
+	"Prize9"
+	{
+		"en"		"{green}You met Santa Claus, and received a gift"
+		"ru"		"{green}Вы встретили Деда Мороза, и получили подарок"
+	}
+	"rifle"
+	{
+		"en"		"{orange}M16"
+		"ru"		"{orange}M16"
+	}
+	"autoshotgun"
+	{
+		"en"		"{orange}Autoshotgun"
+		"ru"		"{orange}Ружьё"
+	}
+	"hunting_rifle"
+	{
+		"en"		"{orange}Sniper rifle"
+		"ru"		"{orange}Снайперку"
+	}
+	"pumpshotgun"
+	{
+		"en"		"{orange}Shotgun"
+		"ru"		"{orange}Дробовик"
+	}
+	"pipe1"
+	{
+		"en"		"{green}At home, in ROSHEN box you found {orange} Candy with explosives."
+		"ru"		"{green}Дома в коробке ROSHEN вы нашли {orange} Кетю со взрывчаткой."
+	}
+	"pipe2"
+	{
+		"en"		"{green}One time you wanted to blow up a school, and you have left: {orange} Giant pythard."
+		"ru"		"{green}Вы когда-то хотели взорвать школу, и у вас осталась: {orange} Гигантская питарда."
+	}
+	"pipe3"
+	{
+		"en"		"{green}In your back pocket you found: {orange} burning C4 {green}, and you barely had time to take out the wick!"
+		"ru"		"{green}В заднем кармане вы обнаружили: {orange} горящую C4{green}, и едва успели вынуть фитиль!"
+	}
+	"pipe4"
+	{
+		"en"		"{green}You got tricked Louis on the {orange} stick of dynamite."
+		"ru"		"{green}Вы развели Луиса на {orange} палку динамита."
+	}
+	"pipe5"
+	{
+		"en"		"{green}You pulled out {orange}Nitroglycerin tube {green}from a zombie's teeth."
+		"ru"		"{green}Вы вытащили из зубов зомби {orange} пробирку Нитроглицерина."
+	}
+	"pipe6"
+	{
+		"en"		"{green}You have attached {orange} a piece of TNT {green}to a mosquito repeater."
+		"ru"		"{green}Вы примотали к пищалке для комаров {orange} кусок Тротила."
+	}
+	"molotov1"
+	{
+		"en"		"{green}At the gas station, you often worked as a gasoline diluent and grabbed: {orange} A95 +"
+		"ru"		"{green}На заправке вы часто работали разбавляльщиком бензина и захватили: {orange} A95 +"
+	}
+	"molotov2"
+	{
+		"en"		"{green}You were well behaved on the server and the admin gave you: {orange} Elite brandy"
+		"ru"		"{green}Вы хорошо себя вели на сервере и админ подарил вам: {orange} Элитный коньяк"
+	}
+	"molotov3"
+	{
+		"en"		"{green}You wanted to get the tank drunked and you grabbed: {orange}A bottle of pepper vodka"
+		"ru"		"{green}Вам захотелось напоить танка и вы прихватили: {orange} Бутылку перцовой водки"
+	}
+	"molotov4"
+	{
+		"en"		"{green}The seller said that you looked less than 18 and gave instead of beer: {orange}Pepsi"
+		"ru"		"{green}Продавец сказал, что на вид вам меньше 18 и дал вместо пива: {orange} Фанту"
+	}
+	"molotov5"
+	{
+		"en"		"{green}You were running away from the hordes of zombies, beeing choking you asked Louis for: {orange}Soda pop {green}(at the same time you peeped where he kept 2 more :)"
+		"ru"		"{green}Вы убегали от орды зомби, и задыхаясь, выпросили у Луиса: {orange} Газировку {green} (заодно спалив, где он хранит ещё 2 :)"
+	}
+	"molotov6"
+	{
+		"en"		"{green}You have read in the American instruction that {orange}Dushes drink {green}is saving you from the virus"
+		"ru"		"{green}Вы прочитали в американской инструкции, что от вируса спасает напиток {orange} Дюшес"
+	}
+	"pills1"
+	{
+		"en"		"{green}The doctor ordered to drink: {orange} vitamins."
+		"ru"		"{green}Доктор прописал пить: {orange} витаминки."
+	}
+	"pills2"
+	{
+		"en"		"{green}You grabbed: {orange} aspirin."
+		"ru"		"{green}Вы захватили: {orange} аспиринку."
+	}
+	"pills3"
+	{
+		"en"		"{green}Luis said that these tricks helped him a lot and he shared: {orange} Black pills."
+		"ru"		"{green}Луис сказал, что эти штучки ему очень помогают и поделился: {orange} Чёрными таблеточками."
+	}
+	"oxygentank"
+	{
+		"en"		"{green}The admin wants to drink with you: {orange} Keg of ale."
+		"ru"		"{green}Админ хочет выпить с вами: {orange} Бочонок эля."
+	}
+	"gascan"
+	{
+		"en"		"{green}Tank offers to try: {orange} burning hookah."
+		"ru"		"{green}Танк предлагает попробовать: {orange} обжигающий кальян."
+	}
+	"propanetank"
+	{
+		"en"		"{green}Witch treats you to: {orange} barrel of ice cream."
+		"ru"		"{green}Ведьма угощает вас: {orange} Бочонком мороженого."
+	}
+	"respawn_in_progress"
+	{
+		"en"		"{orange}你将在 {green}%i{orange} 秒后重生   (剩余次数: {green}%i/%i{orange})."
+		"ru"		"{orange}Вы будете возрождены через {green}%i{orange} секунд   (доступно: {green}%i/%i{orange})."
+	}
+	"respawn_in_progress_unlimit"
+	{
+		"en"		"{orange}你将在 {green}%i{orange} 秒后重生"
+		"ru"		"{orange}Вы будете возрождены через {green}%i{orange} секунд"
+	}
+	"depleted"
+	{
+		"en"		"你已经用完了本回合的重生次数."
+		"ru"		"{orange}Вы израсходовали все возрождения за этот раунд."
+	}
+	"ask_help"
+	{
+		"en"		"{orange}Ask to save you using {cyan}Ctrl + E with medkit"
+		"ru"		"{orange}Попросите спасти вас через {cyan}Ctrl + E аптечкой"
+	}
+	"elapsed"
+	{
+		"en"		"将在 %i 秒后重生."
+		"ru"		"До возрождения осталось: %i сек."
+	}
+	"cant_spawn"
+	{
+		"en"		"{cyan}Can't find spawn position for {orange}%N. {cyan}Change observer target!"
+		"ru"		"{cyan}Не могу найти позицию для появления {orange}%N. {cyan}Смените цель наблюдения!"
+	}
+}

@@ -1,0 +1,85 @@
+"Phrases"
+{
+	"Laser_On"
+	{
+		"en"			"Laser Sight is On."
+		"es"			"Mira láser Encendida."
+		"ru"			"Лазерный прицел Включен."
+	}
+	"Laser_Off"
+	{
+		"en"			"Laser Sight is Off."
+		"es"			"Mira láser Apagada."
+		"ru"			"Лазерный прицел Выключен."
+	}
+	"Silencer_On"
+	{
+		"en"			"Silencer is On."
+		"es"			"Silenciador Encendido."
+		"ru"			"Глушитель Надет."
+	}
+	"Silencer_Off"
+	{
+		"en"			"Silencer is Off."
+		"es"			"Silenciador Apagado."
+		"ru"			"Глушитель Снят."
+	}
+	"NightVision_On"
+	{
+		"en"			"Night vision On."
+		"es"			"Visión nocturna Encendida."
+		"ru"			"Ночное виденье Включено."
+	}
+	"NightVision_Off"
+	{
+		"en"			"Night vision Off."
+		"es"			"Visión nocturna Apagada."
+		"ru"			"Ночное виденье Отключено."
+	}
+	"Reload_On"
+	{
+		"en"			"Fast Reload is On."
+		"es"			"Recarga rápida Encendida."
+		"ru"			"Быстрая перезарядка Включена."
+	}
+	"Reload_Off"
+	{
+		"en"			"Fast Reload is Off."
+		"es"			"Recarga rápida Deshabilitada."
+		"ru"			"Быстрая перезарядка Выключена."
+	}
+	"VIP_Feature_Laser"
+	{
+		"en"			"Laser Sight"
+		"es"			"Mira láser"
+		"ru"			"Лазерный прицел"
+	}
+	"VIP_Feature_Silencer"
+	{
+		"en"			"Silencer"
+		"es"			"Silenciador"
+		"ru"			"Глушитель"
+	}
+	"VIP_Feature_NightVision"
+	{
+		"en"			"Night vision"
+		"es"			"Visión nocturna"
+		"ru"			"Ночное виденье"
+	}
+	"VIP_Feature_Reload"
+	{
+		"en"			"Fast Reload"
+		"es"			"Recarga rápida"
+		"ru"			"Быстрая перезарядка"
+	}
+	"Enabled"
+	{
+		"en"		"Enabled"
+		"ru"		"Включено"
+	}
+	"Disabled"
+	{
+		"en"		"Disabled"
+		"ru"		"Выключено"
+	}
+}

@@ -1,0 +1,32 @@
+"Phrases"
+{
+	"Door_Open"
+	{
+		"en"		"{olive}[安全门防护] {orange}%N {white}打开了安全门"
+	}
+
+	"Door_Close"
+	{
+		"en"		"{olive}[安全门防护] {orange}%N {white}关上了安全门"
+	}
+
+	"Door_Wait"
+	{
+		"en"		"{olive}[安全门防护] {orange}%d {white}秒后，安全门将解除锁定"
+	}
+
+	"Door_Unlocked"
+	{
+		"en"		"{olive}[安全门防护] {white}安全门 {orange}已解除锁定"
+	}
+
+	"Movement_Blocked"
+	{
+		"en"		"{olive}Saferoom: {white}Movement allowed in %d"
+	}
+
+	"Movement_Allowed"
+	{
+		"en"		"{olive}Saferoom: {white}Movement allowed"
+	}
+}
