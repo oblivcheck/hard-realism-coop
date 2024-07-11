@@ -122,7 +122,6 @@
 		director_scavenge_item_override 1		//def 0	Override map-specified item densities with cvar values for tuning.
 
 		//Miscellaneous Gameplay Cvars
-		z_no_cull 1				//def 0	If nonzero, the Director will not cull common infected.
 		z_door_reopen_interval 1			//def 0.5	Closed doors can be re-opened after this amount of time.
 		z_tank_grenade_launcher_dmg_scale 1.5		//def 3.0	Percent increase in damage done to the tank by grenade launcher.
 		z_tank_autoshotgun_dmg_scale 0.80		//def 0.85	Percent damage taken by the tank from the autoshotgun.
