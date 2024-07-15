@@ -18,13 +18,12 @@
 		director_afk_timeout 20	//def 45	Humans idle longer than this many seconds will be forced to spectator mode.
 		allow_all_bot_survivor_team 1	//def 0	Allow a survivor team of nothing but bots. Human players are still required for the game to be active.
 
-		//Realism[hidehud 64+crosshair 0=hidehud 320+cl_crosshair_alpha 0]
+		//Realism[Basic HUD For Server: T Hard Realism Coop]
 		//cl_drawhud 0			//def 1	Enable the rendering of the hud.
 		cl_tracers 0			//def 1	Display bullet trajectories.
 		cl_glow_blur_scale 0			//def 3	Controls the size of the halo shown around players and usable items.
 		cl_drawprogressbar 0		//def 1	Draw progress bar when healing.
-		cc_subtitles 1
-		crosshair 0
+		cc_subtitles 1			//def 0	If set, don't show sound effect captions, just voice overs (i.e., won't help hearing impaired players).
 		hud_dmgrecord_persisttime_deaths -1	//def 4.0	Time to show death related lines in the damage record.
 		hud_dmgrecord_persisttime_other -1	//def 2.0	Time to show non-death related lines in the damage record.
 
@@ -61,9 +60,9 @@
 		survivor_incap_max_fall_damage 100 		//def 200	Taking falling damage greater than this will kill survivors outright instead of incapacitating them.
 		survivor_incapacitated_reload_multiplier 1.5	//def 1.25	Multiplier to reload time when incapacitated.
 		survivor_incapacitated_accuracy_penalty 0.25	//def 0.4	Penalty given for shooting while incapacitated.
-		sb_revive_friend_distance 50.0			//def 125.0
 
 		//Healing Item
+		//director_convert_pills 0		//def 1	Allows pills to be converted to health kits or defibrillators in non-Expert difficulties.
 		first_aid_heal_percent 0.6		//def 0.8	Percent of injuries to heal.
 		pain_pills_health_value 40		//def 50
 		pain_pills_decay_rate 0.20		//def 0.27
