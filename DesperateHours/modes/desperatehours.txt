@@ -122,9 +122,9 @@
 
 		//Miscellaneous Gameplay Cvars
 		z_door_reopen_interval 1			//def 0.5	Closed doors can be re-opened after this amount of time.
-		z_tank_grenade_launcher_dmg_scale 1.5		//def 3.0	Percent increase in damage done to the tank by grenade launcher.
-		z_tank_autoshotgun_dmg_scale 0.80		//def 0.85	Percent damage taken by the tank from the autoshotgun.
+		z_tank_grenade_launcher_dmg_scale 1.0		//def 3.0	Percent increase in damage done to the tank by grenade launcher.
 		shotgun_reload_cancel_delay 1.0		//def 0.5	On reload from empty, time before a fire command is recognized to cancel the reload.
+		grenadelauncher_damage 600			//def 400
 		grenadelauncher_radius_kill 250		//def 180
 		grenadelauncher_radius_stumble 320		//def 250
 		gascan_use_range 35			//def 65
@@ -179,7 +179,7 @@
 		z_mega_mob_size 100		//def 50
 		z_mega_mob_spawn_max_interval 600	//def 900
 		z_spawn_mobs_behind_chance 25	//def 75	Percentage chance that a mob will spawn behind the Survivor team.
-		z_hit_from_behind_factor 0.75 		//def 0.5	Damage multiplier if zombie hits Survivor from behind.
+		z_hit_from_behind_factor 0.8 		//def 0.5	Damage multiplier if zombie hits Survivor from behind.
 		z_hit_chainsawer_factor 1.0		//def 0.5
 		//Damage multiplier if zombie hits incapacitated Survivor.
 		z_hit_incap_factor_easy 0.5		//def 0.1
