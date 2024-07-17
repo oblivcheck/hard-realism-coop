@@ -2,11 +2,11 @@
 
 "AddonInfo"
 {
-                addonSteamAppID		"550"
-     	addontitle			"Desperate Hours"
-	addonversion		"1.0"
-                addonauthor		"DP Cooper, oblivcheck"
-                addonauthorSteamID	""
-     	addonDescription		"Apocalypse Realism"	// short description that appears in the Add-on list screen... 
-	addonContent_Script	"1"			// Has Scripts
+  addonSteamAppID		"550"
+  addontitle			"Desperate Hours"
+  addonversion		"1.0"
+  addonauthor		"DP Cooper, oblivcheck"
+  addonauthorSteamID	""
+  addonDescription		"Apocalypse Realism"	// short description that appears in the Add-on list screen... 
+  addonContent_Script	"1"			// Has Scripts
 }

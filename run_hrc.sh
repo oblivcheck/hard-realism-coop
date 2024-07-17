@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdri -p /tmp/hard-realism-coop/
 cd /tmp/hard-realism-coop/
 git pull
 cp -r server/* /home/steam/Steam/hrc/
