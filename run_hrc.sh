@@ -1,7 +1,16 @@
 #!/bin/bash
-mkdri -p /tmp/hard-realism-coop/
-cd /tmp/hard-realism-coop/
-git pull
+tmpdir=/tmp/hard-realism-coop
+repurl="https://github.com/oblivcheck/hard-realism-coop"
+
+if [ -d "$tmpdir" ]; then
+  cd $tmpdir
+  git pull
+else
+  cd /tmp
+  git clone $repurl
+  cd $tmpdir
+fi
+
 cp -r server/* /home/steam/Steam/hrc/
 cp -r run_hrc.sh /home/steam/Steam/
 chmod +x /home/steam/Steam/run_hrc.sh
