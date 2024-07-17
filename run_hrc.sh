@@ -2,6 +2,8 @@
 tmpdir=/tmp/hard-realism-coop
 repurl="https://github.com/oblivcheck/hard-realism-coop"
 
+export http_proxy="http://10.10.10.10:8066"
+export https_proxy="http://10.10.10.10:8066"
 if [ -d "$tmpdir" ]; then
   cd $tmpdir
   git pull
