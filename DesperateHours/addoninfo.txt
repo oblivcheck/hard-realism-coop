@@ -3,7 +3,7 @@
 "AddonInfo"
 {
   addonSteamAppID		"550"
-  addontitle			"Desperate Hours"
+  addontitle		"Desperate Hours"
   addonversion		"1.0"
   addonauthor		"DP Cooper, oblivcheck"
   addonauthorSteamID	""

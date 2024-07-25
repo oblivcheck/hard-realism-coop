@@ -2,7 +2,7 @@
 //
 //=============================================================================
 
-printl( "===[VS]Initializing Green Flu Custom c11m* Director's script" );
+printl( "Initializing Desperate Hours Director's script" );
 
 DirectorOptions <-
 {
@@ -17,73 +17,57 @@ DirectorOptions <-
 			OnChangeFinaleMusic = finaleStageList[to];
 		}
 	}
-	//CI的伤害倍数
-//	cm_BaseCommonAttackDamage = 0.25
-	//暴风骤雨的汽油罐在背上，用于检测脚本是否生效
-	//GasCansOnBacks = true
-	//无论SU强度如何，永远生成零散的CI
-	//***AlwaysAllowWanderers = true
-	//IntensityRelaxAllowWanderersThreshold = 0.98
-	//PreferredMobDirection = SPAWN_ANYWHERE
-	//零散CI的数量乘子
-	//WanderingZombieDensityModifier = 1.5
-	//realx阶段的持续时间
-	RelaxMaxInterval = 360
-	RelaxMinInterval = 240
-	/*
-	由realx跳转至峰值时SU可以走动多远
-	9000为瘸腿速度一直走60s的距离
-	9900为正常速度拿出四分之一时间搜索物品的跑图者前进的最远距离
-	13200为正常速度跑图的最远距离
-	11000为正常速度拿出六分之一的跑图距离
-	在瘸腿状态时，拿出一半时间用于清理CI与搜集物品可以获得160s的休息时间
-	*/
-	RelaxMaxFlowTravel = 36000
-	//要多少CI才会触发尸潮音乐
-	MusicDynamicMobSpawnSize = 160
-	//最高强度时发起攻击的最小间隔
-	BuildUpMinInterval = 15
-	//维持峰值状态而时间
-	SustainPeakMaxTime = 24
-	SustainPeakMinTime = 12
-	//CI在此范围内发现SU的时间最短
-	NearAcquireRange = 400.0
-	//最短时间
-	NearAcquireTime = 1.0
-	//CI可发现SU的最大范围
-	FarAcquireRange = 3000
-	//CI/SI会被删除的距离
-	ZombieDiscardRange = 4000
-	//CI的可同时存在的最大数量
-	CommonLimit = 80
-	//即便尸潮来临，闲逛的感染者数量不应低于
+
+	//Survivors
+	cm_AllowPillConversion = false
+	BuildUpMinInterval = 20
+	SustainPeakMinTime = 5
+	SustainPeakMaxTime = 8
+	IntensityRelaxThreshold = 0.99
+	RelaxMinInterval = 20
+	RelaxMaxInterval = 30
+	RelaxMaxFlowTravel = 1500
+	//IntensityRelaxAllowWanderersThreshold = 0.8
+
+	//Infected Limited Range
+	ZombieSpawnRange = 1200.0
+	ZombieDiscardRange = 2000
+
+	//Common Infected
+	CommonLimit = 50
+	WanderingZombieDensityModifier = 0.05
+	MobMinSize = 30
+	MobMaxSize = 50
+	BileMobSize = 80
+	//MobSpawnSize = 80
+	MobSpawnMinTime = 120
+	MobSpawnMaxTime = 240
+	MegaMobSize = 100
 	NumReservedWanderers = 30
-	//所有感染者生成的最大距离
-	//ZombieSpawnRange = 3000.0 
-	//SI重生的时间
-	SpecialRespawnInterval = 200
-	//导演最多可以同时创建多少SI，不是最大可存在的数量？
-	MaxSpecials = 5
-//	BoomerLimit = 0
-	SmokerLimit = 2
-//	SpitterLimit = 0
-//	JockeyLimit = 0
+	MusicDynamicMobSpawnSize = 50
+	//AlwaysAllowWanderers = true
+	//cm_BaseCommonAttackDamage = 0.5
+	//PreferredMobDirection = SPAWN_NEAR_POSITION
+	//PreferredMobPositionRange = 800.0			//Only works if PreferredMobDirection is set to SPAWN_NEAR_POSITION.
+
+	//Special Infected
+	SpecialRespawnInterval = 60
+	MaxSpecials = 4
+	DominatorLimit = 4
 	HunterLimit = 2
-//	ChargerLimit = 0
-	//峰值状态的维持时间？
-	//SustainPeakMaxTime
-	//固定尸潮，恐慌事件，最多可存在的CI
-//	MegaMobSize = 240
-	//尸潮生成时间
-	MobSpawnMaxTime = 400
-	MobSpawnMinTime = 200
-	//尸潮的数量
-	MobMaxSize = 240
-	MobMinSize = 400
-	//不允许在威胁区域生成Tank,似乎不影响终局Tank
-	DisallowThreatType = ZOMBIE_TANK
-	//需要进行游戏难度检测，这是控制零散CI的在SU的什么强度生成
-	
+	JockeyLimit = 1
+	SmokerLimit = 1
+	ChargerLimit = 1
+	BoomerLimit = 1
+	SpitterLimit = 1
+	//SpecialInfectedAssault = ture
+	//PreferredSpecialDirection =  SPAWN_SPECIALS_ANYWHERE
+
+	//Boss
+	ZombieTankHealth = 6000
+	ShouldAllowMobsWithTank = true
+	ShouldAllowSpecialsWithTank = true
+	AllowWitchesInCheckpoints = true
 }
 
 // temporarily leaving stage strings as diagnostic for gauntlet mode
@@ -144,4 +128,3 @@ function GetDirectorOptions()
 	
 	return result;
 }
-
