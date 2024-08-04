@@ -1,0 +1,51 @@
+#./rcon -a 10.10.10.90:37000 -p greenflu 
+l4d:
+ address: "10.10.10.90:47000"
+ password: "greenflu"
+r1:
+ address: "10.10.10.90:48001"
+ password: "greenflu"
+r2:
+ address: "10.10.10.90:48002"
+ password: "greenflu"
+r3:
+ address: "10.10.10.90:48003"
+ password: "greenflu"
+r4:
+ address: "10.10.10.90:48004"
+ password: "greenflu"
+r5:
+ address: "10.10.10.90:48005"
+ password: "greenflu"
+r6:
+ address: "10.10.10.90:48006"
+ password: "greenflu"
+r7:
+ address: "10.10.10.90:48007"
+ password: "greenflu"
+r8:
+ address: "10.10.10.90:48008"
+ password: "greenflu"
+r9:
+ address: "10.10.10.90:48009"
+ password: "greenflu"
+r10:
+ address: "10.10.10.90:48010"
+ password: "greenflu"
+
+r11:
+ address: "10.10.10.90:48011"
+ password: "greenflu"
+
+r12:
+ address: "10.10.10.90:48012"
+ password: "greenflu"
+
+m1:
+ address: "10.10.10.80:37000"
+ password: "greenflu"
+
+m2:
+ address: "10.10.10.80:37020"
+ password: "greenflu"
+
