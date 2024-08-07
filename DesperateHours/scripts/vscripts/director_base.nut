@@ -2,7 +2,7 @@
 //
 //=============================================================================
 
-printl( "Initializing Desperate Hours Director's script" );
+printl( "Initializing Desperate Hours[HRC] Director's script" );
 
 DirectorOptions <-
 {
@@ -39,12 +39,13 @@ DirectorOptions <-
 	MobMinSize = 30
 	MobMaxSize = 50
 	BileMobSize = 80
-	//MobSpawnSize = 80
-	MobSpawnMinTime = 120
-	MobSpawnMaxTime = 240
-	MegaMobSize = 100
+	MobSpawnMinTime = 150
+	MobSpawnMaxTime = 300
+	MegaMobSize = 120
 	NumReservedWanderers = 30
 	MusicDynamicMobSpawnSize = 50
+	MusicDynamicMobStopSize = 20
+	MusicDynamicMobScanStopSize = 8
 	//AlwaysAllowWanderers = true
 	//cm_BaseCommonAttackDamage = 0.5
 	//PreferredMobDirection = SPAWN_NEAR_POSITION

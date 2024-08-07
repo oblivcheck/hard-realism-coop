@@ -303,7 +303,7 @@
 //		tongue_fly_speed 1000			tongue_choke_damage_amount 10
 //		z_spit_velocity 900				spit_scaling_min_scale 0.35
 //		z_charge_start_speed 250			z_charge_max_damage 10
-//		z_charge_max_speed 500
+//		z_charge_max_speed 500			z_charger_pound_dmg 15
 //		z_charge_min_force 550
 //		z_charge_max_force 800
 //		z_vomit_velocity 1700.0
