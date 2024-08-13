@@ -13,12 +13,12 @@ DirectorOptions <-
 	IntensityRelaxThreshold = 0.99
 	RelaxMinInterval = 20
 	RelaxMaxInterval = 30
-	RelaxMaxFlowTravel = 500
+	RelaxMaxFlowTravel = 400
 
 	LockTempo = 0
 	SpecialRespawnInterval = 30
 	PreTankMobMax = 50
-	ZombieSpawnRange = 1200
+	ZombieSpawnRange = 1500
 	ZombieSpawnInFog = true
 
 	MobSpawnSize = 30
@@ -32,8 +32,8 @@ DirectorOptions <-
 	// length of bridge to test progress against.
 	BridgeSpan = 20000
 
-	MobSpawnMinTime = 20
-	MobSpawnMaxTime = 20
+	MobSpawnMinTime = 5
+	MobSpawnMaxTime = 5
 
 	MobSpawnSizeMin = 30
 	MobSpawnSizeMax = 50

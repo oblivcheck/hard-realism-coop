@@ -26,11 +26,11 @@ DirectorOptions <-
 	IntensityRelaxThreshold = 0.99
 	RelaxMinInterval = 20
 	RelaxMaxInterval = 30
-	RelaxMaxFlowTravel = 1500
+	RelaxMaxFlowTravel = 2200
 	//IntensityRelaxAllowWanderersThreshold = 0.8
 
 	//Infected Limited Range
-	ZombieSpawnRange = 1200.0
+	ZombieSpawnRange = 1200
 	ZombieDiscardRange = 2000
 
 	//Common Infected
@@ -52,7 +52,7 @@ DirectorOptions <-
 	//PreferredMobPositionRange = 800.0			//Only works if PreferredMobDirection is set to SPAWN_NEAR_POSITION.
 
 	//Special Infected
-	SpecialRespawnInterval = 60
+	SpecialRespawnInterval = 90
 	MaxSpecials = 4
 	DominatorLimit = 4
 	HunterLimit = 2
