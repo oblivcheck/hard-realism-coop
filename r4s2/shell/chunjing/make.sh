@@ -7,7 +7,7 @@ cd $shellpath
 shname=$tmpfpath/generate.sh
 
 image=$(ls -d images/* | sort -R | head -n 1 | xargs  readlink -f)
-echo "convert -size 1600x1400 xc:none  -quality 75 \\" > $shname
+echo "convert -size 1500x1500 xc:none  -quality 75 \\" > $shname
 for server in {1..12}; do
 cd ../rcon/
 result=$(./rcon -e r$server "status")
@@ -56,11 +56,11 @@ NIH=36
 # 详细信息左对齐偏移
 NOFFSET=48
 # 服务器块之间的间距
-SVW=400
+SVW=440
 # 整个服务器信息面板的横向偏移
 SVO=-16
 # 整个服务器信息面板的垂直偏移
-SVV=60
+SVV=100
 
 if [[ $server -ge 1 && $server -le 4 ]]; then
     y=$(($IW * (server-1) + $IOFFSET))
