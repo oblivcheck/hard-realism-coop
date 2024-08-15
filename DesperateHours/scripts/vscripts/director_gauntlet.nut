@@ -1,28 +1,28 @@
-Msg("[VS Green Flu]Initiating Gauntlet\n");
+Msg("Initiating Desperate Hours[HRC] Gauntlet\n");
 
 DirectorOptions <-
 {
-        NumReservedWanderers = 0        
-        MusicDynamicMobSpawnSize = 120
-        MusicDynamicMobStopSize = 2
-        MusicDynamicMobScanStopSize = 1
+	NumReservedWanderers = 0
+	MusicDynamicMobSpawnSize = 30
+	MusicDynamicMobStopSize = 12
+	MusicDynamicMobScanStopSize = 5
 
 	PanicForever = true
 	PausePanicWhenRelaxing = true
 
 	IntensityRelaxThreshold = 0.99
-	RelaxMinInterval = 25
-	RelaxMaxInterval = 35
+	RelaxMinInterval = 20
+	RelaxMaxInterval = 30
 	RelaxMaxFlowTravel = 400
 
 	LockTempo = 0
-	SpecialRespawnInterval = 20
-	PreTankMobMax = 20
-	ZombieSpawnRange = 3000
+	SpecialRespawnInterval = 30
+	PreTankMobMax = 50
+	ZombieSpawnRange = 1500
 	ZombieSpawnInFog = true
 
-	MobSpawnSize = 5
-	CommonLimit = 5
+	MobSpawnSize = 30
+	CommonLimit = 30
 
 	GauntletMovementThreshold = 500.0
 	GauntletMovementTimerLength = 5.0
@@ -35,15 +35,15 @@ DirectorOptions <-
 	MobSpawnMinTime = 5
 	MobSpawnMaxTime = 5
 
-	MobSpawnSizeMin = 5
-	MobSpawnSizeMax = 20
+	MobSpawnSizeMin = 30
+	MobSpawnSizeMax = 50
 
 	minSpeed = 50
 	maxSpeed = 200
 
 	speedPenaltyZAdds = 15
 
-	CommonLimitMax = 30
+	CommonLimitMax = 50
 
 	function RecalculateLimits()
 	{

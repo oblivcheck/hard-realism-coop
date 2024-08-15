@@ -177,7 +177,7 @@
 		z_hear_gunfire_range 1200		//def 200
 		z_close_target_notice_distance 500	//def 60	How far an attacking zombie will look for a nearby target on their way to their chosen victim.
 		z_background_limit 30		//def 20	How many common infected are on the background map at once.
-		z_mega_mob_spawn_min_interval 420	//def 420
+		z_mega_mob_spawn_min_interval 520	//def 420
 		z_mega_mob_spawn_max_interval 720	//def 900
 		z_spawn_mobs_behind_chance 25	//def 75	Percentage chance that a mob will spawn behind the Survivor team.
 		z_hit_from_behind_factor 0.8 		//def 0.5	Damage multiplier if zombie hits Survivor from behind.
@@ -303,7 +303,7 @@
 //		tongue_fly_speed 1000			tongue_choke_damage_amount 10
 //		z_spit_velocity 900				spit_scaling_min_scale 0.35
 //		z_charge_start_speed 250			z_charge_max_damage 10
-//		z_charge_max_speed 500
+//		z_charge_max_speed 500			z_charger_pound_dmg 15
 //		z_charge_min_force 550
 //		z_charge_max_force 800
 //		z_vomit_velocity 1700.0

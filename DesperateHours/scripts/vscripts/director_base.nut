@@ -2,7 +2,7 @@
 //
 //=============================================================================
 
-printl( "Initializing Desperate Hours Director's script" );
+printl( "Initializing Desperate Hours[HRC] Director's script" );
 
 DirectorOptions <-
 {
@@ -26,11 +26,11 @@ DirectorOptions <-
 	IntensityRelaxThreshold = 0.99
 	RelaxMinInterval = 20
 	RelaxMaxInterval = 30
-	RelaxMaxFlowTravel = 1500
+	RelaxMaxFlowTravel = 2200
 	//IntensityRelaxAllowWanderersThreshold = 0.8
 
 	//Infected Limited Range
-	ZombieSpawnRange = 1200.0
+	ZombieSpawnRange = 1200
 	ZombieDiscardRange = 2000
 
 	//Common Infected
@@ -39,19 +39,20 @@ DirectorOptions <-
 	MobMinSize = 30
 	MobMaxSize = 50
 	BileMobSize = 80
-	//MobSpawnSize = 80
-	MobSpawnMinTime = 120
-	MobSpawnMaxTime = 240
-	MegaMobSize = 100
+	MobSpawnMinTime = 150
+	MobSpawnMaxTime = 300
+	MegaMobSize = 120
 	NumReservedWanderers = 30
 	MusicDynamicMobSpawnSize = 50
+	MusicDynamicMobStopSize = 20
+	MusicDynamicMobScanStopSize = 8
 	//AlwaysAllowWanderers = true
 	//cm_BaseCommonAttackDamage = 0.5
 	//PreferredMobDirection = SPAWN_NEAR_POSITION
 	//PreferredMobPositionRange = 800.0			//Only works if PreferredMobDirection is set to SPAWN_NEAR_POSITION.
 
 	//Special Infected
-	SpecialRespawnInterval = 60
+	SpecialRespawnInterval = 90
 	MaxSpecials = 4
 	DominatorLimit = 4
 	HunterLimit = 2
