@@ -143,6 +143,7 @@ for server in {1..14}; do
   ## MPDS服务器
   if [[ $server == 13 ]]; then
     echo "\( -font \"${font_path}hkbft.ttf\" -pointsize 26 -fill pink  -gravity northwest -annotate +$x+$((y -28)) \"M P D S\" \) \\" >> $shname
+    echo "\( -font \"${font_path}NotoSansMonoCJKsc-Regular.otf\" -pointsize 16 -fill \"#AAAAAA\"  -gravity northwest -annotate +$((x+128))+$((y -26)) \"端口:37000\" \) \\" >> $shname
     echo "\( -font \"${font_path}NotoSansMonoCJKsc-Regular.otf\" -pointsize 22 -fill \"#AAAAAA\"  -gravity northwest -annotate +$((x + NOFFSET))+$((y + $NIH * 2 )) \"[${p1}]\" \) \\" >> $shname
     echo "\( -font \"${font_path}NotoSansMonoCJKsc-Regular.otf\" -pointsize 22 -fill \"#AAAAAA\"  -gravity northwest -annotate +$((x + NOFFSET))+$((y + $NIH * 3 )) \"[${p2}]\" \) \\" >> $shname
     echo "\( -font \"${font_path}NotoSansMonoCJKsc-Regular.otf\" -pointsize 22 -fill \"#AAAAAA\"  -gravity northwest -annotate +$((x + NOFFSET))+$((y + $NIH * 4 )) \"[${p3}]\" \) \\" >> $shname
@@ -162,6 +163,7 @@ for server in {1..14}; do
   ## HRC服务器
   if [[ $server == 14 ]]; then
     echo "\( -font \"${font_path}hkbft.ttf\" -pointsize 27 -fill red  -gravity northwest -annotate +$x+$((y -28)) \"H R C\" \) \\" >> $shname
+    echo "\( -font \"${font_path}NotoSansMonoCJKsc-Regular.otf\" -pointsize 16 -fill \"#AAAAAA\"  -gravity northwest -annotate +$((x+128))+$((y -26)) \"端口:37010\" \) \\" >> $shname
     echo "\( -font \"${font_path}NotoSansMonoCJKsc-Regular.otf\" -pointsize 22 -fill \"#AAAAAA\"  -gravity northwest -annotate +$((x + NOFFSET))+$((y + $NIH * 2 )) \"[${p1}]\" \) \\" >> $shname
     echo "\( -font \"${font_path}NotoSansMonoCJKsc-Regular.otf\" -pointsize 22 -fill \"#AAAAAA\"  -gravity northwest -annotate +$((x + NOFFSET))+$((y + $NIH * 3 )) \"[${p2}]\" \) \\" >> $shname
     echo "\( -font \"${font_path}NotoSansMonoCJKsc-Regular.otf\" -pointsize 22 -fill \"#AAAAAA\"  -gravity northwest -annotate +$((x + NOFFSET))+$((y + $NIH * 4 )) \"[${p3}]\" \) \\" >> $shname
