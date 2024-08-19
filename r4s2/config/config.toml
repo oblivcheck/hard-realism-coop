@@ -1,0 +1,24 @@
+# 服务器遵循OneBot 11标准
+[onebot]
+# 使用WebSocket
+ws = true
+address = "10.10.10.100"
+port = 5800
+# 机器人的QQ号
+qq = 0
+
+# 接收&回复该群的消息
+[group]
+id = 0
+
+# 定义存放外部Shell脚本的路径
+[path]
+all = '/home/tic/git/hard-realism-coop/r4s2/shell/all-servers'
+rc = '/home/tic/git/hard-realism-coop/r4s2/shell/chunjing'
+mpds = '/home/tic/git/hard-realism-coop/r4s2/shell/shichao'
+
+# 定义供外部Shell生成临时文件的路径
+[tmpfpath]
+all = '/tmp/r4s2/all-servers'
+rc = '/tmp/r4s2/rc'
+mpds = '/tmp/r4s2/mpds'
