@@ -6,7 +6,7 @@ cd $shellpath
 # 生成的脚本的路径
 shname=$tmpfpath/generate.sh
 
-echo "convert -size 2000x1400 xc:none  -quality 75 \\" > $shname
+echo "convert -size 2000x1400 xc:black  -quality 75 \\" > $shname
 for server in {1..14}; do
   cd ../rcon/
   result=""
@@ -203,7 +203,13 @@ for server in {1..14}; do
 done
 
 nowtime=$(date)
-#echo $nowtime
 echo "\( -font \"${font_path}NotoSansMonoCJKsc-Regular.otf\" -pointsize 28 -fill orange -gravity north -annotate +0+24 \"${nowtime}\" \) \\"  >> $shname
+
+if ( ps aux | grep -v "grep" | grep -q "automaps_while.sh" ) ; then
+  echo "\( -font \"${font_path}NotoSansMonoCJKsc-Regular.otf\" -pointsize 32 -fill green -gravity southeast -annotate +128+24 \"自助上传地图现在是可用的\" \) \\"  >> $shname
+else
+  echo "\( -font \"${font_path}NotoSansMonoCJKsc-Regular.otf\" -pointsize 32 -fill \"#800000\" -gravity southeast -annotate +128+24 \"自助上传地图现在不可使用\" \) \\"  >> $shname
+fi
 echo "$tmpfpath/info.png" >> $shname
+
 

@@ -114,7 +114,7 @@ shift $((OPTIND -1))
 #echo "剩余参数: $@"
 
 if [ "$group_msg" ]; then
-	echo -e "[群聊消息]\n"
+	echo -e "[群聊消息]"
 	if [ "$p_file" ]; then
 		# 先从本地上传到服务器
 		upload_file
@@ -122,6 +122,7 @@ if [ "$group_msg" ]; then
 		curl -X POST $http_address/upload_group_file \
 		-H "Content-Type: application/json" \
 		-d "{\"group_id\": \"$p_t\",\"file\":\"$path\", \"name\":\"$p_n\"}"
+    echo -e "\n"
 		exit 0
 	elif [ "$p_msg" ]; then
 		type_exists
@@ -129,6 +130,7 @@ if [ "$group_msg" ]; then
 		curl -X POST $http_address/send_group_msg \
 		-H "Content-Type: application/json" \
 		-d "{\"group_id\": \"$p_t\",\"message\":\"$p_msg\"}"
+    echo -e "\n"
 		exit 0
 	elif [ "$p_img" ]; then
 		# 先从本地上传到服务器
@@ -137,12 +139,13 @@ if [ "$group_msg" ]; then
 		curl -X POST $http_address/send_group_msg \
 		-H "Content-Type: application/json" \
 		-d "{\"group_id\":\"$p_t\",\"message\":{\"type\":\"image\",\"data\":{\"file\":\"file://$path\"}}}"
+    echo -e "\n"
 		exit 0
 	fi
 	help
 	echo -e "\n\n至少需要指定一种操作类型！"
 else
-	echo -e "[私聊消息]\n"
+	echo -e "[私聊消息]"
 	if [ "$p_file" ]; then
 		# 先从本地上传到服务器
 		upload_file
@@ -151,12 +154,14 @@ else
 		-H "Content-Type: application/json" \
 		-d "{\"user_id\": \"$p_t\",\"file\":\"$path\", \"name\":\"$p_n\"}"
 		exit 0
+    echo -e "\n"
 	elif [ "$p_msg" ]; then
 		type_exists
 
 		curl -X POST $http_address/send_private_msg \
 		-H "Content-Type: application/json" \
 		-d "{\"user_id\": \"$p_t\",\"message\":\"$p_msg\"}"
+    echo -e "\n"
 		exit 0
 	elif [ "$p_img" ]; then
 		# 先从本地上传到服务器
@@ -165,6 +170,7 @@ else
 		curl -X POST $http_address/send_private_msg \
 		-H "Content-Type: application/json" \
 		-d "{\"user_id\":\"$p_t\",\"message\":{\"type\":\"image\",\"data\":{\"file\":\"file://$path\"}}}"
+    echo -e "\n"
 		exit 0
 	fi
 

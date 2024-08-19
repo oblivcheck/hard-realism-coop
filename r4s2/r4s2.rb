@@ -1,13 +1,19 @@
 require 'websocket-eventmachine-client'
 require 'json'
-require './handle_msg.rb'
+require 'colorize'
+require './r4s2/cli.rb'
+require './r4s2/config.rb'
+require './r4s2/preshell.rb'
+require './r4s2/chat_command.rb'
+require './r4s2/message.rb'
 
 EM.run do
-
-  ws = WebSocket::EventMachine::Client.connect(:uri => 'ws://10.10.10.100:5800')
+  address = Config.onebot_address
+  port = Config.onebot_port
+  ws = WebSocket::EventMachine::Client.connect(uri: "ws://#{address}:#{port}")
 
   ws.onopen do
-    puts "\e[31m已连接\e[0m"
+    msg_print("已经连接至 ws://#{address}:#{port}", :blue)
   end
 
   ws.onmessage do |msg, type|
@@ -18,13 +24,11 @@ EM.run do
         next
       end
     end
-
-#    puts "原始数据: #{msg}"
     handle_msg(data)
   end
 
   ws.onclose do |code, reason|
-    puts "\e[31m退出代码: #{code}\e[0m"
+    msg_print("退出代码:#{code}", :red);
   end
 
   EventMachine.next_tick do
