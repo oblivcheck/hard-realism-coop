@@ -1,15 +1,14 @@
-# 服务器遵循OneBot 11标准
+# 对端遵循OneBot 11标准
 [onebot]
-# 使用WebSocket
-ws = true
-address = "10.10.10.100"
-port = 5800
+address = "10.10.10.90"
+port_http = 5700
+port_wsv = 5800
 # 机器人的QQ号
-qq = 0
+qq = 3684951062
 
 # 接收&回复该群的消息
 [group]
-id = 0
+id = 300129041
 
 # 定义存放外部Shell脚本的路径
 [path]

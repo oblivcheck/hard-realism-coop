@@ -1,7 +1,7 @@
-#
+#!/bin/bash
 
 
-http_address="http://10.10.10.100:5700"
+http_address="$(cat /tmp/r4s2/onebot_address):$(cat /tmp/r4s2/onebot_port_http)"
 
 type_exists(){
 	if [ ! "$p_msg" ]; then

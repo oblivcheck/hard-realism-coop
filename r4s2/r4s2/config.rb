@@ -22,12 +22,11 @@ module Config
       config_get("onebot", "address")
     end
 
-    def onebot_port
-      config_get("onebot", "port")
-    end
-
-    def onebot_ws
-      config_get("onebot", "ws")
+    def onebot_port(type)
+      if type == "http"
+        config_get("onebot", "port_http")
+      else  config_get("onebot", "port_wsv")
+      end
     end
 
     def onebot_qq

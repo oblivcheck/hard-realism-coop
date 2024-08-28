@@ -7,6 +7,7 @@ NTRNM!()
 https://github.com/NapNeko/NapCatQQ
 
 **NapCat V2.2.4 Latest**
+
 **QQNT/Linux/QQ_3.2.12_240819_x86_64_01.AppImage**
 
 位于
