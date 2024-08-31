@@ -18,6 +18,6 @@ mpds = '/home/tic/git/hard-realism-coop/r4s2/shell/shichao'
 
 # 定义供外部Shell生成临时文件的路径
 [tmpfpath]
-all = '/tmp/r4s2/all-servers'
-rc = '/tmp/r4s2/rc'
-mpds = '/tmp/r4s2/mpds'
+all = '/dev/shm/r4s2/all-servers'
+rc = '/dev/shm/r4s2/rc'
+mpds = '/dev/shm/r4s2/mpds'

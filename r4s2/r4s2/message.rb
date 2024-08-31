@@ -69,18 +69,20 @@ def handle_msg(data)
   if ( msg.type == "group")
     group_id = msg.target
     msg_print("[{#{group_id}|群聊消息] \n#{qq_id}|#{nickname}:#{msg.text}", qq_id == Config.onebot_qq ? :light_green : "")
-    chat_command(msg.is_command ? msg.command : msg.text, qq_id, msg.is_command);
+    return chat_command(msg.is_command ? msg.command : msg.text, qq_id, msg.is_command);
   else
     msg_print("[私聊消息] \n#{qq_id}|#{nickname}:#{msg.text}", "")
     # Todo: 处理受限命令
+    return nil
   end
+    return nil
 end
 
 # 自动转义换行符
 def format(text)
   text.gsub("\n", "\\n")
 end
-# Todo: 封装为chatcommand
+
 def chat_command(args, qq_id, is_command)
   target_group = Config.group_id
   puts "#{args}"
@@ -100,15 +102,21 @@ def chat_command(args, qq_id, is_command)
     when " 地址"
       system("echo #{qq_id} > /tmp/r4s2/qq_id")
       system("bash shell/dizhi.sh")
+      # Note: 测试
+      return CQHTTP::WS.upload_group_file(target_group, "/dev/shm/r4s2/all-servers/generate.sh")
     when " 服务器"
       system("echo #{qq_id} > /tmp/r4s2/qq_id")
       msg2qq(target_group, "[CQ:at,qq=#{qq_id}] 生成中...")
       system("bash shell/all-servers.sh")      
+      # Note: 测试
+      return msg = OneBot::WS::Group.image(target_group, "/dev/shm/r4s2/all-servers/info.png")      
     else
       msg = format(File.read("config/info.txt"))
       msg2qq(target_group, "#{msg}")
     end
   end
+
+  return nil
 end
 
 def msg2qq(target, msg)
@@ -174,7 +182,7 @@ def _ccmd_restart(qq_id, target_group, args)
       while (Time.now - start_time) < 60
         msg = `./shell/rcon/rcon -c shell/rcon/rcon.yaml -e #{args[1]} status`
         # Note: 此处将阻塞直到回应或超时
-        # Note: 消息是并行处理的
+        # Todo: EM并不处理并行，需要多线程处理
         if msg.include?("os      : Linux Dedicated")
           msg2qq(target_group, "[CQ:at,qq=#{qq_id}] 目标服务器已重启")        
           success = true

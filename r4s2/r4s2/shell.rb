@@ -23,6 +23,8 @@ def shell_are_you_ready?
   ]
 
   dir.each do |dir|
+    puts "#{dir}"
+    # Todo: 重新整理
     Dir.mkdir(dir, 0755) unless Dir.exist?(dir)
   end
 
