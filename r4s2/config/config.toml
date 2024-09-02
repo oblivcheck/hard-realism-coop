@@ -13,11 +13,5 @@ id = 300129041
 # 定义存放外部Shell脚本的路径
 [path]
 all = '/home/tic/git/hard-realism-coop/r4s2/shell/all-servers'
-rc = '/home/tic/git/hard-realism-coop/r4s2/shell/chunjing'
-mpds = '/home/tic/git/hard-realism-coop/r4s2/shell/shichao'
-
-# 定义供外部Shell生成临时文件的路径
-[tmpfpath]
-all = '/dev/shm/r4s2/all-servers'
-rc = '/dev/shm/r4s2/rc'
-mpds = '/dev/shm/r4s2/mpds'
+all-tmpf = '/dev/shm/r4s2/all-servers/ServerInfoCollector/images'
+msg2qq = '/dev/shm/msg2qq'

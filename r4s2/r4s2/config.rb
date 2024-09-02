@@ -38,15 +38,7 @@ module Config
     end
 
     def path_all(isshell)
-      isshell == "true" ? config_get("path", "all") : config_get("tmpfpath", "all")
-    end
-
-    def path_rc(isshell)
-      isshell == "true" ? config_get("path", "rc") : config_get("tmpfpath", "rc")
-    end
-
-    def path_mpds(isshell)
-      isshell == "true" ? config_get("path", "mpds") : config_get("tmpfpath", "mpds")
+      isshell == "true" ? config_get("path", "all") : config_get("path", "all-tmpf")
     end
   end
 end
