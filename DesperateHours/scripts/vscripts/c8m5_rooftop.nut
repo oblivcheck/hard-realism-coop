@@ -2,13 +2,12 @@
 //
 //
 //-----------------------------------------------------
-Msg("Beginning Desperate Hours[HRC] c8m1_apartment script\n");
+Msg("Initiating Desperate Hours[HRC] c8m5_rooftop script\n");
 
 DirectorOptions <-
 {
-	DisallowThreatType = ZOMBIE_TANK
+	ProhibitBosses = true
 
-	AlwaysAllowWanderers = 1
 	SustainPeakMinTime = 3
 	SustainPeakMaxTime = 5
 	RelaxMinInterval = 15
@@ -16,4 +15,5 @@ DirectorOptions <-
 	RelaxMaxFlowTravel = 1200
 	MobSpawnMinTime = 90
 	MobSpawnMaxTime = 180
+	SpecialRespawnInterval = 60
 }
