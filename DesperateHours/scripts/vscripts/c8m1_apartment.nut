@@ -17,3 +17,4 @@ DirectorOptions <-
 	MobSpawnMinTime = 90
 	MobSpawnMaxTime = 180
 }
+

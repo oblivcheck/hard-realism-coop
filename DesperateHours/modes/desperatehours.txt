@@ -200,7 +200,7 @@
 
 		//Special Infected
 		z_max_stagger_duration 1.2			//def 6	Max time a PZ staggers when bashed by a survivor.
-		z_spawn_safety_range 250			//def 550    
+		z_spawn_safety_range 250			//def 550
 		z_director_special_spawn_delay 2		//def 10
 		director_special_initial_spawn_delay_min 20	//def 30
 		director_special_initial_spawn_delay_max 30	//def 60
@@ -268,7 +268,6 @@
 		z_witch_tongue_range 20		//def 100	If a tongue passes this close to a witch's head, she will snap it.
 		z_witch_damage_per_kill_hit 60		//def 30
 		//Tank
-		//director_force_tank 1		//def 0
 		z_tank_speed 250			//def 210
 		z_tank_health 6000			//def 4000
 		z_tank_throw_interval 3		//def 5	How often a tank can throw.

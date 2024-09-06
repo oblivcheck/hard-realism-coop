@@ -29,5 +29,4 @@ DirectorOptions <-
 	MusicDynamicMobSpawnSize = 30
 	MusicDynamicMobStopSize = 12
 	MusicDynamicMobScanStopSize = 5
-	SpecialRespawnInterval = 80
 }

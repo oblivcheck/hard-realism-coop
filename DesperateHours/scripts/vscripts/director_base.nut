@@ -23,10 +23,10 @@ DirectorOptions <-
 	BuildUpMinInterval = 20
 	SustainPeakMinTime = 5
 	SustainPeakMaxTime = 8
-	IntensityRelaxThreshold = 0.99
 	RelaxMinInterval = 20
 	RelaxMaxInterval = 30
 	RelaxMaxFlowTravel = 2200
+	IntensityRelaxThreshold = 0.99
 	//IntensityRelaxAllowWanderersThreshold = 0.8
 
 	//Infected Limited Range
