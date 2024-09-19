@@ -1,0 +1,938 @@
+"info"
+{
+	"campaigns"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Deadbeat Escape"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Anniversary Edition)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"To Life"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Hours Later Ii"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"A Baltic Tale"
+	{
+		"group"		"0"
+		"mark"		"1"
+	}
+	"Beldurra"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Big Wat"
+	{
+		"group"		"0"
+		"mark"		"6"
+	}
+	"No Echo Re)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Blood Proof"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Blood Tracks"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Blight Path"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Carried Off"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"City 17 v3.2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"City of the Dead"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"claustrophobia"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Damit 2 - The Director's Cut"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dam It Complete L4d2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dam It [remastered]"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dark Blood 2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dark Wood (extended)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Day Break"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dead Center: Rebirth"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Deadcity Ii"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Deadenator"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"DeadSeries"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Death Row"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Deathstar_v05"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Derailed (v5)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"detourahead"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Devil Mountain"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Die Screaming Ii"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Death Strip"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Facility 13"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"True Fangshi"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Farewell Chenming"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Freddy Fazbear's Pizzeria"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Freddy Fazbear's Pizzeria - 1987"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Fazbear's Fright: The Horror Attraction"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Fos_re(-)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Prison Break"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Gas fever (2.0)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Gridlock"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Goldeneye 4 Dead"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"The Grave Outdoors"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Grey Scale"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Heaven Can Wait Ii"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Half-life 2: Highway 17(l4d2)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"hopeless"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Indiana Jones and the Temple of Zombies"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"coop"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"versus"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"survival"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Diescraper Redux 3.62"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Plan B [beta 0.51]"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Labirinferno"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Let's Build:catacombs"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"lost"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Left 4 Mario"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Military Industrial Complex Ii V11"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dark Waters"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dead Flag Blues 2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Super Mario 64 Castle"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Red City"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Nach der Untoten"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Night Terror"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Open Road"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Overkill"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Pain Train"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Pitch Dark Mesa"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Precinct 84 (2018)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"We Don't Go To Ravenholm 2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Resident Evil 1"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Resident Evil 2 ... Side A"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Resident Evil 2 ... Side B"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Redemptionii"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Rms Titanic"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Roadkill"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Rocket Escape"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Resident Evil 3"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Run To The Hills"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Salvation Falls"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Santa can I go out and kill tonight 2?"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Surrounded by the Dead Ii"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Silent Hill: Otherside of Life"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Silent Fear"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Stargate Sg-4 v2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"TheCurseofLazarCastle"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"The Island"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"The Last Volt"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Tour of Terror"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Toyz 2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Trip day"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Undead Smackdown"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Urban Flight"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Vienna Calling 1"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Wan Li"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Whispers of Winter"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"White Forest"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"White Hole"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Welcome to Hell"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Zmb-13"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Haunted Forest"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Lv7.3"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Buried Deep"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Absolute Zero"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"The Hazing"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Black Mesa"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Cambalache - Buenos Aires"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Cure 2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dead Vacation"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Helms Deep -fixed-"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Infection Overdrive"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Lockdown"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Outrun"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Plague Tale"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Red Tide"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"The Seal of Asrahmat (v2.9)"
+	{
+		"group"		"0"
+		"mark"		"6"
+	}
+	"Time to Die"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Vienna Calling 2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Cambalache 2 - Buenos Aires"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"SECTOR74"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Legion 4 Death v.3"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Stormy Outlook"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Cornered"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dead Vacation (original Finale)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dead Vacation (alt Finale)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"dniepr"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Road To Nowhere The Second Coming"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Blood Woods Apocalypse"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Infected City"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Infected City 2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Military Industrial Complex L4d1"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"I Hate Mountains 2 (1.5)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Sufrimiento"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"V5.4"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Questionable Ethics v1.2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Inferno City"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Coal'd Blood Extended"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"The Bloody Moors"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"One 4 Nine"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Silent Hill"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Salthell Park"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Lockdown: Chapter Two"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Blackout Basement"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Yama"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"The Dayafter"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Hard Rain: Downpour"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Fatal Freight: Remastered"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Journey to Splash Mountain"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Loony Park"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Snow Den"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"A Dam Mission Fixed"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dead Echo 2 Fixed"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Death Sentence"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dniepr 4.0"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Downtown Dine"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Escape From Castle Yhy"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Energy Crisis"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Escape From Valencia v2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dead Getaway (l4d2)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"GettingOut"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"HighwayToHell"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Last Breath"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Our Mutual Fiend"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"pesaro"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Quedan 4x Morir Original"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"riptide"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Suicide Blitz 2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Wild Ride"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"2019 (anniversary Edition)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"25 to Life"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"7 Hours Later Ii"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"2"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dead Before Dawn (extended)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Pesaro 4"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dead Before Dawn (uncut)"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Chernobyl: Chapter One"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Left Behind"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Deadcity Ii Lite"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"City 17: Aftermath"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Final escape"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Last Summer v5"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Dry County"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"Simplicity"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"5"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+	"The Dark Parish"
+	{
+		"group"		"0"
+		"mark"		"0"
+	}
+}
