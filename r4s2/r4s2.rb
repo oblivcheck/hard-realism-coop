@@ -6,7 +6,7 @@ require './r4s2/config.rb'
 require './r4s2/shell.rb'
 require './r4s2/module.rb'
 require './r4s2/message.rb'
-
+require './r4s2/sync.rb'
 banners = <<-ART.strip
 ######                         #       
 #     # #    # #####  #   #    #    #  
@@ -46,6 +46,9 @@ EM.run do
     msg_print("已经连接至 ws://#{address}:#{port}", :blue)
   end
 
+  # Msg2qq::Acceptinput.thread(ws)
+  GroupFileSync.sync(ws)
+  # puts "#{info}"
   ws.onmessage do |msg, type|
     data = JSON.parse(msg)
     if (data["post_type"] == "meta_event")
@@ -53,7 +56,7 @@ EM.run do
         next
       end
     end
-    puts "#{data}"
+    puts JSON.pretty_generate(data)
     if (data["post_type"] == "message")
       begin
         msg = handle_msg(data)

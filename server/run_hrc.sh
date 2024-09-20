@@ -23,7 +23,7 @@ cd ..
 rm -r root
 # 然后覆盖关键部分
 cp -r server/master/* /home/steam/Steam/hrc/
-cp -r run_hrc.sh /home/steam/Steam/
+cp -r server/run_hrc.sh /home/steam/Steam/
 chmod +x /home/steam/Steam/run_hrc.sh
 
 export http_proxy=

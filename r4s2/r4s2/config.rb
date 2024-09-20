@@ -40,5 +40,9 @@ module Config
     def path_all(isshell)
       isshell == "true" ? config_get("path", "all") : config_get("path", "all-tmpf")
     end
+
+    def sync_folder
+      config_get("sync", "folder_id")
+    end
   end
 end

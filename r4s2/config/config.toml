@@ -15,3 +15,6 @@ id = 300129041
 all = '/home/tic/git/hard-realism-coop/r4s2/shell/all-servers'
 all-tmpf = '/dev/shm/r4s2/all-servers/ServerInfoCollector/images'
 msg2qq = '/dev/shm/msg2qq'
+
+[sync]
+folder_id = "/027703d2-2a66-4c18-8608-7b8941477b56"
