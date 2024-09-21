@@ -44,5 +44,61 @@ module Config
     def sync_folder
       config_get("sync", "folder_id")
     end
+
+    def r_server_address
+      config_get("server", "r_address")
+    end
+
+    def r_server_port
+      config_get("server", "r_port")
+    end
+
+    def r_server_thread_maxnum
+      config_get("server", "r_thread_maxnum")
+    end
+    
+    def r_server_thread_timeout
+      config_get("server", "r_thread_timeout")
+    end
+
+    def v_server_address
+      config_get("server", "v_address")
+    end
+ 
+    def v_server_port
+      config_get("server", "v_port")
+    end
+
+    def v_server_thread_maxnum
+      config_get("server", "v_thread_maxnum")
+    end
+    
+    def v_server_thread_timeout
+      config_get("server", "v_thread_timeout")
+    end
+
+    def c_server_address
+      config_get("server", "c_address")
+    end
+ 
+    def c_server_port
+      config_get("server", "c_port")
+    end
+
+    def c_server_thread_maxnum
+      config_get("server", "c_thread_maxnum")
+    end
+    
+    def c_server_thread_timeout
+      config_get("server", "c_thread_timeout")
+    end
+    # 测试用的临时密钥
+    def server_verify_key
+      config_get("server", "verify_key")
+    end
+
+    def server_save_path
+      config_get("server", "save_path")
+    end
   end
 end

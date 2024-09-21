@@ -19,3 +19,21 @@ def msg_print(str, color = "")
     print " #{str} \n"
   end
 end
+
+module Log
+  def self.prefix
+    Time.now.strftime('%Y-%m-%d %H:%M:%S')
+  end
+  def self.sv(info, level = -1)
+    print "#{Log.prefix} ".colorize(:light_black)
+    print "[服务器] ".colorize(:green)
+    case level
+    when -1
+      print "#{info}\n"
+    when 0
+      print "#{info}\n".colorize(:red)
+    when 1
+      print "#{info}\n".colorize(:yellow)
+    end
+  end
+end

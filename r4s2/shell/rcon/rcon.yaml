@@ -1,7 +1,4 @@
 #./rcon -a 10.10.10.90:37000 -p greenflu 
-l4d:
- address: "10.10.10.90:47000"
- password: "greenflu"
 r1:
  address: "10.10.10.90:48001"
  password: "greenflu"
@@ -49,3 +46,10 @@ h1:
  address: "10.10.10.80:37010"
  password: "greenflu"
 
+r13:
+ address: "10.0.12.4:49013"
+ password: "greenflu"
+
+r14:
+ address: "10.0.12.4:49014"
+ password: "greenflu"

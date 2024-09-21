@@ -6,7 +6,9 @@ require './r4s2/config.rb'
 require './r4s2/shell.rb'
 require './r4s2/module.rb'
 require './r4s2/message.rb'
-require './r4s2/sync.rb'
+# require './r4s2/sync.rb'
+require './r4s2/server.rb'
+
 banners = <<-ART.strip
 ######                         #       
 #     # #    # #####  #   #    #    #  
@@ -37,6 +39,9 @@ end
 
 begin
 
+Receive.listen
+Control.listen
+
 EM.run do
   address = Config.onebot_address
   port = Config.onebot_port("wsv")
@@ -47,7 +52,7 @@ EM.run do
   end
 
   # Msg2qq::Acceptinput.thread(ws)
-  GroupFileSync.sync(ws)
+  # GroupFileSync.sync(ws)
   # puts "#{info}"
   ws.onmessage do |msg, type|
     data = JSON.parse(msg)
