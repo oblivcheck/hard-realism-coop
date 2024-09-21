@@ -109,12 +109,14 @@ end
 
 module Control
   def self.rcon(client, data)
+    Log.sv("R #{data.to_s}")
     data = data.split(' ', 2)
-    msg = `./shell/rcon/rcon -c shell/rcon/rcon.yaml -e #{data[0]} #{data[1]}`
+    msg = `./shell/rcon/rcon -c shell/rcon/rcon.yaml -e #{data[0]} "#{data[1]}"`
     msg += "==注意剩余可用空间=="
-    msg += `du -h .` 
+    msg += `df -h .` 
   end
   def self.shell(client, data)
+    Log.sv("S #{data.to_s}")
     data = data.split(' ', 2)
     case data[0]
     when "list"
@@ -180,7 +182,6 @@ module Control
           end
         end
       end
-    end
- 
+    end 
   end
 end

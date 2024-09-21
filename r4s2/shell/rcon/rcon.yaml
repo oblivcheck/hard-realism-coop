@@ -47,9 +47,9 @@ h1:
  password: "greenflu"
 
 r13:
- address: "10.0.12.4:49013"
+ address: "127.0.1.1:49013"
  password: "greenflu"
 
 r14:
- address: "10.0.12.4:49014"
+ address: "127.0.1.1:49014"
  password: "greenflu"
