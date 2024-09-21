@@ -25,15 +25,14 @@ jobs:
       - name: Set up Windows Environment - Install Crystal
         shell: pwsh
         run: |
-          Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-          scoop install git
-          scoop bucket add crystal-preview https://github.com/neatorobito/scoop-crystal
-          scoop install vs_2022_cpp_build_tools crystal
+          $scoopPath = Join-Path $HOME 'scoop'
+          & "$scoopPath\shims\scoop" install git
+          & "$scoopPath\shims\scoop" bucket add crystal-preview https://github.com/neatorobito/scoop-crystal
+          & "$scoopPath\shims\scoop" install vs_2022_cpp_build_tools crystal
 
       - name: Execute build
         run: |
-          crystal build r4s2\client-cli\client.cr
-          mv "r4s2\client-cli\client" "r4s2\client-cli\client-windows"
+          crystal build r4s2\client-cli\client.cr -o r4s2\client-cli\client-windows.exe
 
       - name: Upload Windows binary
         uses: actions/upload-artifact@v3
@@ -54,8 +53,7 @@ jobs:
 
       - name: Execute build script
         run: |
-          crystal build r4s2/client-cli/client.cr
-          mv r4s2/client-cli/client r4s2/client-cli/client-linux
+          crystal build r4s2/client-cli/client.cr -o r4s2/client-cli/client-linux
 
       - name: Upload Linux binary
         uses: actions/upload-artifact@v3
