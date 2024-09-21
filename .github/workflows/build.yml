@@ -16,13 +16,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Windows Environment: Install Scoop
+      - name: Set up Windows Environment - Install Scoop
         shell: pwsh
         run: |
           Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
           Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
-      - name: Set up Windows Environment: Install Crystal
+      - name: Set up Windows Environment - Install Crystal
         shell: pwsh
         run: |
           scoop install git
