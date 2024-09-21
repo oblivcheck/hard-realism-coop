@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Install Crystal
-        uses: crystal-lang/install-crystal@v1.8.2
+        uses: crystal-lang/install-crystal@v1
                 
       - name: Execute build
         run: |
