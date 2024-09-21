@@ -15,9 +15,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      
-      - name: Enable Developer Command Prompt
-        uses: ilammy/msvc-dev-cmd@v1.13.0
             
       - name: Set up Windows Environment - Install Scoop
         shell: pwsh
@@ -36,7 +33,7 @@ jobs:
       - name: Execute build
         run: |
           $scoopPath = Join-Path $HOME 'scoop'
-          & "$scoopPath\shims\crystal.exe" build r4s2\client-cli\client.cr -o r4s2\client-cli\client-windows.exe
+          & "$scoopPath\apps\crystal\current\crystal" build r4s2\client-cli\client.cr -o r4s2\client-cli\client-windows.exe
       - name: Upload Windows binary
         uses: actions/upload-artifact@v3
         with:
