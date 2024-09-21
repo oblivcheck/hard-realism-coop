@@ -33,7 +33,8 @@ jobs:
       - name: Execute build
         run: |
           $scoopPath = "$HOME\scoop"
-          & "$scoopPath\shims\scoop" which crystal
+          $crystalPath = & "$scoopPath\shims\scoop" which crystal
+          Write-Output $crystalPath
 
       - name: Upload Windows binary
         uses: actions/upload-artifact@v3
