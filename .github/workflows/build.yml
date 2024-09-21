@@ -9,14 +9,14 @@ on:
       - main
 
 jobs:
-  # Windows 构建
+  # Windows build
   build-windows:
     runs-on: windows-2019
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Windows Environment: Install Scope
+      - name: Set up Windows Environment: Install Scoop
         shell: pwsh
         run: |
           Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -29,7 +29,6 @@ jobs:
           scoop bucket add crystal-preview https://github.com/neatorobito/scoop-crystal
           scoop install vs_2022_cpp_build_tools crystal
 
- 
       - name: Execute build
         run: |
           crystal r4s2\client-cli\client.cr
@@ -41,9 +40,10 @@ jobs:
           name: windows-binary
           path: r4s2\client-cli\client-windows.exe
 
-  # Linux 构建
+  # Linux build
   build-linux:
     runs-on: ubuntu-20.04
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -53,8 +53,8 @@ jobs:
 
       - name: Execute build script
         run: |
-          mv r4s2/client-cli/client.cr r4s2/client-cli/client-windows
           crystal r4s2/client-cli/client.cr
+          mv r4s2/client-cli/client r4s2/client-cli/client-linux
 
       - name: Upload Linux binary
         uses: actions/upload-artifact@v3
