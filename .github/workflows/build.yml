@@ -15,7 +15,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
+      
+      - name: Enable Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1.13.0
+            
       - name: Set up Windows Environment - Install Scoop
         shell: pwsh
         run: |
@@ -29,7 +32,7 @@ jobs:
           & "$scoopPath\shims\scoop" install git
           & "$scoopPath\shims\scoop" bucket add crystal-preview https://github.com/neatorobito/scoop-crystal
           & "$scoopPath\shims\scoop" install vs_2022_cpp_build_tools crystal
-
+            
       - name: Execute build
         run: |
           $scoopPath = Join-Path $HOME 'scoop'
