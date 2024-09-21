@@ -32,8 +32,9 @@ jobs:
 
       - name: Execute build
         run: |
-          $scoopPath = Join-Path $HOME 'scoop'
-          & ($scoopPath\shims\scoop which crystal) build r4s2\client-cli\client.cr -o r4s2\client-cli\client-windows.exe
+          $scoopPath = "$HOME\scoop"
+          $crystalPath = & ($scoopPath\shims\scoop which crystal)
+          & $crystalPath build r4s2\client-cli\client.cr -o r4s2\client-cli\client-windows.exe
 
       - name: Upload Windows binary
         uses: actions/upload-artifact@v3
