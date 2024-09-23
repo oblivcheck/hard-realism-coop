@@ -16,8 +16,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Ruby, JRuby and TruffleRuby
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1.193.0
+        with: 
+            ruby-version: '3.3'
 
       - name: Install Ocran
         run: |
