@@ -21,9 +21,9 @@ jobs:
         with: 
             ruby-version: '3.3'
 
-      - name: Install Ocran
+      - name: Install Gems
         run: |
-          gem install ocran
+          gem install ocran colorize
 
       - name: Building an executable
         run: |
