@@ -1,4 +1,4 @@
-name: Build Linux and Windows
+name: Packaging Windows executable
 
 on:
   push:
@@ -15,36 +15,20 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      
-      - name: Install Crystal
-        uses: crystal-lang/install-crystal@v1
-                
-      - name: Execute build
+
+      - name: Setup Ruby, JRuby and TruffleRuby
+        uses: ruby/setup-ruby@v1.193.0
+
+      - name: Install Ocran
         run: |
-          crystal.exe build r4s2\client-cli\client.cr -o r4s2\client-cli\client-windows.exe
+          gem install ocran
+
+      - name: Building an executable
+        run: |
+          ocran r4s2\client-cli\client.rb --output r4s2\client-cli\client-windows.exe
+
       - name: Upload Windows binary
         uses: actions/upload-artifact@v3
         with:
           name: windows-binary
           path: r4s2\client-cli\client-windows.exe
-
-  # Linux build
-  build-linux:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Linux Environment
-        run: |
-          curl -fsSL https://crystal-lang.org/install.sh | sudo bash
-
-      - name: Execute build script
-        run: |
-          crystal build r4s2/client-cli/client.cr -o r4s2/client-cli/client-linux
-
-      - name: Upload Linux binary
-        uses: actions/upload-artifact@v3
-        with:
-          name: linux-binary
-          path: r4s2/client-cli/client-linux

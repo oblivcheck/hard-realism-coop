@@ -33,5 +33,5 @@ c_port = 27244
 c_thread_maxnum = 2
 c_thread_timeout = 15
 verify_key = "::sctest_greenflu/"
-save_path = "/tmp"
+save_path = "/home/steam/Share/maps"
 

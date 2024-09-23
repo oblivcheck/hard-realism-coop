@@ -44,6 +44,8 @@ module Receive
               client.close
               next
             end
+            client.puts "_READY_"
+            
             # Note: 在此处超时？
             data = client.gets.chomp
             data = data.split(",")
@@ -112,7 +114,7 @@ module Control
     Log.sv("R #{data.to_s}")
     data = data.split(' ', 2)
     msg = `./shell/rcon/rcon -c shell/rcon/rcon.yaml -e #{data[0]} "#{data[1]}"`
-    msg += "==注意剩余可用空间=="
+    msg += "==注意剩余可用空间==\n"
     msg += `df -h .` 
   end
   def self.shell(client, data)
@@ -159,6 +161,7 @@ module Control
               client.close
               next
             end
+            client.puts "_READY_"
 
             data = client.gets
             data = data.split("|")
