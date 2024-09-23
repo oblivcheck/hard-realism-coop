@@ -2,11 +2,8 @@ name: Packaging Windows executable
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      paths:
+        - 'r4s2/client-cli/**'
 
 jobs:
   # Windows build
@@ -14,18 +11,20 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Ruby, JRuby and TruffleRuby
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1.193.0
+        with: 
+            ruby-version: '3.3'
 
-      - name: Install Ocran
+      - name: Install Gems
         run: |
-          gem install ocran
+          gem install ocran colorize
 
       - name: Building an executable
         run: |
-          ocran r4s2\client-cli\client.rb --output r4s2\client-cli\client-windows.exe
+          ocran r4s2\client-cli\client-cli.rb --output r4s2\client-cli\client-windows.exe
 
       - name: Upload Windows binary
         uses: actions/upload-artifact@v3

@@ -36,7 +36,7 @@ end
 def upload(file_path)
   socket = TCPSocket.new("tx.sayuri.city", 27243)
   name = File.basename(file_path)
-  file_size = File.size(name)
+  file_size = File.size(file_path)
   
   socket.puts "::sctest_greenflu/"
   if socket.gets != "_READY_\n"
@@ -44,7 +44,7 @@ def upload(file_path)
     return
   end
   
-  file_size_fd = format('%.2f', file_size / 1048576.0)
+  file_size_fd = format('%.4f', file_size / 1048576.0)
   Log.cl ("准备上传文件: #{name} ，大小: #{file_size} bytes (#{file_size_fd} mbits)")
   data = "#{name},#{file_size.to_s}"
   socket.puts(data)
@@ -57,12 +57,13 @@ def upload(file_path)
       socket.write(chunk)
       sha256.update(chunk)
       read_count+=1
-      total_count = read_count
-      if Time.now.to_i >= start_time
+      total_count = 0 + read_count
+      if Time.now.to_i >= start_time + 1
         uploaded_chunk_size = read_count * 1024
-        uploaded_size = uploaded_chunk_size * total_count
+        uploaded_size = 0 + uploaded_chunk_size
         update_uspeed(name, read_count * 1024, file_size.to_i - uploaded_size)
-        read_count = 0
+        read_count=0
+        start_time =  Time.now.to_i
       end
     end
   end
@@ -81,7 +82,7 @@ def upload(file_path)
 end
 
 def update_uspeed(name, speed, not_uploaded_size)
-  mbits = format('%.2f', speed / 1048576.0)
+  mbits = format('%.4f', speed / 1048576.0)
   Log.cl("[#{name}]  #{mbits} mbits/s (#{not_uploaded_size})  #{(not_uploaded_size / speed).round(0).to_i} 秒")
 end
 
