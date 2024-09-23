@@ -15,7 +15,7 @@ jobs:
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1.193.0
-        with: 
+        with:
             ruby-version: '3.3'
 
       - name: Install Gems
