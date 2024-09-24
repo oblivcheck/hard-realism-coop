@@ -4,6 +4,8 @@ on:
   push:
       paths:
         - 'r4s2/client-cli/**'
+        
+  workflow_dispatch:
 
 jobs:
   # Windows build
