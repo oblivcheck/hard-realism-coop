@@ -26,7 +26,7 @@ jobs:
 
       - name: Building an executable
         run: |
-          ocran r4s2\client-cli\client-cli.rb --gem-all=digest --output r4s2\client-cli\client-windows.exe
+          ocran r4s2\client-cli\client-cli.rb --gem-all=digest/sha2 --output r4s2\client-cli\client-windows.exe
 
       - name: Upload Windows binary
         uses: actions/upload-artifact@v3
