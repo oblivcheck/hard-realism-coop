@@ -1,5 +1,5 @@
 require "socket"
-require 'digest'
+require 'digest/sha2'
 require 'colorize'
 
 module Log
@@ -71,12 +71,12 @@ def upload(file_path)
   sha256 = sha256.hexdigest
   # puts "#{sha256}"
   socket.puts "#{sha256}"
-  loop do 
-    msg = socket.gets
-    if msg == "_VF_\n"
-      Log.cl("文件校验失败，请重试", 1)
-      break
-    end
+  msg = socket.gets
+  if msg == "_VF_\n"
+    Log.cl("文件校验失败，请重试", 1)
+  end
+  if msg == "_VS_\n"
+    Log.cl("文件上传成功")
   end
   socket.close
 end
