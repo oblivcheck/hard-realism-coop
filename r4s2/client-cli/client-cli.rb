@@ -182,12 +182,12 @@ module Archive
       puts "#{path}"
       Dir.mkdir(path[0]) unless Dir.exist?(path[0])
       Dir.mkdir(path[1]) unless Dir.exist?(path[1])
-      list = Archive.linux? ? Dir.glob("#{path[0]}/*.vpk") : Dir.glob("#{path[0]}\\*.vpk")
-      puts "#{list}"
+      # list = Archive.linux? ? Dir.glob("#{path[0]}/*.vpk") : Dir.glob("#{path[0]}/*.vpk")
+      list = Dir.glob("#{path[0]}/*.vpk")
       list.each do |file|
         #abs_path = Archive.linux? ? "#{path[0]}/#{file}" : "#{path[0]}\\#{file}"
         file = file.gsub('\\\\', '\\') if Archive.windows?
-        puts file
+        # puts file
         msg = upload(file)
         if msg == "_SWI_" || msg == "_SUS_"
           Archive.linux? ? FileUtils.mv(file, "#{path[1]}/") : FileUtils.mv(file, "#{path[1]}\\")
