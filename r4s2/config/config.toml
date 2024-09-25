@@ -5,7 +5,7 @@ port_http = 5700
 port_wsv = 5800
 # 机器人的QQ号
 qq = 3684951062
-
+enable = false
 # 接收&回复该群的消息
 [group]
 id = 300129041
@@ -20,18 +20,20 @@ msg2qq = '/dev/shm/msg2qq'
 folder_id = "/027703d2-2a66-4c18-8608-7b8941477b56"
 
 [server]
-v_address = "10.0.12.4"
+v_address = "127.0.0.1"
 v_port = 27242
 v_thread_maxnum = 16
 v_thread_timeout = 15 
-r_address = "10.0.12.4"
+r_address = "127.0.0.1"
 r_port = 27243
 r_thread_maxnum = 4
 r_thread_timeout = 15
-c_address = "10.0.12.4"
+c_address = "127.0.0.1"
 c_port = 27244
 c_thread_maxnum = 2
 c_thread_timeout = 15
+c_enable = true
 verify_key = "::sctest_greenflu/"
 save_path = "/home/steam/Share/maps"
-
+data_path = "data"
+log_path = "log"

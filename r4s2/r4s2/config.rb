@@ -2,7 +2,7 @@ require 'toml-rb'
 module Config
   @config_file = './config/config.toml'
   @config = TomlRB.load_file(@config_file)
-
+  # path = [Config.server_log_path, Config.server_data_path]
   class << self
     def load_config
       @config = TomlRB.load_file(@config_file)
@@ -16,6 +16,10 @@ module Config
 
     def config_get(type, key)
       @config.dig(type, key)
+    end
+
+    def onebot_enable
+      config_get("onebot", "enable")
     end
 
     def onebot_address
@@ -77,6 +81,10 @@ module Config
       config_get("server", "v_thread_timeout")
     end
 
+    def c_enable
+      config_get("server", "c_enable")
+    end
+
     def c_server_address
       config_get("server", "c_address")
     end
@@ -100,5 +108,16 @@ module Config
     def server_save_path
       config_get("server", "save_path")
     end
+
+    def server_data_path
+      config_get("server", "data_path")
+    end
+
+    def server_log_path
+      config_get("server", "log_path")
+    end
   end
+
+  Dir.mkdir(Config.server_log_path) unless Dir.exist?(Config.server_log_path)
+  Dir.mkdir(Config.server_data_path) unless Dir.exist?(Config.server_data_path)
 end
