@@ -178,6 +178,10 @@ module Archive
       path = Archive.path
       Dir.mkdir(path[0]) unless Dir.exist?(path[0])
       Dir.mkdir(path[1]) unless Dir.exist?(path[1])
+      if Archive.windows?
+        path[0].gsub("/", "")
+        path[0].gsub("/", "")
+      end
       # list = Archive.linux? ? Dir.glob("#{path[0]}/*.vpk") : Dir.glob("#{path[0]}/*.vpk")
       list = Dir.glob("#{path[0]}/*.vpk")
       puts "# #{path[0]}"
