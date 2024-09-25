@@ -119,6 +119,7 @@ def main
 #    puts "[S] 参数1 = 操作类型， 参数2 =  操作要求的参数"
 #    abort
       Archive.Upload
+      sleep 3
       abort
   end
 
@@ -175,6 +176,10 @@ module Archive
     def Upload
       path = Archive.path
       puts "#{path}"
+      if Archive.windows?
+        path[0] = path[0].gsub('\\\\', '\\')
+        path[1] = path[0].gsub('\\\\', '\\')
+      end
       Dir.mkdir(path[0]) unless Dir.exist?(path[0])
       Dir.mkdir(path[1]) unless Dir.exist?(path[1])
       list = Archive.linux? ? Dir.glob("#{path[0]}/*.vpk") : Dir.glob("#{path[0]}\\*.vpk")
@@ -182,7 +187,7 @@ module Archive
         #abs_path = Archive.linux? ? "#{path[0]}/#{file}" : "#{path[0]}\\#{file}"
         msg = upload(file)
         if msg == "_SWI_" || msg == "_SUS_"
-          puts "#{path[1]}/"
+      puts "#{path[1]}/"
           Archive.linux? ? FileUtils.mv(file, "#{path[1]}/") : FileUtils.mv(file, "#{path[1]}\\")
           next
         else
