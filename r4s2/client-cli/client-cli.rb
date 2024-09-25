@@ -171,7 +171,7 @@ module Archive
         path = ENV['OCRAN_EXECUTABLE'] || "Unknow Dir"
         path = File.dirname(path)
         puts "?# #{File.join(path)}"
-        return [File.join(path, "prepare"), File.join(path, "complete")]
+        return [File.join(path, "\\prepare"), File.join(path, "\\complete")]
       end
     end
     def Upload
