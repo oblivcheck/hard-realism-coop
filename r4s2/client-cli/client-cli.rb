@@ -170,6 +170,7 @@ module Archive
       if Archive.windows?
         path = ENV['OCRAN_EXECUTABLE'] || "Unknow Dir"
         path = File.dirname(path)
+        puts "?# #{File.join(path)}"
         return [File.join(path, "prepare"), File.join(path, "complete")]
       end
     end
@@ -179,6 +180,7 @@ module Archive
       Dir.mkdir(path[1]) unless Dir.exist?(path[1])
       # list = Archive.linux? ? Dir.glob("#{path[0]}/*.vpk") : Dir.glob("#{path[0]}/*.vpk")
       list = Dir.glob("#{path[0]}/*.vpk")
+      puts "# #{path[0]}"
       list.each do |file|
         #abs_path = Archive.linux? ? "#{path[0]}/#{file}" : "#{path[0]}\\#{file}"
         msg = upload(file)
