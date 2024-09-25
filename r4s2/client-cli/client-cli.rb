@@ -182,13 +182,13 @@ module Archive
       end
       Dir.mkdir(path[0]) unless Dir.exist?(path[0])
       Dir.mkdir(path[1]) unless Dir.exist?(path[1])
-      list = Archive.linux? ? Dir.glob("#{path[0]}/*.vpk") : Dir.glob("#{path[0]}\\*.vpk")
+      list = Archive.linux? ? Dir.glob("#{path[0]}/*.vpk") : Dir.glob("#{path[0]}\*.vpk")
       list.each do |file|
         #abs_path = Archive.linux? ? "#{path[0]}/#{file}" : "#{path[0]}\\#{file}"
         msg = upload(file)
         if msg == "_SWI_" || msg == "_SUS_"
       puts "#{path[1]}/"
-          Archive.linux? ? FileUtils.mv(file, "#{path[1]}/") : FileUtils.mv(file, "#{path[1]}\\")
+          Archive.linux? ? FileUtils.mv(file, "#{path[1]}/") : FileUtils.mv(file, "#{path[1]}\")
           next
         else
           Log.cl("文件 #{file} 上传失败，稍后需要重新上传", 0)
