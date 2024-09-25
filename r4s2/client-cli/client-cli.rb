@@ -185,11 +185,15 @@ module Archive
       # list = Archive.linux? ? Dir.glob("#{path[0]}/*.vpk") : Dir.glob("#{path[0]}/*.vpk")
       path[0] = File.join(path[0])
       path[1] = File.join(path[1])
+      list = nil
       if Archive.linux?
         list = Dir.glob("#{path[0]}/*.vpk")
       else
-        list = Dir.glob("#{path[0]}\\*.vpk")
+        path[0] = File.join(path[0], "*.vpk")
+        list = Dir.glob(path[0])
+        #list = Dir.glob('#{path[0]}\\*.vpk')
       end
+      puts "# #{path[0]}"
       puts "# #{list}"
       list.each do |file|
         #abs_path = Archive.linux? ? "#{path[0]}/#{file}" : "#{path[0]}\\#{file}"
