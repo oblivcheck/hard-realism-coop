@@ -189,7 +189,7 @@ module Archive
       if Archive.linux?
         list = Dir.glob("#{path[0]}/*.vpk")
       else
-        path[0] = File.join(path[0], "*.vpk")
+        path[0] = File.join(path[0], "\\*.vpk")
         list = Dir.glob(path[0])
         #list = Dir.glob('#{path[0]}\\*.vpk')
       end
