@@ -244,6 +244,7 @@ module Receive
             Receive::Archive.write(file)
             client.puts "_SUS_"
             Log.sv("#{prefix}", "#{address} 文件 #{name} 上传完成！")
+            `bash shell/linkvpk.sh`
             client.close
             sockets.delete(client)
             rescue => e

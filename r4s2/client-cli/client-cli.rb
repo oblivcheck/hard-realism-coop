@@ -35,7 +35,7 @@ module Log
 end
 
 def upload(file_path)
-  socket = TCPSocket.new("127.0.0.1", 27243)
+  socket = TCPSocket.new("tx.sayuri.city", 27243)
   name = File.basename(file_path)
   file_size = File.size(file_path)
   
@@ -122,7 +122,7 @@ def main
       abort
   end
 
-  socket = TCPSocket.new("127.0.0.1", 27244)
+  socket = TCPSocket.new("tx.sayuri.city", 27244)
   socket.puts "::sctest_greenflu/"
 
   if socket.gets != "_READY_\n"
