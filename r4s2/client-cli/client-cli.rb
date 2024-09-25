@@ -183,6 +183,9 @@ module Archive
         path[0].gsub("/", "")
       end
       # list = Archive.linux? ? Dir.glob("#{path[0]}/*.vpk") : Dir.glob("#{path[0]}/*.vpk")
+      path[0] = File.join(path[0])
+      path[1] = File.join(path[1])
+
       list = Dir.glob("#{path[0]}/*.vpk")
       puts "# #{path[0]}"
       list.each do |file|
