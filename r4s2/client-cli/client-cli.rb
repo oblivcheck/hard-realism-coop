@@ -118,7 +118,7 @@ def main
 #    puts "[R] 参数1 = 服务器标识， 参数2 =  要执行的rcon命令"
 #    puts "[S] 参数1 = 操作类型， 参数2 =  操作要求的参数"
 #    abort
-      Archive.Upload
+      Archive.Upload(ARGV[0])
       sleep 3
       abort
   end
@@ -174,29 +174,18 @@ module Archive
         return [File.join(path, "\\prepare"), File.join(path, "\\complete")]
       end
     end
-    def Upload
+    def Upload(mpath)
       path = Archive.path
       Dir.mkdir(path[0]) unless Dir.exist?(path[0])
       Dir.mkdir(path[1]) unless Dir.exist?(path[1])
-      if Archive.windows?
-        path[0].gsub("/", "")
-        path[0].gsub("/", "")
-      end
-      # list = Archive.linux? ? Dir.glob("#{path[0]}/*.vpk") : Dir.glob("#{path[0]}/*.vpk")
       path[0] = File.join(path[0])
       path[1] = File.join(path[1])
-      list = nil
-      if Archive.linux?
-        list = Dir.glob("#{path[0]}/*.vpk")
-      else
-        path[0] = File.join(path[0], "\\*.vpk")
-        list = Dir.glob(path[0])
-        #list = Dir.glob('#{path[0]}\\*.vpk')
+      list = Dir.glob("#{path[0]}/*.vpk")
+      if Archive.windows?
+        list = Dir.glob("#{mpath}/*vpk")
+        puts "# #{list}"
       end
-      puts "# #{path[0]}"
-      puts "# #{list}"
       list.each do |file|
-        #abs_path = Archive.linux? ? "#{path[0]}/#{file}" : "#{path[0]}\\#{file}"
         msg = upload(file)
         if msg == "_SWI_" || msg == "_SUS_"
           Archive.linux? ? FileUtils.mv(file, "#{path[1]}") : FileUtils.mv(file, "#{path[1]}")
