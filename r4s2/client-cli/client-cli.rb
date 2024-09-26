@@ -182,8 +182,10 @@ module Archive
       path[1] = File.join(path[1])
       list = Dir.glob("#{path[0]}/*.vpk")
       if Archive.windows?
-        list = Dir.glob("#{mpath}/*vpk")
-        puts "# #{list}"
+        Dir.chdir(path[0])
+        puts "# #{path[0]}"
+        list = Dir.glob("*.vpk")
+        # puts "# #{list}"
       end
       list.each do |file|
         msg = upload(file)
