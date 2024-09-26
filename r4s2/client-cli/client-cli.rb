@@ -118,7 +118,7 @@ def main
 #    puts "[R] 参数1 = 服务器标识， 参数2 =  要执行的rcon命令"
 #    puts "[S] 参数1 = 操作类型， 参数2 =  操作要求的参数"
 #    abort
-      Archive.Upload(ARGV[0])
+      Archive.Upload
       sleep 3
       abort
   end
@@ -174,7 +174,7 @@ module Archive
         return [File.join(path, "\\prepare"), File.join(path, "\\complete")]
       end
     end
-    def Upload(mpath)
+    def Upload
       path = Archive.path
       Dir.mkdir(path[0]) unless Dir.exist?(path[0])
       Dir.mkdir(path[1]) unless Dir.exist?(path[1])
@@ -183,9 +183,7 @@ module Archive
       list = Dir.glob("#{path[0]}/*.vpk")
       if Archive.windows?
         Dir.chdir(path[0])
-        puts "# #{path[0]}"
-        list = Dir.glob("*.vpk")
-        # puts "# #{list}"
+        list = Dir.glob("*.vpk", "*.7z", "*.rar", "*.zip")
       end
       list.each do |file|
         msg = upload(file)
