@@ -183,7 +183,7 @@ module Archive
       list = Dir.glob("#{path[0]}/*.vpk")
       if Archive.windows?
         Dir.chdir(path[0])
-        list = Dir.glob("*.vpk", "*.7z", "*.rar", "*.zip")
+        list = Dir.glob(["*.vpk", "*.7z", "*.rar", "*.zip"])
       end
       list.each do |file|
         msg = upload(file)
