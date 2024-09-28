@@ -20,6 +20,21 @@ def msg_print(str, color = "")
     Log.write(str)
   end
 end
+=begin
+runing = true
+def Stop
+    runing = false
+#    msg_print("退出...", :light_red);
+#    Receive.thread.kill
+    Signal.trap("INT") do
+    puts "Exiting..."
+    end
+end
+
+def Status
+  return runing
+end
+=end
 
 module Log
   @log_path = "#{Config.server_log_path}/#{Time.now.strftime('%Y-%m-%d_%H-%M-%S')}.log"

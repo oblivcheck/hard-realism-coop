@@ -1,6 +1,9 @@
 require 'ffi-libarchive'
+require 'digest'
+require './r4s2/cli.rb'
 
-module Verify 
+module Verify
+  @key = Config.server_verify_key
   module Alive
     def self.thread_limit(server, msg)
       client = server.accept
@@ -9,8 +12,14 @@ module Verify
     end 
   end
   
-  #def self.key
-  #end
+  def self.wait(socket)
+    return IO.select([socket], nil, nil, @timeout)
+  end
+
+  def self.key(socket)
+    return -1 unless Verify.wait(socket)
+    return socket.gets.chomp == @key ? 1 : 0
+  end
 end
 
 module Receive
@@ -21,7 +30,10 @@ module Receive
   @key = Config.server_verify_key
   @num = 0
   @timeout = Config.r_server_thread_timeout
-
+  @thread = nil
+  def self.maxnum
+    @maxnum
+  end
   class File
     attr_accessor :name, :size, :type, :uploader, :sha256, :time, :include
     def initialize(file)
@@ -117,149 +129,195 @@ module Receive
       end
     end
   end
-  def self.listen
-    @thread = Thread.new do
-      sockets = [@server]
-      clients =[]
-      loop do
-      # Note: 还没有必要使用线程池
-      if @num > @maxnum
-          Log.sv("[R/main]", "服务器线程数量已达限制", 1)
-        Verify::Alive.thread_limit(@server, "_TNM_")
-      end
-      #readable, writable, error = IO.select(sockets, sockets, sockets)
-      sockets.reject!(&:closed?)
-      begin
-      readable = IO.select(sockets)
-      rescue => e
-          Log.sv("[R/main]", "#{e.class}|#{e.message}", 0)
-      end
-      next if readable.nil?
-        readable.flatten.each do |socket|
-        #puts "#### #{readable}"
-        if socket == @server
-          client = @server.accept
-          sockets << client
-          clients << client
-        elsif clients.include?(socket)
-          clients.delete(socket)
-          Thread.new do
-            @num+=1
-            client = socket
-            address = client.peeraddr(:numeric)
-            address = [address[2], address[1]].to_s
-            prefix = "[R/#{@num}]"
-            if ! IO.select([client], nil, nil, @timeout)
-              Log.sv("#{prefix}", "#{address} 等待验证超时...", 0)
-              break
-            end
-            if client.gets.chomp != @key
-              Log.sv("#{prefix}", "#{address} 密钥验证失败...", 0)
-              client.close
-              sockets.delete(client)
-              break
-            end
-            client.puts "_READY_"
-            # 接收文件信息
-            data = client.gets
-            if data.nil?
-              Log.sv("#{prefix}", "#{address} 文件信息为空...", 1)
-              break
-            end
-            data = data.chomp.split(",")
-            # 接收文件
-            name = data[0]
-            size = data[1]
-            size = size.to_i
-            type = data[2]
-            uploader = data[3]
-            file = Receive::File.new({name: name, size: size, type: type, uploader: uploader})
-            path = "#{Config.server_save_path}/#{file.name}"
-            Log.sv("#{prefix}", "#{address} 接收开始 #{name} (#{size / 1048576.0} Mbit) | #{size} byte")
-            sha256 = Digest::SHA256.new
-            revd_data = 0
-            faild = false
-            ::File.open(path, 'wb') do |obj|
-              while revd_data < size
-                chunk = client.read([1024, size - revd_data].min)
-                if chunk.nil?
-                  faild = true
-                  Log.sv("#{prefix}", "#{address} 文件 #{name} 传输中断", 1)
-                  ::File.delete(path)
-                  client.close unless client.closed?
-                  sockets.delete(client)
-                  revd_data = -1
-                  break
-                end
-                obj.write(chunk)
-                revd_data += chunk.length
-                sha256.update(chunk)
-              end
-              if faild
-                revd_data = -1
-                break
-              end
-            end
-            next if (revd_data == -1)
-            sha256 = sha256.hexdigest
-            file.sha256 = sha256
-            # Todo: 下一次重新验证而不是直接删除
-            if ! IO.select([client], nil, nil, @timeout)
-              Log.sv("#{prefix}", "#{address} 等待客户端sha256信息超时...", 0)
-              verify = false
-              client.close
-              sockets.delete(client)
-              break
-            end
-            # 读取发送的Hash
-              c_sha256 = client.gets.chomp
-            if c_sha256.nil?
-              Log.sv("#{prefix}", "#{address} 客户端sha256信息nil...", 1)
-              verify = false
-              client.close
-              sockets.delete(client)
-              break
-            end
-            if sha256 != c_sha256
-              Log.sv("#{prefix}", "#{address} 文件 #{name} 校验失败", 1)
-              verify = false
-              client.puts("_VF_")
-              client.close
-              sockets.delete(client)
-              next
-            end
 
-            Log.sv("#{prefix}", "#{address} 文件 #{name} 接收完成")
-            file.time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-            client.puts "_VS_"
-            if Receive.valid_formats?(file.type)
-              Log.sv("#{prefix}", "#{address} 文件 #{name} 开始解压...")
-              client.puts "_SEF_"
-              Receive::Archive.unzip(file, path, Config.server_save_path)
-            else
-              client.puts "_NONE_"
-            end
-            Log.sv("#{prefix}", "#{address} 文件 #{name} 写入信息...")
-            client.puts "_SWI_"
-            Receive::Archive.write(file)
-            client.puts "_SUS_"
-            Log.sv("#{prefix}", "#{address} 文件 #{name} 上传完成！")
-            `bash shell/linkvpk.sh`
-            client.close
-            sockets.delete(client)
-            rescue => e
-            Log.sv("#{prefix}", "#{address} 出现异常: #{e.class}|#{e.message}", 0)
-            ensure
-              @num = @num -1
-              if ! client.closed?
-                client.close
-                sockets.delete(client) unless sockets.include?(client)
-                msg_print("#{prefix} #{address} 强制断开连接", :red)
-              end
-            end
-          end
+  def self.thread
+    @thread
+  end
+  
+  module Worker
+    @threads = []
+    @maxnum = Receive.maxnum
+    @mutex = Thread::Mutex.new 
+    @clients = []
+    
+    def self.get_num
+      counter = 0
+      @threads.each do |thread|
+        if thread == nil
+          next
+        end
+
+        if thread.status != nil
+          counter += 1
+          next
         end
       end
+      return counter
+    end
+
+    def self.update_clients(socket)
+      @clients << socket
+    end
+
+    def self.get_client
+      return nil if @clients.size == 0
+      @clients.flatten.each do |client|
+        if client.closed?
+          @clients.delete(client)
+          next
+        end
+        return client
+      end
+      return nil
+    end
+
+    def self.create
+      return nil unless @threads.size < @maxnum
+      thread = Thread.new do
+        num = @threads.index(thread)
+        loop do
+          client = nil
+          @mutex.synchronize do
+            client = Receive::Worker.get_client
+            @clients.delete(client)
+          end
+          Receive::Worker.handle(client, num) unless client.nil?
+        end
+      end
+      @threads << thread
+      puts 1
+      return thread
+    end
+
+    # def self.delete()
+    def self.handle(socket, num)
+      address = socket.peeraddr(:numeric)
+      address = [address[2], address[1]].to_s
+      prefix = "[R/#{num}]"
+      case Verify.key(socket)
+      when -1
+        Log.sv(prefix, "#{address} 等待验证信息超时...")
+        socket.close
+        return
+      when 0 
+        Log.sv(prefix, "#{address} 密钥验证失败...")
+        socket.close
+        return
+      end
+
+      socket.puts("_READY_")
+
+      info = Receive::Worker.revd_info(socket)
+      if info.nil?
+        Log.sv(prefix, "#{address} 文件信息为空...")
+        socket.close
+        return
+      end
+
+      file = Receive::Worker.revd_file(socket, info, address, prefix)
+      sha256 = file.sha256
+      c_sha256 = Receive::Worker.revd_sha2(socket)
+      case c_sha256
+      when -1
+        Log.sv(prefix, "#{address} 等待客户端sha256信息超时...", 0)
+        socket.close
+        return
+      when 0
+        Log.sv(prefix, "#{address} 客户端sha256信息为空...", 0) 
+        socket.close
+        return
+      end
+
+      verify = Receive::Worker.verify_file(c_sha256, sha256)
+      if ! verify
+        Log.sv(prefix, "#{address} 文件 #{info[0]} 校验失败")
+        socket.puts("_VF_")
+        socket.close
+        return
+      end
+
+      Log.sv(prefix, "#{address} 文件 #{info[0]} 接收完成")
+      file.time = Time.now.strftime('%Y-%m-%d_%H-%M-%S')
+      socket.puts "_VS_"
+      if Receive.valid_formats?(file.type)
+        Log.sv(prefix, "#{address} 文件 #{info[0]} 开始解压...")
+        socket.puts "_SEF_"
+        Receive::Archive.unzip(file, path, Config.server_save_path)
+      else
+        socket.puts "_NONE_"
+      end
+      Log.sv(prefix, "#{address} 文件 #{info[0]} 写入信息...")
+      socket.puts "_SWI_"
+      Receive::Archive.write(file)
+      socket.puts "_SUS_"
+      Log.sv(prefix, "#{address} 文件 #{info[0]} 上传完成！")
+      `bash shell/linkvpk.sh`
+      socket.close
+    end
+
+    def self.revd_info(socket)
+      data = socket.gets
+      return nil if data.nil?
+      return data.chomp.split(",")
+    end
+ 
+    def self.revd_file(socket, info, address, prefix)
+      name, size, type, uploader = info
+      size = size.to_i
+      file = Receive::File.new(name: name, size: size, type: type, uploader: uploader)
+      path = "#{Config.server_save_path}/#{file.name}"
+      Log.sv(prefix, "#{address} 开始接收文件 #{name} (#{size / 1048576.0} Mbit) | #{size} byte")
+      sha256 = Digest::SHA256.new
+      revd_data = 0
+      faild = false
+      ::File.open(path, 'wb') do |obj|
+        while revd_data < size
+          chunk = socket.read([1024, size - revd_data].min)
+          if chunk.nil?
+            faild = true
+            Log.sv(prefix, "#{address} 文件 #{name} 传输中断", 1)
+            ::File.delete(path)
+            socket.close unless socket.closed?
+            revd_data = -1
+            break
+          end
+          obj.write(chunk)
+          revd_data += chunk.length
+          sha256.update(chunk)
+        end
+        if faild
+          revd_data = -1
+          break
+        end
+      end
+      return false if (revd_data == -1)
+      sha256 = sha256.hexdigest
+      file.sha256 = sha256
+      return file
+    end
+
+    def self.revd_sha2(socket)
+      return -1 unless IO.select([socket], nil, nil, @timeout)
+      sha256 = socket.gets.chomp
+      return 0 if sha256.nil?
+      return sha256
+    end
+
+    def self.verify_file(c_sha256, sha256)
+      return c_sha256 == sha256
+    end
+  end
+
+  def self.listen
+    @thread = Thread.new do
+      while Receive::Worker.get_num < @maxnum do
+        Receive::Worker.create
+        #puts "#{@maxnum} #{Receive::Worker.get_num} "
+        #puts "# 一个Worker"
+      end
+    end
+    loop do
+      Receive::Worker.update_clients(@server.accept)
     end
   end
 end
@@ -335,7 +393,6 @@ module Control
           rescue => e
             Log.sv("[C/#{@num}]", "处理(#{address})时出现异常: #{e.class}|#{e.message}", 0)
           ensure
-            @num = @num -1
             if ! client.closed?
               client.close
               # msg_print("强制断开连接(#{address})", :light_red)
@@ -344,5 +401,6 @@ module Control
         end
       end
     end 
+    #@thread.join
   end
 end
