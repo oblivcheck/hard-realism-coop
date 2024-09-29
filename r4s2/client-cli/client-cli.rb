@@ -2,6 +2,7 @@ require "socket"
 require "digest"
 require 'colorize'
 require 'fileutils'
+require 'cli/ui'
 
 module Log
   def self.prefix
@@ -35,7 +36,7 @@ module Log
 end
 
 def upload(file_path)
-  socket = TCPSocket.new("sv.sayuri.city", 27243)
+  socket = TCPSocket.new("127.0.0.1", 27243)
   name = File.basename(file_path)
   file_size = File.size(file_path)
   
@@ -112,42 +113,85 @@ def update_uspeed(name, speed, not_uploaded_size)
 end
 
 def main
-  if ARGV.size < 2
-#    puts "缺少参数:"
-#    puts "命令 [R/S/U] \"参数1 参数2 ...\""
-#    puts "[R] 参数1 = 服务器标识， 参数2 =  要执行的rcon命令"
-#    puts "[S] 参数1 = 操作类型， 参数2 =  操作要求的参数"
-#    abort
+  CLI::UI::Prompt.ask('要进行哪些操作？') do |handler|
+    handler.option('上传地图') do
       Archive.Upload
       sleep 3
-      abort
+    end
+    handler.option('其他命令') do
+      Control.cli_ui
+    end
+    handler.option('退出') do
+      exit
+    end
+  end
+end
+
+module Control
+  def self.cli_ui
+    flag = []
+    CLI::UI::Prompt.ask('选择一项操作类型:') do |handler|
+      handler.option('连接至服务器控制台') do
+        puts "尝试r1 ~ r14 作为服务器序号"
+        puts "exit: 退出"
+        puts "_r13: 连接至#13服务器"
+        tag = nil
+        loop do
+          input = gets.chomp
+          break if input.downcase == 'exit' 
+          if input[0] == '_'
+            tag = input[1,3]
+            next
+          end
+          Control.connect(["_R_", "#{tag} #{input}"])
+        end
+      end
+      handler.option('获取服务器已安装的vpk文件列表') do
+        @flag = ["_S_", "list_file"]
+        #Control.connect(@flag)
+      end
+      handler.option('创建vpk文件软链接') do
+        @flag = ["_S_", "move"]
+        #Control.connect(@flag)
+      end
+      handler.option('数据-附件 文件同步') do
+        @flag = ["_S_", "sync_data"]
+        #Control.connect(@flag)
+      end
+      handler.option('下载附件的数据文件压缩包') do
+        @flag = ["_S_", "download_data"]
+        #Control.connect(@flag)
+      end
+      handler.option('删除指定附件') do
+        @flag = ["_S_", "delete_data"]
+        #Control.connect(@flag)
+      end
+      handler.option('退出') do
+        exit
+      end
+    end
+    Control.connect(@flag)
   end
 
-  socket = TCPSocket.new("sv.sayuri.city", 27244)
-  socket.puts "::sctest_greenflu/"
+  def self.connect(args)
+    socket = TCPSocket.new("127.0.0.1", 27244)
+    socket.puts "::sctest_greenflu/"
 
-  if socket.gets != "_READY_\n"
-    Log.cl("等待服务器响应超时", 0)
-    return
+    if socket.gets != "_READY_\n"
+      Log.cl("等待服务器响应超时", 0)
+      return
+    end
+
+    data = "#{args[0]}|#{args[1]}"
+    socket.puts(data)
+    lines = []
+    while (line = socket.gets)
+      lines << line
+    end
+    lines = lines.join
+    Log.cl("#{lines}")
+    socket.close
   end
-  
-  type = "R"
-  if ARGV[0] == "S"
-    type = "S"
-  elsif ARGV[0] == "U"
-    type = "U"
-    upload(ARGV[1])
-  end
-  args = ARGV[1]
-  data = "_#{type}_|#{args}"
-  socket.puts(data)
-  lines = []
-  while (line = socket.gets)
-    lines << line
-  end
-  lines = lines.join
-  Log.cl("#{lines}")
-  socket.close
 end
 
 module Archive
@@ -165,30 +209,27 @@ module Archive
     end
     def path
       if Archive.linux?
-        return ["prepare","complete"]
+        return ["prepare","complete", "data"]
       end
       if Archive.windows?
         path = ENV['OCRAN_EXECUTABLE'] || "Unknow Dir"
         path = File.dirname(path)
-        puts "?# #{File.join(path)}"
-        return [File.join(path, "\\prepare"), File.join(path, "\\complete")]
+        return [File.join(path, "\\prepare"), File.join(path, "\\complete"), File.join(path, "\\data")]
       end
     end
     def Upload
       path = Archive.path
       Dir.mkdir(path[0]) unless Dir.exist?(path[0])
       Dir.mkdir(path[1]) unless Dir.exist?(path[1])
+
       path[0] = File.join(path[0])
       path[1] = File.join(path[1])
-      list = Dir.glob("#{path[0]}/*.vpk")
-      if Archive.windows?
-        Dir.chdir(path[0])
-        list = Dir.glob(["*.vpk", "*.7z", "*.rar", "*.zip"])
-      end
+      Dir.chdir(path[0])
+      list = Dir.glob(["*.vpk", "*.7z", "*.rar", "*.zip"])
       list.each do |file|
         msg = upload(file)
         if msg == "_SWI_" || msg == "_SUS_"
-          Archive.linux? ? FileUtils.mv(file, "#{path[1]}") : FileUtils.mv(file, "#{path[1]}")
+          FileUtils.mv(file, "#{path[1]}")
           next
         else
           Log.cl("文件 #{file} 上传失败，稍后需要重新上传", 0)

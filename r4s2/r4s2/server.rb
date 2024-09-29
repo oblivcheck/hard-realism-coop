@@ -26,11 +26,15 @@ module Receive
   @s_address = Config.r_server_address
   @s_port = Config.r_server_port
   @server = TCPServer.new("#{@s_address}", @s_port)
+  @data_path = Config.server_data_path
+  @save_path = Config.server_save_path
   @maxnum = Config.r_server_thread_maxnum
   @key = Config.server_verify_key
   @num = 0
   @timeout = Config.r_server_thread_timeout
   @thread = nil
+
+
   def self.maxnum
     @maxnum
   end
@@ -74,8 +78,81 @@ module Receive
     return (extname == ".vpk")
   end
   module Archive
-    @data_path = "#{Config.server_data_path}/addons"
-    Dir.mkdir(@data_path) unless Dir.exist?(@data_path)
+    @data_path = Config.server_data_path
+    @save_path = Config.server_save_path
+    def self.scan_data
+      paths = []
+      Dir.new(@data_path).each_child do |obj|
+        obj = "#{@data_path}/#{obj}"
+        # 现在只会处理一层嵌套
+        if ::File.directory?(obj)
+          Dir.new(obj).path.each_child do |sub|
+            paths << sub
+          end
+        end
+        paths << obj
+      end
+      puts 1111
+      return paths
+    end
+
+    def self.scan_vpk(all = nil)
+      paths = []
+      Dir.new(@save_path).each_child do |obj|
+        if ! obj.nil?
+          paths << obj
+        elsif ! ::File.directory?(obj)
+          if obj.extname == ".vpk"
+            paths << obj
+          end
+        end
+      end
+      return paths
+    end
+    # Note: 更应该叫删除
+    def self.sync
+      data_paths = Receive::Archive.scan_data
+      # 寻找文件存放目录下的所有文件
+      file_paths = Receive::Archive.scan_vpk(true)
+      puts 1122
+      # 默认文件存放目录不存在嵌套
+      data_paths.each do |path|
+        puts path
+        extname = ::File.extname(path)
+        name = ::File.basename(path, extname)
+        hash = JSON.load_file(path)
+        sha256 = hash[:sha256]
+        if sha256.nil? || sha256 == "Unknow"
+          sha256 = Digest::SHA256.file(path).hexdigest
+          hash[:sha256] = sha256
+          puts hash
+          file = Receive::File.new(hash)
+          puts file.hash
+          Receive::Archive.write(file)
+          Log.sv("[R/SYNC]", "#{path} 的数据文件中sha256值已被更新...");
+        end
+        puts 4455
+        f_sha256 = Receive::Archive.sha256_of_file("#{@save_path}/#{name}")
+        puts 4466
+        if sha256 == f_sha256
+          file_paths.delete("#{@save_path}/#{@name}")
+          data_paths.delete(path)
+          Log.sv("[R/SYNC]", "#{@save_path}/#{@name} 已经被删除...");
+        end
+      end
+      return data_paths
+    end
+
+    def self.sha256_of_file(path)
+      sha256 = Digest::SHA256.new
+      ::File.open(path, 'rb') do |file|
+        buffer = ""
+        while file.read(1024, buffer)
+          sha256.update(buffer)
+        end
+      end
+      sha256.hexdigest
+    end
 
     def self.unzip(file, path, e_path = nil)
       flags = ::Archive::EXTRACT_PERM
@@ -96,6 +173,8 @@ module Receive
       reader.close
       return e_path.nil? ? ::File.basename(path) : e_path
     end
+    #def self.read(file)
+    #end
     def self.write(file)
       name = file.name
       type = file.type
@@ -185,7 +264,6 @@ module Receive
         end
       end
       @threads << thread
-      puts 1
       return thread
     end
 
@@ -242,7 +320,7 @@ module Receive
       if Receive.valid_formats?(file.type)
         Log.sv(prefix, "#{address} 文件 #{info[0]} 开始解压...")
         socket.puts "_SEF_"
-        Receive::Archive.unzip(file, path, Config.server_save_path)
+        Receive::Archive.unzip(file, path, @save_path)
       else
         socket.puts "_NONE_"
       end
@@ -265,7 +343,7 @@ module Receive
       name, size, type, uploader = info
       size = size.to_i
       file = Receive::File.new(name: name, size: size, type: type, uploader: uploader)
-      path = "#{Config.server_save_path}/#{file.name}"
+      path = "#{@save_path}/#{file.name}"
       Log.sv(prefix, "#{address} 开始接收文件 #{name} (#{size / 1048576.0} Mbit) | #{size} byte")
       sha256 = Digest::SHA256.new
       revd_data = 0
@@ -315,34 +393,80 @@ module Receive
         #puts "#{@maxnum} #{Receive::Worker.get_num} "
         #puts "# 一个Worker"
       end
-    end
-    loop do
-      Receive::Worker.update_clients(@server.accept)
+      loop do
+        Receive::Worker.update_clients(@server.accept)
+      end
     end
   end
 end
 
 module Control
+# 被自己幽默到了www
+=begin
+  def self.revd_data(socket)
+      name, size, type, uploader = info
+      size = size.to_i
+      file = Receive::File.new(name: name, size: size, type: type, uploader: uploader)
+      path = "#{@data_path}/"
+      sha256 = Digest::SHA256.new
+      revd_data = 0
+      faild = false
+      ::File.open(path, 'wb') do |obj|
+        while revd_data < size
+          chunk = socket.read([1024, size - revd_data].min)
+          if chunk.nil?
+            faild = true
+            Log.sv(prefix, "#{address} 文件 #{name} 传输中断", 1)
+            ::File.delete(path)
+            socket.close unless socket.closed?
+            revd_data = -1
+            break
+          end
+          obj.write(chunk)
+          revd_data += chunk.length
+          sha256.update(chunk)
+        end
+        if faild
+          revd_data = -1
+          break
+        end
+      end
+  end
+=end
   def self.rcon(client, data)
     Log.sv("R #{data.to_s}")
     data = data.split(' ', 2)
     msg = `./shell/rcon/rcon -c shell/rcon/rcon.yaml -e #{data[0]} "#{data[1]}"`
-    msg += "==注意剩余可用空间==\n"
-    msg += `df -h .` 
+    space = `df -h . |awk 'NR==2 {print $4}`
+    msg += "\n服务器磁盘剩余可用空间: #{space * 1024} Mib(#{space} Gib)\n" 
   end
-  def self.shell(client, data)
-    Log.sv("S #{data.to_s}")
+
+  def self.shell(client, data, socket=nil)
+    Log.sv("[C/S]", "#{data.to_s}")
     data = data.split(' ', 2)
     case data[0]
-    when "list"
-      `ls -lah #{Config.server_save_path}`
+    when "list_file"
+      `ls -l --time-style=long-iso #{@save_path} | awk 'NR>1 {print $6, $7, "  文件名:", $8}' `
     when "move"
       `bash shell/linkvpk.sh`
-   # Todo: 维护一份列表以供删除而不是直接使用命令
-    #when "delete"
-    #  system(`rm `)
+    when "sync_data"
+      msg = "下列的数据文件未能找到匹配的实际文件:\n" 
+      #msg += Receive::Archive.sync.join("\n")
+      puts Receive::Archive.sync
+      msg += '\n来自压缩包的文件校验码重生成完毕\n没有相关联数据文件的实际文件已删除\n'
+      puts msg
+    when "download_data"
+      msg = "数据压缩包已经更新，请在在浏览器器中访问:\n"
+      `tar -czvf data.tar.gz`
+      `mv data.tar.gz ~/r4s2/www`
+      `rm ~/r4s2/www/*.md`
+      `touch ~/r4s2/www/$(date +\"最后更新于(%Y-%m%d_%H-%M-%S)\")`
+      msg = "http://101.34.89.211/r4s2"
     end
+    #when "delete_data"
+    #end
   end
+
   def self.listen
     @thread = Thread.new do
       @s_address = Config.c_server_address
@@ -385,11 +509,11 @@ module Control
               client.puts "#{Control.rcon(client, data[1])}"
               client.close
             end
+            puts data
             if data[0] == "_S_"
               client.puts "#{Control.shell(client, data[1])}"
               client.close
             end
-
           rescue => e
             Log.sv("[C/#{@num}]", "处理(#{address})时出现异常: #{e.class}|#{e.message}", 0)
           ensure

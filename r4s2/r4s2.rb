@@ -39,7 +39,8 @@ end
 
 begin
 Receive.listen
-#Control.listen
+Control.listen
+Receive.thread.join
 
 if Config.onebot_enable
   EM.run do
@@ -83,5 +84,5 @@ if Config.onebot_enable
 end
 
 rescue Interrupt
-  puts "停止"
+  msg_print("停止", :light_red);
 end

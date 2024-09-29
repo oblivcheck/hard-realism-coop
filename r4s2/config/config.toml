@@ -35,5 +35,5 @@ c_thread_timeout = 15
 c_enable = true
 verify_key = "::sctest_greenflu/"
 save_path = "/home/steam/Share/maps"
-data_path = "data"
+data_path = "data/addons"
 log_path = "log"
