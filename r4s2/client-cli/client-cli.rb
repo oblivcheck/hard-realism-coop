@@ -131,7 +131,7 @@ end
 module Control
   @config = "key.conf"
   File.open(@config, "w") unless File.exist?(@config)
-  @key = File.new(@config, "r").readline(@config).chomp
+  @key = File.new(@config, "r").readline(@config).chomp unless File.zero?(@config)
   def self.cli_ui
     CLI::UI::StdoutRouter.enable
     flag = []
