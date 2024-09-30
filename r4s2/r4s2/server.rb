@@ -474,11 +474,11 @@ module Control
   end
 
   def self.rcon(client, data)
-    Log.sv("R #{data.to_s}")
+    Log.sv("[C/Rcon]", "#{data.to_s}")
     data = data.split(' ', 2)
     msg = `./shell/rcon/rcon -c shell/rcon/rcon.yaml -e #{data[0]} "#{data[1]}"`
     space = `df -h . |awk 'NR==2 {print $4}`
-    msg += "\n服务器磁盘剩余可用空间: #{space * 1024} Mib(#{space} Gib)\n" 
+    msg += "\n服务器磁盘剩余可用空间: #{space[0..-2].to_int * 1023} Mib(#{space.chomp})\n" 
   end
 
   def self.shell(client, data, socket=nil)

@@ -144,10 +144,13 @@ module Control
           puts "exit: 返回"
           puts "_r13: 连接至#13服务器"
           tag = nil
-          print "<#{tag}>"
           loop do
+            print "<#{tag}>"
             input = gets.chomp
-            break if input.downcase == 'exit' 
+            if input.downcase == 'exit'
+              onext = true
+              break 
+            end
             if input[0] == '_'
               tag = input[1,3]
               next
