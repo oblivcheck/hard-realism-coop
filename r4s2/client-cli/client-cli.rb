@@ -36,7 +36,7 @@ module Log
 end
 
 def upload(file_path)
-  socket = TCPSocket.new("127.0.0.1", 27243)
+  socket = TCPSocket.new("tx.sayuri.city", 27243)
   name = File.basename(file_path)
   file_size = File.size(file_path)
   
@@ -113,72 +113,102 @@ def update_uspeed(name, speed, not_uploaded_size)
 end
 
 def main
-  CLI::UI::Prompt.ask('要进行哪些操作？') do |handler|
-    handler.option('上传地图') do
-      Archive.Upload
-      sleep 3
-    end
-    handler.option('其他命令') do
-      Control.cli_ui
-    end
-    handler.option('退出') do
-      exit
-    end
-  end
-end
-
-module Control
-  def self.cli_ui
-    flag = []
-    CLI::UI::Prompt.ask('选择一项操作类型:') do |handler|
-      handler.option('连接至服务器控制台') do
-        puts "尝试r1 ~ r14 作为服务器序号"
-        puts "exit: 退出"
-        puts "_r13: 连接至#13服务器"
-        tag = nil
-        loop do
-          input = gets.chomp
-          break if input.downcase == 'exit' 
-          if input[0] == '_'
-            tag = input[1,3]
-            next
-          end
-          Control.connect(["_R_", "#{tag} #{input}"])
-        end
+  loop do
+    CLI::UI::Prompt.ask('要进行哪些操作？') do |handler|
+      handler.option('上传地图') do
+        Archive.Upload
       end
-      handler.option('获取服务器已安装的vpk文件列表') do
-        @flag = ["_S_", "list_file"]
-        #Control.connect(@flag)
-      end
-      handler.option('创建vpk文件软链接') do
-        @flag = ["_S_", "move"]
-        #Control.connect(@flag)
-      end
-      handler.option('数据-附件 文件同步') do
-        @flag = ["_S_", "sync_data"]
-        #Control.connect(@flag)
-      end
-      handler.option('下载附件的数据文件压缩包') do
-        @flag = ["_S_", "download_data"]
-        #Control.connect(@flag)
-      end
-      handler.option('删除指定附件') do
-        @flag = ["_S_", "delete_data"]
-        #Control.connect(@flag)
+      handler.option('其他命令') do
+        Control.cli_ui
       end
       handler.option('退出') do
         exit
       end
     end
-    Control.connect(@flag)
+  end
+end
+
+module Control
+  @config = "key.conf"
+  File.open(@config, "w") unless File.exist?(@config)
+  @key = File.new(@config, "r").readline(@config).chomp
+  def self.cli_ui
+    CLI::UI::StdoutRouter.enable
+    flag = []
+    onext, obreak = false
+    loop do
+      puts "--".colorize(:red)
+      CLI::UI::Prompt.ask('选择一项操作类型:') do |handler|
+        handler.option('连接至服务器控制台') do
+          puts "尝试r1 ~ r14 作为服务器序号"
+          puts "exit: 返回"
+          puts "_r13: 连接至#13服务器"
+          tag = nil
+          print "<#{tag}>"
+          loop do
+            input = gets.chomp
+            break if input.downcase == 'exit' 
+            if input[0] == '_'
+              tag = input[1,3]
+              next
+            end
+            Control.connect(["_R_", "#{tag} #{input}"])
+          end
+        end
+        handler.option('获取服务器已安装的vpk文件列表') do
+          @flag = ["_S_", "list_file"]
+        end
+        handler.option('创建vpk文件软链接') do
+          @flag = ["_S_", "move"]
+        end
+        handler.option('数据-附件 文件同步') do
+          puts "等待服务器处理完成信息.."
+          @flag = ["_S_", "sync_data"]
+        end
+        handler.option('下载附件的数据文件压缩包') do
+          @flag = ["_S_", "download_data"]
+        end
+        handler.option('删除指定附件(目前仅查看)') do
+          @flag = ["_S_", "delete_data"]
+          msg = Control.connect(@flag, false)
+          #puts "#{msg[-6..-1]}"
+          next if msg.nil?
+          if msg[-1] == "_END_\n"
+            CLI::UI::Prompt.ask('选择要删除的文件：') do |handler|
+              msg[2..-2].each do |opt|
+                handler.option(opt.chomp) do
+                  #puts "暂时不支持删除...".colorize(:yellow)
+                  sleep 6
+                  # 这里需要考虑文件名称与分隔符号
+                  #data_name = opt.chomp.split(']')  
+                  #Control.connect("_S_", "delete_data ")
+                end
+              end
+            end
+          end
+          onext = true
+        end
+        handler.option('返回') do
+          obreak = true
+        end
+      end
+      break if obreak == true
+      next if onext == true
+      puts " 等待服务器处理信息...".colorize(:yellow)
+      Control.connect(@flag)
+    end
   end
 
-  def self.connect(args)
-    socket = TCPSocket.new("127.0.0.1", 27244)
-    socket.puts "::sctest_greenflu/"
+  def self.connect(args, output = true)
+    socket = TCPSocket.new("tx.sayuri.city", 27244)
+    if @key.nil?
+      socket.puts "x"
+    else socket.puts "#{@key}"
+    end
 
     if socket.gets != "_READY_\n"
       Log.cl("等待服务器响应超时", 0)
+      Log.cl("", 0)
       return
     end
 
@@ -188,9 +218,10 @@ module Control
     while (line = socket.gets)
       lines << line
     end
-    lines = lines.join
-    Log.cl("#{lines}")
+    lines = lines.join if output
+    Log.cl("#{lines}") if output
     socket.close
+    return lines
   end
 end
 
@@ -226,18 +257,25 @@ module Archive
       path[1] = File.join(path[1])
       Dir.chdir(path[0])
       list = Dir.glob(["*.vpk", "*.7z", "*.rar", "*.zip"])
+      puts list
       list.each do |file|
         msg = upload(file)
         if msg == "_SWI_" || msg == "_SUS_"
-          FileUtils.mv(file, "#{path[1]}")
+          FileUtils.mv(file, "../#{path[1]}")
           next
         else
           Log.cl("文件 #{file} 上传失败，稍后需要重新上传", 0)
         end
       end
+      Dir.chdir("../")
       Log.cl("prepare文件夹中的文件已全部检查，移动至complete文件夹", 1)
     end
   end
 end
 
+begin
 main
+rescue Interrupt
+  puts "退出"
+end
+

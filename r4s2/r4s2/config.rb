@@ -104,6 +104,9 @@ module Config
     def server_verify_key
       config_get("server", "verify_key")
     end
+    def server_verify_ckey
+      config_get("server", "verify_ckey")
+    end
 
     def server_save_path
       config_get("server", "save_path")

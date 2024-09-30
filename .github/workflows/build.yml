@@ -22,7 +22,7 @@ jobs:
 
       - name: Install Gems
         run: |
-          gem install ocran colorize
+          gem install ocran colorize cli-ui
 
       - name: Building an executable
         run: |
