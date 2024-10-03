@@ -1,5 +1,5 @@
 require "socket"
-require "digest"
+require "digest/sha2"
 require 'colorize'
 require 'fileutils'
 require 'cli/ui'
