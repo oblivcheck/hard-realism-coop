@@ -265,7 +265,7 @@ module Archive
       list.each do |file|
         msg = upload(file)
         if msg == "_SWI_" || msg == "_SUS_"
-          FileUtils.mv(file, "../#{path[1]}")
+          FileUtils.mv(file, "#{path[1]}")
           next
         else
           Log.cl("文件 #{file} 上传失败，稍后需要重新上传", 0)
