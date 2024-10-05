@@ -117,6 +117,7 @@ def main
     CLI::UI::Prompt.ask('要进行哪些操作？') do |handler|
       handler.option('上传地图') do
         Archive.Upload
+        sleep 3
       end
       handler.option('其他命令') do
         Control.cli_ui
