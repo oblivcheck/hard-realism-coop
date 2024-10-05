@@ -46,6 +46,7 @@ module Receive
       self.size = file[:size]
       self.type = file[:type]
       self.uploader = file[:uploader]
+
       self.sha256 = file[:sha256]
       self.time = file[:time]
       self.include = file[:include]
@@ -90,8 +91,8 @@ module Receive
             paths << "#{obj}/#{sub}"
           end
           next
+        else paths << obj
         end
-        paths << obj
       end
       return paths
     end
@@ -306,6 +307,7 @@ module Receive
       thread = Thread.new do
         num = @threads.index(thread)
         loop do
+          sleep 0.1
           client = nil
           @mutex.synchronize do
             client = Receive::Worker.get_client
@@ -478,7 +480,7 @@ module Control
     data = data.split(' ', 2)
     msg = `./shell/rcon/rcon -c shell/rcon/rcon.yaml -e #{data[0]} "#{data[1]}"`
     space = `df -h . |awk 'NR==2 {print $4}`
-    msg += "\n服务器磁盘剩余可用空间: #{space[0..-2].to_int * 1023} Mib(#{space.chomp})\n" 
+    msg += "\n服务器磁盘剩余可用空间: #{space[0..-2].to_int * 1024} Mib(#{space.chomp})\n" 
   end
 
   def self.shell(client, data, socket=nil)
@@ -486,7 +488,13 @@ module Control
     data = data.split(' ', 2)
     case data[0]
     when "list_file"
-      `ls -l --time-style=long-iso "#{Config.server_save_path}" | awk 'NR>1 {print $6, $7, "  文件名:", $8}' `
+      msg = ''
+      path = Dir.new(Config.server_save_path)
+      path.each_child do |obj
+        next if ::File.directory?(obj)
+        msg << "#{obj.mtime.strftime('%Y-%m-%d %H:%M:%S')}    大小:#{format('%.2f', obj.size / 1048576.0)} Mib    名称:  #{obj} \n"
+      end
+      return msg
     when "move"
       `bash shell/linkvpk.sh`
     when "sync_data"
@@ -599,6 +607,5 @@ module Control
         end
       end
     end 
-    #@thread.join
   end
 end
