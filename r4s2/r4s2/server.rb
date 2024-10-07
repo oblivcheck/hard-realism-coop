@@ -242,10 +242,27 @@ module Receive
     end
 
     def self.delete(data_name)
-      Dir.chdir(@data_path)
+      root =  Dir.pwd
+      dir = Dir.new(@data_path)
+      Dir.chdir(dir)
       path = Dir.glob(["#{data_name}.json"])
-      Dir.chdir("../")
-      hash = JSON.load_file()
+      if path.size == 0
+        dir.each_child do |sub|
+          # puts "#{sub}/#{data_name}.json"
+          next unless ::File.directory?(sub)
+          Dir.chdir(sub)
+          path = Dir.glob("#{data_name}.json")
+          path = Dir.glob("_#{data_name}.json")
+          Dir.chdir("../")
+          break unless path.size == 0
+        end
+      end
+      Dir.chdir(root)
+      if path.size == 0
+        return "删除 #{data_name} 失败"
+      end
+
+      hash = JSON.load_file(path)
       if hash[:type] == ".vpk" 
         `rm "#{@data_path}/#{path}"`
         `rm "#{@save_path}/#{File.basename(path)}"`
@@ -256,6 +273,7 @@ module Receive
           `rm "#{file}"`
         end
       end
+      return "删除 #{data_name} 成功"
     end
   end
 
@@ -489,10 +507,12 @@ module Control
     case data[0]
     when "list_file"
       msg = ''
-      path = Dir.new(Config.server_save_path)
-      path.each_child do |obj
+      path = Config.server_save_path
+      dir = Dir.new(path)
+      dir.each_child do |obj|
         next if ::File.directory?(obj)
-        msg << "#{obj.mtime.strftime('%Y-%m-%d %H:%M:%S')}    大小:#{format('%.2f', obj.size / 1048576.0)} Mib    名称:  #{obj} \n"
+        file = ::File.new("#{path}/#{obj}")
+        msg << "#{file.mtime.strftime('%Y-%m-%d %H:%M:%S')}    大小:#{Kernel.format('%.2f', file.size / 1048576.0)} Mib    名称:  #{obj} \n"
       end
       return msg
     when "move"
@@ -512,7 +532,7 @@ module Control
       `touch ~/r4s2/www/$(date +\"最后更新于(%Y-%m-%d_%H-%M-%S)\")`
       msg += "http://101.34.89.211/r4s2"
     when "delete_data"
-      if data[2].nil?
+      if data[1].empty?
         msg = []
         msg << "(列出的为文件所关联的数据文件，删除压缩包也删除来自它的所有文件)"
         msg << " "
@@ -525,7 +545,7 @@ module Control
           type_nil = is_archive[counter].nil?
           archive = type_nil ? "[.vpk 文件]" : "[#{is_archive[counter]}压缩包]"
           if ! form_archlive[counter].nil? && type_nil
-            form = "[来自 #{form_archlive[counter].to_s}]"
+            form = "[来自 #{form_archlive[counter].to_s.delete('[]')}]"
           else
             form = "[单个文件]"
           end
@@ -537,10 +557,9 @@ module Control
         end
         msg << "_END_"
         return msg.join("\n")
-      else #data[1] != "_NONE_"
+      else
         # 预期一个文件名称，服务器查询名称对应的数据文件
-        Receive::Archive.delete(data)
-        return "删除成功"
+        return Receive::Archive.delete(data[1].chomp)
       end
     end
 

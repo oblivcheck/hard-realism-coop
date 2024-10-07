@@ -61,6 +61,8 @@ module Log
         log = "#Waring @thread_num > 10# #{log}"
       end
       Thread.new(log) do
+        # 防止可能的切换目录导致找不到文件
+        sleep 0.1
         Log.write(log)
         @thread_num = @thread_num -1
       end

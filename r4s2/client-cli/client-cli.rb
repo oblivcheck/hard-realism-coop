@@ -175,17 +175,16 @@ module Control
         handler.option('删除指定附件(目前仅查看)') do
           @flag = ["_S_", "delete_data"]
           msg = Control.connect(@flag, false)
-          #puts "#{msg[-6..-1]}"
           next if msg.nil?
           if msg[-1] == "_END_\n"
             CLI::UI::Prompt.ask('选择要删除的文件：') do |handler|
               msg[2..-2].each do |opt|
-                handler.option(opt.chomp) do
+                handler.option(opt.chomp.force_encoding('UTF-8')) do
                   #puts "暂时不支持删除...".colorize(:yellow)
-                  sleep 6
                   # 这里需要考虑文件名称与分隔符号
-                  #data_name = opt.chomp.split(']')  
-                  #Control.connect("_S_", "delete_data ")
+                  data_name = opt.chomp.split(']')
+                  # 默认带有一个空格
+                  Control.connect(["_S_", "delete_data#{data_name[2]}"])
                 end
               end
             end
@@ -209,7 +208,6 @@ module Control
       socket.puts "x"
     else socket.puts "#{@key}"
     end
-
     if socket.gets != "_READY_\n"
       Log.cl("等待服务器响应超时", 0)
       Log.cl("", 0)

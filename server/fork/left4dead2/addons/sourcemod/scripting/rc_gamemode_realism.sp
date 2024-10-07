@@ -5,7 +5,7 @@
 
 #define PLUGIN_NAME       "Gamemode: Realism++"
 #define PLUGIN_DESCRIPTION    "Realism++"
-#define PLUGIN_VERSION      "1.3.22a"
+#define PLUGIN_VERSION      "1.3.22b"
 #define PLUGIN_AUTHOR       "oblivcheck"
 #define PLUGIN_URL        "https://github.com/oblivcheck/hard-realism-coop/"
 
@@ -35,6 +35,8 @@ bool  g_bBotFF;
 
 ConVar  hAi;
 bool  bAi;
+ConVar hDynJump;
+bool bDynJump;
 
 ConVar  hWam;
 bool  bWam;
@@ -66,6 +68,11 @@ public void OnPluginStart()
   hAi = CreateConVar("rc_gamemode_realism_ai", "0");  
   bAi = hAi.BoolValue;
   hAi.AddChangeHook(Event_ConVarChanged);
+  hDynJump = CreateConVar("rc_gamemode_realism_dynjump", "0");  
+  bDynJump = hAi.BoolValue;
+  hDynJump.AddChangeHook(Event_ConVarChanged);
+
+
   HookEvent("round_start", Event_RoundStart, EventHookMode_PostNoCopy);
 
   RegPluginLibrary("rc_gamemode_realism");
@@ -108,6 +115,10 @@ public void ApplyCvars()
   g_fTankHP_Multi = g_hTankHP_Multi.FloatValue;
   g_bBotFF = g_hBotFF.BoolValue;
   bAi = hAi.BoolValue;
+  bDynJump = hDynJump.BoolValue;
+  if(bDynJump)
+   ServerCommand("sm plugins load l4d2_dynamic_jump"); 
+  else  ServerCommand("sm plugins unload l4d2_dynamic_jump");
 
   if(g_bModeEnable && !old_g_bModeEnable)
   {
@@ -130,9 +141,11 @@ public void ApplyCvars()
     ServerCommand("sm_cvar l4d_si_ability_shove \"18\"");
 
     ServerCommand("sm_cvar z_speed \"300\"");
-    ServerCommand("sm_cvar rc_asdl_enable \"1\"");
+    ServerCommand("sm_cvar rc_asdl_enable \"0\"");
     ServerCommand("sm_cvar l4d2_lj_enabled 1");
     ServerCommand("sm plugins load l4d_wam");
+    ServerCommand("sm_cvar rc_gamemode_realism_dynjump 1");
+
     ServerCommand("idle_antispam 1");
     ServerCommand("sm_cvar director_afk_timeout 20");
     HookEvent("tank_spawn", Event_Tank_Spawn);
@@ -178,6 +191,9 @@ public void ApplyCvars()
     
     ServerCommand("sm_cvar l4d2_fast_melee_fix_enable \"1\"");
     ServerCommand("sm_cvar l4d_wam_enabled \"1\"");
+    //bDynJump = false;
+    //ServerCommand("sm plugins unload l4d2_dynamic_jump");
+ 
     ServerCommand("sm_cvar l4d_god_frames_allow \"1\"");  
 
     ServerCommand("sm_cvar survivor_incap_decay_rate  \"1\"");  
@@ -222,7 +238,8 @@ public void ApplyCvars()
   ServerCommand("sm_cvar z_gun_swing_vs_max_penalty 6");
   ServerCommand("sm_cvar z_gun_swing_vs_min_penalty 3");
   ServerCommand("sm_cvar z_gun_swing_vs_restore_time 4.0");
-
+  ServerCommand("sm_cvar rc_gamemode_realism_dynjump 0")
+ 
   //  ServerCommand("sm_cvar hunter_pounce_ready_range 1000");
   //  ServerCommand("sm_cvar hunter_committed_attack_range 10000");
   //  ServerCommand("sm_cvar hunter_leap_away_give_up_range 0");
@@ -338,6 +355,11 @@ public void OnClientPutInServer(iClient)
   if(0< iClient <= MaxClients)
   {
     if(IsFakeClient(iClient) )  return;
+    if(!bDynJump)
+    {
+      PrintToServer("\n%s: 卸载默认不启用的插件", PLUGIN_NAME);
+      ServerCommand("sm plugins unload l4d2_dynamic_jump");
+    }
     if(!bAi)
     {
       PrintToServer("\n%s: 卸载默认不启用的插件", PLUGIN_NAME);
