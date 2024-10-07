@@ -46,7 +46,6 @@ DirectorOptions <-
 	MusicDynamicMobSpawnSize = 50
 	MusicDynamicMobStopSize = 20
 	MusicDynamicMobScanStopSize = 8
-	//AlwaysAllowWanderers = true
 	//cm_BaseCommonAttackDamage = 0.5
 	//PreferredMobDirection = SPAWN_NEAR_POSITION
 	//PreferredMobPositionRange = 800.0			//Only works if PreferredMobDirection is set to SPAWN_NEAR_POSITION.
@@ -62,7 +61,7 @@ DirectorOptions <-
 	BoomerLimit = 1
 	SpitterLimit = 1
 	//SpecialInfectedAssault = ture
-	//PreferredSpecialDirection =  SPAWN_SPECIALS_ANYWHERE
+	//PreferredSpecialDirection = SPAWN_SPECIALS_ANYWHERE
 
 	//Boss
 	ZombieTankHealth = 6000

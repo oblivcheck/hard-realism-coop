@@ -32,7 +32,7 @@
 		cl_drawprogressbar 0		//def 1	Draw progress bar when healing.
 		closecaption 0			//def 0	Enable close captioning.
 		//hidehud 320			//def 0	hidehud (64+256), hide the remaining crosshair by entering cl_crosshair_alpha 0 through the console.
-		hud_dmgrecord_persisttime_deaths -2	//def 4.0	Time to show death related lines in the damage record.
+		hud_dmgrecord_persisttime_deaths -4	//def 4.0	Time to show death related lines in the damage record.
 		hud_dmgrecord_persisttime_other -2	//def 2.0	Time to show non-death related lines in the damage record.
 		sv_glowenable 0			//def 1	Turns on and off the terror glow highlight effects.
 		sv_gameinstructor_disable 1		//def 0	Force all clients to disable their game instructors.
