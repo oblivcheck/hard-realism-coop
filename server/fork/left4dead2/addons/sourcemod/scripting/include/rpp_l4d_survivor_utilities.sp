@@ -17,6 +17,7 @@ int iTick;
 ConVar hTick;
 
 int counter[MAXPLAYERS+1];
+// 看上去原插件这个功能有些问题
 int exhaust[MAXPLAYERS+1];
 
 void rpp_start()
@@ -102,16 +103,17 @@ Action rpp_OnWeaponSwitch(int client)
     return Plugin_Continue;
 
   if(!bRPP)  return Plugin_Continue;
-  int Limit = RoundToNearest(iTick * 1.5);
+  //int Limit = RoundToNearest(iTick * 1.5);
+  int Limit = iTick;
   if(counter[client] < Limit)
     counter[client] = Limit;
   
-  SU_SetSpeed(client, SPEED_RUN, 150.0);
+  SU_SetSpeed(client, SPEED_RUN, 115.0);
  
   return Plugin_Continue;
 }
 
-void rpp_OnClientRunCmd(client)
+void rpp_OnClientRunCmd(int client, int buttons)
 {
   if(!IsAliveSurvivor(client) )
   {
@@ -120,6 +122,10 @@ void rpp_OnClientRunCmd(client)
     return;
   }
 
+  if(buttons & IN_JUMP)
+  {
+    counter[client] = iTick;
+  }
 //  if(!bRPP) return;
   if(exhaust[client] > 0)
     exhaust[client]--;

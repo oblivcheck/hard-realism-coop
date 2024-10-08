@@ -5,7 +5,7 @@
 
 #define PLUGIN_NAME       "Gamemode: Realism++"
 #define PLUGIN_DESCRIPTION    "Realism++"
-#define PLUGIN_VERSION      "1.3.22b"
+#define PLUGIN_VERSION      "1.3.22c"
 #define PLUGIN_AUTHOR       "oblivcheck"
 #define PLUGIN_URL        "https://github.com/oblivcheck/hard-realism-coop/"
 
@@ -127,6 +127,13 @@ public void ApplyCvars()
     ServerCommand("sm_cvar smoker_tongue_delay 0.1");
     ServerCommand("sm_cvar boomer_exposed_time_tolerance 1000.0");
     ServerCommand("sm_cvar boomer_vomit_delay 0.1");
+    ServerCommand("sm_cvar z_charger_health 900");
+    ServerCommand("sm_cvar tongue_health 200");
+    ServerCommand("sm_cvar tongue_range 900");
+    ServerCommand("sm_cvar z_hunter_health 350");
+    ServerCommand("sm_cvar z_jockey_health 500");
+
+
     //削弱推挤
     //g_bNerfShove = true;
     ServerCommand("sm_cvar z_gun_swing_duration 0.15");
@@ -227,112 +234,119 @@ public void ApplyCvars()
   }
   else if(!g_bModeEnable && old_g_bModeEnable)
   {  
-  PrintToServer("\n #%s# 变量变更，撤销设置...",  PLUGIN_NAME);
-  ServerCommand("sm_cvar tongue_break_from_damage_amount 50");
-  ServerCommand("sm_cvar smoker_tongue_delay 1.5");
-  ServerCommand("sm_cvar boomer_exposed_time_tolerance 1.0");
-  ServerCommand("sm_cvar boomer_vomit_delay 1.0");
-  //g_bNerfShove = false;
-  ServerCommand("sm_cvar z_gun_swing_duration 0.2");
-  ServerCommand("sm_cvar z_gun_swing_interval 0.7");
-  ServerCommand("sm_cvar z_gun_swing_vs_max_penalty 6");
-  ServerCommand("sm_cvar z_gun_swing_vs_min_penalty 3");
-  ServerCommand("sm_cvar z_gun_swing_vs_restore_time 4.0");
-  ServerCommand("sm_cvar rc_gamemode_realism_dynjump 0")
- 
-  //  ServerCommand("sm_cvar hunter_pounce_ready_range 1000");
-  //  ServerCommand("sm_cvar hunter_committed_attack_range 10000");
-  //  ServerCommand("sm_cvar hunter_leap_away_give_up_range 0");
-  //  ServerCommand("sm_cvar hunter_pounce_max_loft_angle 0");
-  //  ServerCommand("sm_cvar z_pounce_damage_interrupt 150");
-  ServerCommand("sm_cvar z_jockey_leap_range 200");
-
-  ServerCommand("sm_cvar l4d_si_ability_enabled \"0\"");
-  ServerCommand("sm_cvar z_speed \"250\"");
-  ServerCommand("sm_cvar rc_asdl_enable \"0\"");
-  ServerCommand("sm_cvar l4d2_lj_enabled 0");
-  ServerCommand("sm_cvar director_afk_timeout 45")
-  ServerCommand("idle_antispam 0");
-  ServerCommand("sm plugins unload l4d_wam");
-  // 这是什么操作？
-  if(!g_bModeEnable && old_g_bModeEnable)
-  {
-    UnhookEvent("witch_spawn", Event_Witch_Spawn);
-    UnhookEvent("tank_spawn", Event_Tank_Spawn);
-    UnhookEvent("witch_killed", WitchPanic_Event);
-    UnhookEvent("witch_harasser_set", WitchPanic_Harasse_Event);
-    UnhookEvent("weapon_fire", Event_WeaponFire)
-  }
-  for(int i=1;i<MaxClients;i++)
-  {
-    if(IsClientInGame(i) && GetClientTeam(i) == 2)
-    SDKUnhook(i, SDKHook_OnTakeDamage, eOnTakeDamage);
-  }
-  //  L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2FWA_CycleTime, 0.3);  
-  ServerCommand("sm_cvar survivor_incapacitated_cycle_time \"0.3\"");
-  ServerCommand("sm_cvar wh_use_incap_cycle_cvar \"1\"");
-  ServerCommand("sm_cvar wh_double_pistol_cycle_rate \"0\"");
-  //防止干扰速砍
-  ServerCommand("sm_cvar wh_deploy_animation_speed \"-1\"");
-
-  L4D2_SetFloatWeaponAttribute("weapon_pistol", L4D2FWA_CycleTime, 0.175);  
-
-  //  L4D2_SetFloatWeaponAttribute("weapon_rifle_ak47", L4D2FWA_CycleTime, 0.1);
-  L4D2_SetIntWeaponAttribute("weapon_rifle", L4D2IWA_Damage, 33);
-  L4D2_SetIntWeaponAttribute("weapon_rifle_sg552", L4D2IWA_Damage, 33);
-
-  L4D2_SetIntWeaponAttribute("weapon_sniper_awp", L4D2IWA_Damage, 120);
-  L4D2_SetIntWeaponAttribute("weapon_sniper_scout", L4D2IWA_Damage, 100);
-  L4D2_SetIntWeaponAttribute("weapon_hunting_rifle", L4D2IWA_Damage, 50);
-  //最好检查这个
-  //  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_PenetrationMaxDist, 1);
-  //  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_CharPenetrationMaxDist, 1);
+    PrintToServer("\n #%s# 变量变更，撤销设置...",  PLUGIN_NAME);
+    ServerCommand("sm_cvar tongue_break_from_damage_amount 50");
+    ServerCommand("sm_cvar smoker_tongue_delay 1.5");
+    ServerCommand("sm_cvar boomer_exposed_time_tolerance 1.0");
+    ServerCommand("sm_cvar boomer_vomit_delay 1.0");
+    ServerCommand("sm_cvar z_charger_health 600");
+    ServerCommand("sm_cvar tongue_health 100");
+    ServerCommand("sm_cvar tongue_range 750");
+    ServerCommand("sm_cvar z_hunter_health 250");
+    ServerCommand("sm_cvar z_jockey_health 325");
 
 
-  SetConVarString(FindConVar("mp_gamemode"), g_sCvar_old_gamemode);
-  SetConVarString(FindConVar("z_difficulty"), g_sCvar_old_difficulty);
+    //g_bNerfShove = false;
+    ServerCommand("sm_cvar z_gun_swing_duration 0.2");
+    ServerCommand("sm_cvar z_gun_swing_interval 0.7");
+    ServerCommand("sm_cvar z_gun_swing_vs_max_penalty 6");
+    ServerCommand("sm_cvar z_gun_swing_vs_min_penalty 3");
+    ServerCommand("sm_cvar z_gun_swing_vs_restore_time 4.0");
+    ServerCommand("sm_cvar rc_gamemode_realism_dynjump 0")
+  
+    //  ServerCommand("sm_cvar hunter_pounce_ready_range 1000");
+    //  ServerCommand("sm_cvar hunter_committed_attack_range 10000");
+    //  ServerCommand("sm_cvar hunter_leap_away_give_up_range 0");
+    //  ServerCommand("sm_cvar hunter_pounce_max_loft_angle 0");
+    //  ServerCommand("sm_cvar z_pounce_damage_interrupt 150");
+    ServerCommand("sm_cvar z_jockey_leap_range 200");
 
-  ServerCommand("sm_cvar mp_gamemode \"%s\"", g_sCvar_old_gamemode);
-  ServerCommand("sm_cvar z_difficulty \"%s\"", g_sCvar_old_difficulty);
-  ServerCommand("sm_cvar sv_vote_issue_change_difficulty_allowed \"1\"");
-  //八分之一
-  ServerCommand("sm_cvar z_non_head_damage_factor_expert \"0.5\"");
-  //友伤
-  ServerCommand("sm_cvar survivor_friendly_fire_factor_expert \"0.5\"");
-  ServerCommand("sm_cvar z_friendly_fire_forgiveness \"1\"");
-  //CI间隔  
-  ServerCommand("sm_cvar z_throttle_hit_interval_expert \"1.0\"");
+    ServerCommand("sm_cvar l4d_si_ability_enabled \"0\"");
+    ServerCommand("sm_cvar z_speed \"250\"");
+    ServerCommand("sm_cvar rc_asdl_enable \"0\"");
+    ServerCommand("sm_cvar l4d2_lj_enabled 0");
+    ServerCommand("sm_cvar director_afk_timeout 45")
+    ServerCommand("idle_antispam 0");
+    ServerCommand("sm plugins unload l4d_wam");
+    // 这是什么操作？
+    if(!g_bModeEnable && old_g_bModeEnable)
+    {
+      UnhookEvent("witch_spawn", Event_Witch_Spawn);
+      UnhookEvent("tank_spawn", Event_Tank_Spawn);
+      UnhookEvent("witch_killed", WitchPanic_Event);
+      UnhookEvent("witch_harasser_set", WitchPanic_Harasse_Event);
+      UnhookEvent("weapon_fire", Event_WeaponFire)
+    }
+    for(int i=1;i<MaxClients;i++)
+    {
+      if(IsClientInGame(i) && GetClientTeam(i) == 2)
+      SDKUnhook(i, SDKHook_OnTakeDamage, eOnTakeDamage);
+    }
+    //  L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2FWA_CycleTime, 0.3);  
+    ServerCommand("sm_cvar survivor_incapacitated_cycle_time \"0.3\"");
+    ServerCommand("sm_cvar wh_use_incap_cycle_cvar \"1\"");
+    ServerCommand("sm_cvar wh_double_pistol_cycle_rate \"0\"");
+    //防止干扰速砍
+    ServerCommand("sm_cvar wh_deploy_animation_speed \"-1\"");
+
+    L4D2_SetFloatWeaponAttribute("weapon_pistol", L4D2FWA_CycleTime, 0.175);  
+
+    //  L4D2_SetFloatWeaponAttribute("weapon_rifle_ak47", L4D2FWA_CycleTime, 0.1);
+    L4D2_SetIntWeaponAttribute("weapon_rifle", L4D2IWA_Damage, 33);
+    L4D2_SetIntWeaponAttribute("weapon_rifle_sg552", L4D2IWA_Damage, 33);
+
+    L4D2_SetIntWeaponAttribute("weapon_sniper_awp", L4D2IWA_Damage, 120);
+    L4D2_SetIntWeaponAttribute("weapon_sniper_scout", L4D2IWA_Damage, 100);
+    L4D2_SetIntWeaponAttribute("weapon_hunting_rifle", L4D2IWA_Damage, 50);
+    //最好检查这个
+    //  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_PenetrationMaxDist, 1);
+    //  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_CharPenetrationMaxDist, 1);
+
+
+    SetConVarString(FindConVar("mp_gamemode"), g_sCvar_old_gamemode);
+    SetConVarString(FindConVar("z_difficulty"), g_sCvar_old_difficulty);
+
+    ServerCommand("sm_cvar mp_gamemode \"%s\"", g_sCvar_old_gamemode);
+    ServerCommand("sm_cvar z_difficulty \"%s\"", g_sCvar_old_difficulty);
+    ServerCommand("sm_cvar sv_vote_issue_change_difficulty_allowed \"1\"");
+    //八分之一
+    ServerCommand("sm_cvar z_non_head_damage_factor_expert \"0.5\"");
+    //友伤
+    ServerCommand("sm_cvar survivor_friendly_fire_factor_expert \"0.5\"");
+    ServerCommand("sm_cvar z_friendly_fire_forgiveness \"1\"");
+    //CI间隔  
+    ServerCommand("sm_cvar z_throttle_hit_interval_expert \"1.0\"");
+      
+    //  ServerCommand("sm_cvar l4d2_RealismMagnum_Enabled \"0\"");
+
+    // 修正一个cvas名称错误  
+    ServerCommand("sm_cvar l4d2_fast_melee_fix_enable \"0\"");
     
-  //  ServerCommand("sm_cvar l4d2_RealismMagnum_Enabled \"0\"");
+    ServerCommand("sm_cvar l4d_wam_enabled \"0\"");
+    
+    ServerCommand("sm_cvar survivor_incap_decay_rate  \"4\"");  
+    ServerCommand("sm_cvar z_tank_autoshotgun_dmg_scale  \"0.85\"");  
+    ServerCommand("sm_cvar tank_burn_duration_expert \"85\"");  
+    ServerCommand("sm_cvar tank_stuck_time_suicide \"10\"");  
+    
+    ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"100\"");  
+    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.25f\"");  
 
-  // 修正一个cvas名称错误  
-  ServerCommand("sm_cvar l4d2_fast_melee_fix_enable \"0\"");
-  
-  ServerCommand("sm_cvar l4d_wam_enabled \"0\"");
-  
-  ServerCommand("sm_cvar survivor_incap_decay_rate  \"4\"");  
-  ServerCommand("sm_cvar z_tank_autoshotgun_dmg_scale  \"0.85\"");  
-  ServerCommand("sm_cvar tank_burn_duration_expert \"85\"");  
-  ServerCommand("sm_cvar tank_stuck_time_suicide \"10\"");  
-  
-  ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"100\"");  
-  ServerCommand("sm_cvar survivor_damage_speed_factor \"0.25f\"");  
+    ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.4\"");
+    ServerCommand("sm_cvar l4d_weapon_auto_fire_enable \"0\"");
+    ServerCommand("sm_cvar rc_dsp_enable \"0\"");
 
-  ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.4\"");
-  ServerCommand("sm_cvar l4d_weapon_auto_fire_enable \"0\"");
-  ServerCommand("sm_cvar rc_dsp_enable \"0\"");
-
-  g_hBot_die_first = FindConVar("l4d_bot_healing_die_first");
-  //只是为了确定插件存不存在
-  if(g_hBot_die_first != null)
-  {
-    ServerCommand("sm_cvar l4d_bot_healing_die_first \"%d\"", g_bBot_die_first);
-    ServerCommand("sm_cvar l4d_bot_healing_die_pills \"%d\"", g_bBot_die_pills);
-    ServerCommand("sm_cvar l4d_bot_healing_first \"%f\"", g_fBot_first);
-    ServerCommand("sm_cvar l4d_bot_healing_pills \"%f\"", g_fBot_pills);
-  }
-  ServerCommand("sm_cvar hrc_zed_time_enable \"0\"");
-  CreateTimer(0.5, tSenMSG2);
+    g_hBot_die_first = FindConVar("l4d_bot_healing_die_first");
+    //只是为了确定插件存不存在
+    if(g_hBot_die_first != null)
+    {
+      ServerCommand("sm_cvar l4d_bot_healing_die_first \"%d\"", g_bBot_die_first);
+      ServerCommand("sm_cvar l4d_bot_healing_die_pills \"%d\"", g_bBot_die_pills);
+      ServerCommand("sm_cvar l4d_bot_healing_first \"%f\"", g_fBot_first);
+      ServerCommand("sm_cvar l4d_bot_healing_pills \"%f\"", g_fBot_pills);
+    }
+    ServerCommand("sm_cvar hrc_zed_time_enable \"0\"");
+    CreateTimer(0.5, tSenMSG2);
   }
 }
 Action tSenMSG1(Handle Timer)
