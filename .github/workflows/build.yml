@@ -26,10 +26,10 @@ jobs:
 
       - name: Building an executable
         run: |
-          ocran r4s2\client-cli\client-cli.rb --icon r4s2\client-cli\greenflu.icon --gem-all=digest/sha2 --output r4s2\client-cli\client-windows.exe
+          for /f %i in ('powershell -command "Get-Date -Date (Get-Date).ToUniversalTime().AddHours(-8) -Format ''yyMMdd''"') do ocran r4s2\client-cli\client-cli.rb --icon r4s2\client-cli\greenflu.icon --gem-all=digest/sha2 --output r4s2\client-cli\client-windows.%i.0.exe
 
       - name: Upload Windows binary
         uses: actions/upload-artifact@v4
         with:
           name: windows-binary
-          path: r4s2\client-cli\client-windows.exe
+          path: r4s2\client-cli\*.exe

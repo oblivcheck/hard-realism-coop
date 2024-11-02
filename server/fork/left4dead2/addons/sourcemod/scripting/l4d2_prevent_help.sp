@@ -8,6 +8,10 @@
 #define PLUGIN_AUTHOR       "Iciaria/oblivcheck"
 #define PLUGIN_URL        ""
 
+#define WITCH 0
+#define COUNT_FRAME 5
+#define COUNT_CMD 10
+
 ArrayList aWitchList;
 ArrayList aTankList;
 ArrayList aShouldBlockAreaList;
@@ -78,7 +82,7 @@ public Action OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
     if(counter[client] == 0)
       counter[client] = cmdnum;
 
-    if( (cmdnum - counter[client]) > 10)
+    if( (cmdnum - counter[client]) > COUNT_CMD)
     {
       float pos[3];
       GetClientAbsOrigin(client, pos);
@@ -98,10 +102,12 @@ public Action OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
 
   if( !IsFakeClient(client) )
       return Plugin_Continue;
-    
-  //if(aWitchList.Length || aTankList.Length)
+#if WITCH
+  if(aWitchList.Length || aTankList.Length)
+#else
   if(aTankList.Length)
     allow = true;
+#endif
   else allow = false;
 
   return Plugin_Continue;
@@ -111,7 +117,7 @@ int skip;
 public void OnGameFrame()
 {
   skip++;
-  if(skip > 5)
+  if(skip > COUNT_FRAME)
     skip = 0;
   else return;
 
@@ -127,9 +133,9 @@ public void OnGameFrame()
     // If necessary, identify which survivor bot is closest to the 
     // 'Nav area that should not be blocked'; otherwise, 
     // simply prevent them from helping any incapacitated teammates 
-// until the Tank and Witch are dead.
+    // until the Tank and Witch are dead.
 
-  /*
+    /*
     if(L4D_HasVisibleThreats(client) )
     {
       if(aDontBlockAreaList.Length)

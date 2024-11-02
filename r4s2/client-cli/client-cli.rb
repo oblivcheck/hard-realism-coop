@@ -35,12 +35,12 @@ module Log
 
 end
 
-def upload(file_path)
-  socket = TCPSocket.new("tx.sayuri.city", 27243)
+def upload(file_path, addr)
+  socket = TCPSocket.new(addr, 27243)
   name = File.basename(file_path)
   file_size = File.size(file_path)
   
-  socket.puts "::sctest_greenflu/"
+  socket.puts "::sctest_greenflu_/"
   if socket.gets != "_READY_\n"
     Log.cl("等待服务器响应超时", 0)
     return
@@ -115,12 +115,16 @@ end
 def main
   loop do
     CLI::UI::Prompt.ask('要进行哪些操作？') do |handler|
-      handler.option('上传地图') do
-        Archive.Upload
+      handler.option('上传地图(为1/2/3/4服务器)') do
+        Archive.Upload("sv.sayuri.city")
         sleep 3
       end
-      handler.option('其他命令') do
-        Control.cli_ui
+      # handler.option('其他命令') do
+      #  Control.cli_ui
+      # end
+      handler.option('上传地图(为5/6服务器)') do
+        Archive.Upload("tx.sayuri.city")
+        sleep 3
       end
       handler.option('退出') do
         exit
@@ -250,27 +254,33 @@ module Archive
         return [File.join(path, "\\prepare"), File.join(path, "\\complete"), File.join(path, "\\data")]
       end
     end
-    def Upload
+    def Upload(addr)
       path = Archive.path
+ 
       Dir.mkdir(path[0]) unless Dir.exist?(path[0])
       Dir.mkdir(path[1]) unless Dir.exist?(path[1])
 
+      Dir.chdir(path[0])
       path[0] = File.join(path[0])
       path[1] = File.join(path[1])
-      Dir.chdir(path[0])
       list = Dir.glob(["*.vpk", "*.7z", "*.rar", "*.zip"])
       puts list
+
       list.each do |file|
-        msg = upload(file)
+        msg = upload(file, addr)
         if msg == "_SWI_" || msg == "_SUS_"
-          FileUtils.mv(file, "#{path[1]}")
+          if Archive.linux?
+            FileUtils.mv(file, "../#{path[1]}/")
+          else
+            FileUtils.mv(file, "#{path[1]}\\")
+          end
           next
         else
           Log.cl("文件 #{file} 上传失败，稍后需要重新上传", 0)
         end
       end
       Dir.chdir("../")
-      Log.cl("prepare文件夹中的文件已全部检查，移动至complete文件夹", 1)
+      Log.cl("已将上传成功的文件从prepare移动至complete文件夹...", 1)
     end
   end
 end
