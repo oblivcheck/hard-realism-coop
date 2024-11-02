@@ -32,8 +32,8 @@ jobs:
         shell: pwsh
         run: |
           $timestamp = Get-Date -Format "yyMMdd"
-          $oldFileName = "r4s2\client-cli\client-windows.exe"
-          $newFileName = "r4s2\client-cli\client-windows.$timestamp-0.exe"
+          $oldFileName = "r4s2\\client-cli\\client-windows.exe"
+          $newFileName = "r4s2\\client-cli\\client-windows.$timestamp-0.exe"
           Rename-Item -Path $oldFileName -NewName $newFileName
 
       - name: Upload Windows binary
