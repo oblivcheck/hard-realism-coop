@@ -26,7 +26,15 @@ jobs:
 
       - name: Building an executable
         run: |
-          for /f %i in ('powershell -command "Get-Date -Date (Get-Date).ToUniversalTime().AddHours(-8) -Format ''yyMMdd''"') do ocran r4s2\client-cli\client-cli.rb --icon r4s2\client-cli\greenflu.icon --gem-all=digest/sha2 --output r4s2\client-cli\client-windows.%i.0.exe
+          ocran r4s2\client-cli\client-cli.rb --icon r4s2\client-cli\greenflu.icon --gem-all=digest/sha2 --output r4s2\client-cli\client-windows.exe
+
+      - name: Rename executable
+        shell: pwsh
+        run: |
+          $timestamp = Get-Date -Format "yyMMdd"
+          $oldFileName = "r4s2\client-cli\client-windows.exe"
+          $newFileName = "r4s2\client-cli\client-windows.$timestamp-0.exe"
+          Rename-Item -Path $oldFileName -NewName $newFileName
 
       - name: Upload Windows binary
         uses: actions/upload-artifact@v4
