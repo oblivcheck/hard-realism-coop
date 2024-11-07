@@ -22,7 +22,7 @@ jobs:
           bash action.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
           tar -czvf package.tar.gz package/
 
-     - name: Done
+      - name: Done
         uses: actions/upload-artifact@v4
         with:
           name: package.241107-0.tar.gz
