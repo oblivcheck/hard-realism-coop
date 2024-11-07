@@ -1,0 +1,29 @@
+name:  "Vanilla: testing build"
+
+on:
+  workflow_dispatch:
+
+jobs:
+   Testing-build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install apt packages
+        shell: bash
+        run: |
+          sudo apt-get install -y wget curl xargs sed
+
+      - name: Packing
+        shell: bash
+        run: |
+          cd server/vanilla/
+          bash action.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+          tar -czvf package.tar.gz package/
+
+     - name: Done
+        uses: actions/upload-artifact@v4
+        with:
+          name: package.241107-0.tar.gz
+          path: server/vanilla/package.tar.gz

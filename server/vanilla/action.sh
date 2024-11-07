@@ -4,15 +4,12 @@
 # 我现在唯一能做的是记录这件事情，然后*耐心地*重新编写 :)
 
 
-if [[ $1 = 'URL_REPO' ]]; then
-  exit 0
-fi
-
 URL_MM="https://mms.alliedmods.net/mmsdrop/1.11/mmsource-latest-linux"
 URL_SM="https://sm.alliedmods.net/smdrop/1.12/sourcemod-latest-linux"
 URL_L4DTOOLZ="https://github.com/lakwsh/l4dtoolz/releases/download/2.3.4/l4dtoolz-11618361613.zip"
 # echo "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
 URL_REPO="$1"
+echo "# $URL_REPO"
 
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 PACKAGE_DIR="$SCRIPT_DIR/package"
