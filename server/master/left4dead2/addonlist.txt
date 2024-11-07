@@ -1,5 +1,0 @@
-"AddonList"
-{
-	"DesperateHours.vpk"		"1"
-	"VoicTalker.vpk"		"1"
-}

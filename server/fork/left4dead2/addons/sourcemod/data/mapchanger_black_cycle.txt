@@ -1,2 +1,0 @@
-// Specify names of first maps, you want to exclude from cycle (one per line).
-// Standard maps and custom maps are allowed here.
