@@ -1,0 +1,11 @@
+"AddonInfo"
+{
+	AddonTitle		"ion's Vocalizer"
+	AddonVersion		"20.2"
+	AddonDescription	"The most complete vocalizer with nearly 800 vocalization lines featuring 13 radial menus with shared lines, 9 radial menus with character-specific lines and a radial menu for character selection/switching and going idle."
+	AddonAuthor		"ion"
+	AddonURL0		"https://steamcommunity.com/sharedfiles/filedetails/?id=698857882"
+
+	AddonSteamAppID		550
+	AddonContent_Script	1
+}
