@@ -20,8 +20,8 @@ PACKAGE_DIR="$SCRIPT_DIR/package"
 cd "$SCRIPT_DIR"
 mkdir package
 cd "$PACKAGE_DIR"
-mkdir l4dtoolz README
-cd "$PACKAGE_DIR"
+mkdir left4dead2 left4dead2/l4dtoolz README
+cd "$PACKAGE_DIR/left4dead2"
 if [[ $2 != "testing" ]]; then
   # 获取并解压
     curl -s "${URL_MM}" > URL
@@ -55,6 +55,7 @@ if [[ $2 != "testing" ]]; then
       exit -1
     fi
     unzip *.zip
+    rm *.zip
     rm *.dll
     mv * ../addons
 fi
@@ -72,7 +73,7 @@ LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
 LIST_DISABLE_PLUGIN="$(cat LIST_DISABLE_PLUGIN)"
   mv -n "$SCRIPT_DIR/left4dead2/addons/sourcemod/scripting"/* "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
   cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
-PLUGIN_NUM=$(ls *.sp | xargs -n 1 -I {} basename {} | sed 's/.sp/.smx/' | grep -v "${LIST_DISABLE_PLUGIN}" | wc -l | tr -d '\n')
+PLUGIN_NUM=$(ls *.sp | xargs -I {} basename {} | sed 's/.sp/.smx/' | grep -v "${LIST_DISABLE_PLUGIN}" | wc -l | tr -d '\n')
   mv orig ../
   ./compile.sh *.sp
   mkdir "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled"
@@ -88,7 +89,7 @@ PLUGIN_NUM=$(ls *.sp | xargs -n 1 -I {} basename {} | sed 's/.sp/.smx/' | grep -
 # 移动各种配置文件与脚本
   cd $PACKAGE_DIR
   cp -r $SCRIPT_DIR/left4dead2/cfg/* left4dead2/cfg/
-  cp -r $SCRIPT_DIR/left4dead2/vscripts/* left4dead2/vscripts/
+  cp -r $SCRIPT_DIR/left4dead2/scripts/vscripts/* left4dead2/scripts/vscripts/
   cp -r $SCRIPT_DIR/left4dead2/ems/* left4dead2/ems/
   cp -r $SCRIPT_DIR/left4dead2/host.txt left4dead2/host.txt
   cp -r $SCRIPT_DIR/left4dead2/motd.txt left4dead2/motd.txt
