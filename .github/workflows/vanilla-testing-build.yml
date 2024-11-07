@@ -13,7 +13,7 @@ jobs:
       - name: Install apt packages
         shell: bash
         run: |
-          sudo apt-get install -y wget curl xargs sed
+          sudo apt-get install -y wget curl 
 
       - name: Packing
         shell: bash
