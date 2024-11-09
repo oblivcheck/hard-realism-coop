@@ -7,12 +7,18 @@
 URL_MM="https://mms.alliedmods.net/mmsdrop/1.11/mmsource-latest-linux"
 URL_SM="https://sm.alliedmods.net/smdrop/1.12/sourcemod-latest-linux"
 URL_L4DTOOLZ="https://github.com/lakwsh/l4dtoolz/releases/download/2.3.4/l4dtoolz-11618361613.zip"
-# echo "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+# echo "https://github.com/${{ github.repository }}/tree/${{ github.sha }}"
 URL_REPO="$1"
 echo "# $URL_REPO"
 
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 PACKAGE_DIR="$SCRIPT_DIR/package"
+
+if [[ $2 = "mdgen" ]]; then
+
+  exit 0
+fi
+
 # 创建必要文件夹
 cd "$SCRIPT_DIR"
 mkdir package
@@ -61,7 +67,7 @@ fi
 # 稍微提醒
   cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
   mkdir orig && mv * orig/
-  echo -ne "此包裹的源代码应该参阅:'${REPO_URL}'\n'orig'目录存储scripting目录下原来的文件\n\n" > README.txt
+  echo -ne "此包裹的源代码应该参阅:'${URL_REPO}'\n'orig'目录存储scripting目录下原来的文件\n\n" > README.txt
   echo -ne "Source code for this package should refer to: '${URL_REPO}'\n'orig' directory stores the original files from the 'scripting' directory\n" >> README.txt
   cd "$SCRIPT_DIR"
 LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
@@ -77,7 +83,8 @@ PLUGIN_NUM=$(ls *.sp | xargs -I {} basename {} | sed 's/.sp/.smx/' | grep -v "${
   mv ../orig .
   cd compiled
   echo "$LIST_DISABLE_PLUGIN" | xargs -I {} -n 1 mv {} "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled/"
-  if [ $(ls | wc -l | tr -d '\n') -ne $PLUGIN_NUM ]; then
+TMP=$(ls | wc -l | tr -d '\n')
+  if [ $TMP -ne $PLUGIN_NUM ]; then
     echo "F PLUGIN NUM"
     exit -1
   fi
@@ -94,3 +101,5 @@ PLUGIN_NUM=$(ls *.sp | xargs -I {} basename {} | sed 's/.sp/.smx/' | grep -v "${
 # 清理
   cd left4dead2
   rm *.tar.gz URL
+
+echo " $PLUGIN_NUM # $TMP "
