@@ -2,10 +2,11 @@
 #include <sdkhooks>
 #include <sdktools>
 #include <left4dhooks>
+#include <rpp/weapon>
 
 #define PLUGIN_NAME       "Gamemode: Realism++"
 #define PLUGIN_DESCRIPTION    "Realism++"
-#define PLUGIN_VERSION      "1.3.22c"
+#define PLUGIN_VERSION      "1.3.22"
 #define PLUGIN_AUTHOR       "oblivcheck"
 #define PLUGIN_URL        "https://github.com/oblivcheck/hard-realism-coop/"
 
@@ -20,7 +21,6 @@ public Plugin:myinfo =
 
 ConVar  hCvarModeEnable;
 bool  g_bModeEnable;
-
 ConVar  g_hCIDMG_Multi;
 float  g_fCIDMG_Multi;
 
@@ -319,7 +319,6 @@ public void ApplyCvars()
       
     //  ServerCommand("sm_cvar l4d2_RealismMagnum_Enabled \"0\"");
 
-    // 修正一个cvas名称错误  
     ServerCommand("sm_cvar l4d2_fast_melee_fix_enable \"0\"");
     
     ServerCommand("sm_cvar l4d_wam_enabled \"0\"");
@@ -634,4 +633,3 @@ public void Event_RoundStart(Event event, const char[] name, bool dontBroadcast)
 {
   LoadVScript();
 }
-
