@@ -1,3 +1,6 @@
+## Source
+(l4d_reservecontrol.smx)[https://forums.alliedmods.net/showthread.php?t=334274]
+
 ## To Do:
 
 ```

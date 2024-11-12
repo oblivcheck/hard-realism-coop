@@ -19,6 +19,19 @@ public Plugin:myinfo =
   url = PLUGIN_URL
 }
 
+#define IS_VALID_CLIENT(%1) (%1 > 0 && %1 <= MaxClients)
+#define IS_CONNECTED_INGAME(%1) (IsClientConnected(%1) && IsClientInGame(%1))
+#define IS_SURVIVOR(%1) (GetClientTeam(%1) == 2)
+#define IS_INFECTED(%1) (GetClientTeam(%1) == 3)
+
+#define IS_VALID_INGAME(%1) (IS_VALID_CLIENT(%1) && IS_CONNECTED_INGAME(%1))
+
+#define IS_VALID_SURVIVOR(%1) (IS_VALID_INGAME(%1) && IS_SURVIVOR(%1))
+#define IS_VALID_INFECTED(%1) (IS_VALID_INGAME(%1) && IS_INFECTED(%1))
+
+#define IS_SURVIVOR_ALIVE(%1) (IS_VALID_SURVIVOR(%1) && IsPlayerAlive(%1))
+#define IS_INFECTED_ALIVE(%1) (IS_VALID_INFECTED(%1) && IsPlayerAlive(%1))
+
 ConVar  hCvarModeEnable;
 bool  g_bModeEnable;
 ConVar  g_hCIDMG_Multi;
@@ -40,6 +53,8 @@ bool bDynJump;
 
 ConVar  hWam;
 bool  bWam;
+
+int snum[MAXPLAYERS+1];
 
 public void OnPluginStart()
 {
@@ -133,6 +148,8 @@ public void ApplyCvars()
     ServerCommand("sm_cvar z_hunter_health 350");
     ServerCommand("sm_cvar z_jockey_health 500");
 
+    ServerCommand("sm plugins reload l4d_reservecontrol"); 
+    WEAPON_AdjWeaponAttr();
 
     //削弱推挤
     //g_bNerfShove = true;
@@ -166,28 +183,18 @@ public void ApplyCvars()
       if(IsClientInGame(i) && GetClientTeam(i) == 2)
       SDKHook(i, SDKHook_OnTakeDamage, eOnTakeDamage);
     }
-    //L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2FWA_CycleTime, 0.45);  
     ServerCommand("sm_cvar Survivor_incapacitated_cycle_time \"0.45\"");
     //与自动射击插件配合，用于降低出现动画&特效错误的概率
     ServerCommand("sm_cvar wh_use_incap_cycle_cvar \"0\"");
     ServerCommand("sm_cvar wh_double_pistol_cycle_rate \"1\"");
     ServerCommand("sm_cvar wh_deploy_animation_speed \"0\"");
-
-    //L4D2_SetFloatWeaponAttribute("weapon_pistol", L4D2FWA_CycleTime, 0.275);  
-    //L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2FWA_CycleTime, 0.45);  
-
-    //L4D2_SetFloatWeaponAttribute("weapon_rifle_ak47", L4D2FWA_CycleTime, 0.1);
-    L4D2_SetIntWeaponAttribute("weapon_rifle", L4D2IWA_Damage, 38);
-    L4D2_SetIntWeaponAttribute("weapon_rifle_sg552", L4D2IWA_Damage, 38);
-
     GetConVarString(FindConVar("mp_gamemode"), g_sCvar_old_gamemode, sizeof(g_sCvar_old_gamemode) );
     GetConVarString(FindConVar("z_difficulty"), g_sCvar_old_difficulty, sizeof(g_sCvar_old_difficulty) );
 
     ServerCommand("sm_cvar mp_gamemode \"realism\"");
     ServerCommand("sm_cvar z_difficulty \"Impossible\"");
     ServerCommand("sm_cvar sv_vote_issue_change_difficulty_allowed \"0\"");
-    //八分之一
-    ServerCommand("sm_cvar z_non_head_damage_factor_expert \"0.25\"");
+    ServerCommand("sm_cvar z_non_head_damage_factor_expert \"0.2\"");
     //友伤
     ServerCommand("sm_cvar survivor_friendly_fire_factor_expert \"1.0\"");
     ServerCommand("sm_cvar z_friendly_fire_forgiveness \"0\"");
@@ -245,7 +252,8 @@ public void ApplyCvars()
     ServerCommand("sm_cvar z_hunter_health 250");
     ServerCommand("sm_cvar z_jockey_health 325");
 
-
+    ServerCommand("sm plugins unload l4d_reservecontrol"); 
+    WEAPON_ResetWeaponAttr();
     //g_bNerfShove = false;
     ServerCommand("sm_cvar z_gun_swing_duration 0.2");
     ServerCommand("sm_cvar z_gun_swing_interval 0.7");
@@ -282,34 +290,17 @@ public void ApplyCvars()
       if(IsClientInGame(i) && GetClientTeam(i) == 2)
       SDKUnhook(i, SDKHook_OnTakeDamage, eOnTakeDamage);
     }
-    //  L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2FWA_CycleTime, 0.3);  
     ServerCommand("sm_cvar survivor_incapacitated_cycle_time \"0.3\"");
     ServerCommand("sm_cvar wh_use_incap_cycle_cvar \"1\"");
     ServerCommand("sm_cvar wh_double_pistol_cycle_rate \"0\"");
     //防止干扰速砍
     ServerCommand("sm_cvar wh_deploy_animation_speed \"-1\"");
-
-    L4D2_SetFloatWeaponAttribute("weapon_pistol", L4D2FWA_CycleTime, 0.175);  
-
-    //  L4D2_SetFloatWeaponAttribute("weapon_rifle_ak47", L4D2FWA_CycleTime, 0.1);
-    L4D2_SetIntWeaponAttribute("weapon_rifle", L4D2IWA_Damage, 33);
-    L4D2_SetIntWeaponAttribute("weapon_rifle_sg552", L4D2IWA_Damage, 33);
-
-    L4D2_SetIntWeaponAttribute("weapon_sniper_awp", L4D2IWA_Damage, 120);
-    L4D2_SetIntWeaponAttribute("weapon_sniper_scout", L4D2IWA_Damage, 100);
-    L4D2_SetIntWeaponAttribute("weapon_hunting_rifle", L4D2IWA_Damage, 50);
-    //最好检查这个
-    //  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_PenetrationMaxDist, 1);
-    //  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_CharPenetrationMaxDist, 1);
-
-
     SetConVarString(FindConVar("mp_gamemode"), g_sCvar_old_gamemode);
     SetConVarString(FindConVar("z_difficulty"), g_sCvar_old_difficulty);
 
     ServerCommand("sm_cvar mp_gamemode \"%s\"", g_sCvar_old_gamemode);
     ServerCommand("sm_cvar z_difficulty \"%s\"", g_sCvar_old_difficulty);
     ServerCommand("sm_cvar sv_vote_issue_change_difficulty_allowed \"1\"");
-    //八分之一
     ServerCommand("sm_cvar z_non_head_damage_factor_expert \"0.5\"");
     //友伤
     ServerCommand("sm_cvar survivor_friendly_fire_factor_expert \"0.5\"");
@@ -365,6 +356,7 @@ public void OnClientPutInServer(iClient)
 {
   if(g_bModeEnable)
   SDKHook(iClient, SDKHook_OnTakeDamage, eOnTakeDamage);
+  snum[iClient] = 0;
   if(0< iClient <= MaxClients)
   {
     if(IsFakeClient(iClient) )  return;
@@ -417,6 +409,35 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
     // 要追加友军伤害?
     if(iAttacker < MaxClients)
     {
+      if(GetClientTeam(iVictim) == 3)
+      {
+        if (IS_SURVIVOR_ALIVE(iAttacker))
+        {
+          char buf[24];
+          GetClientWeapon(iAttacker, buf, sizeof(buf) );
+          if(StrContains(buf, "_awp") != -1 )
+          {
+            fDamage = 400.0 ;
+            return Plugin_Changed;
+          }
+          if(StrContains(buf, "_hunt") != -1 )
+          {
+            fDamage = 120.0 ;
+            return Plugin_Changed;
+          }
+          if(StrContains(buf, "_scout") != -1 )
+          {
+            fDamage = 80.0 ;
+            return Plugin_Changed;
+          }
+          if(StrContains(buf, "_mili") != -1 )
+          {
+            fDamage = 150.0 ;
+            return Plugin_Changed;
+          }
+        }
+      }
+
       if(GetClientTeam(iVictim) != 2) return Plugin_Continue;
       // Charger
       if(GetClientTeam(iAttacker) == 3) {
@@ -623,6 +644,7 @@ stock void CheatServerCommand(char[] command)
 public void Event_WeaponFire(Event event, const char[] name, bool dontBroadcast)
 {
   int client = GetClientOfUserId(GetEventInt(event, "userid"));
+  snum[client] = 0;
   char sWeapon[32];
   event.GetString("weapon", sWeapon, sizeof(sWeapon) );
   if(strcmp(sWeapon, "melee") == 0)
@@ -632,4 +654,65 @@ public void Event_WeaponFire(Event event, const char[] name, bool dontBroadcast)
 public void Event_RoundStart(Event event, const char[] name, bool dontBroadcast)
 {
   LoadVScript();
+}
+
+public void OnEntityCreated(int entity, const char[] classname)
+{
+  if (g_bModeEnable)
+  {
+    if (entity <= MaxClients || entity > 2048) return;
+    if (StrEqual(classname, "infected"))
+    {
+        SDKHook(entity, SDKHook_TraceAttack, eOnTraceAttack);
+    }
+  }
+}
+public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &damage, int &damagetype, int &ammotype, int hitbox, int hitgroup)
+{
+
+  if (!g_bModeEnable)
+    return Plugin_Continue;
+  if (!IsClientInGame(attacker))
+    return Plugin_Continue;
+
+  if (GetClientTeam(attacker) == 2)
+  {
+    char buf[24];
+    GetClientWeapon(attacker, buf, sizeof(buf) );
+    if(StrContains(buf, "_awp") != -1 )
+    {
+      if(snum[attacker] == 2) return Plugin_Handled;
+      snum[attacker]++;
+      damage = 2000.0 ;
+      return Plugin_Changed;
+    }
+    if(StrContains(buf, "_hunt") != -1 )
+    {
+      if(snum[attacker] == 2) return Plugin_Handled;
+      snum[attacker]++;
+      damage = 30.0 ;
+      return Plugin_Changed;
+    }
+    if(StrContains(buf, "_scout") != -1 )
+    {
+      if(snum[attacker] == 1) return Plugin_Handled;
+      snum[attacker]++;
+      damage = 100.0 ;
+      return Plugin_Changed;
+    }
+    if(StrContains(buf, "_mili") != -1 )
+    {
+      if(snum[attacker] == 2) return Plugin_Handled;
+      snum[attacker]++;
+      damage = 20.0 ;
+      return Plugin_Changed;
+    }
+    if(StrContains(buf, "shotgun") == -1 || StrContains(buf, "melee") == -1)
+      return Plugin_Continue;
+
+
+    damagetype = damagetype & ~DMG_CLUB;
+    return Plugin_Changed;
+  }
+  return Plugin_Continue;
 }
