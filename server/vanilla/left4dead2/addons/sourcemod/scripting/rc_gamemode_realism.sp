@@ -690,21 +690,21 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
     {
       if(snum[attacker] == 2) return Plugin_Handled;
       snum[attacker]++;
-      damage = 30.0 ;
+      damage = 300.0 ;
       return Plugin_Changed;
     }
     if(StrContains(buf, "_scout") != -1 )
     {
       if(snum[attacker] == 1) return Plugin_Handled;
       snum[attacker]++;
-      damage = 100.0 ;
+      damage = 600.0 ;
       return Plugin_Changed;
     }
     if(StrContains(buf, "_mili") != -1 )
     {
       if(snum[attacker] == 2) return Plugin_Handled;
       snum[attacker]++;
-      damage = 20.0 ;
+      damage = 200.0 ;
       return Plugin_Changed;
     }
     if(StrContains(buf, "shotgun") == -1 || StrContains(buf, "melee") == -1)
