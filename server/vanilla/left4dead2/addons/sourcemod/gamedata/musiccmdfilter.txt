@@ -1,0 +1,50 @@
+"Games"
+{
+	"left4dead2"
+	{
+		"Functions"
+		{
+			"Music::Play"
+			{
+				"signature"  "Music::Play"
+				"callconv"  "thiscall"
+				"return"  "void"
+				"this"  "ignore"
+				"arguments"
+				{
+					"SongString"
+					{
+						"type"    "charptr"
+					}
+					"EntIndex"
+					{
+						"type"    "int"
+					}
+					"intensity"
+					{
+						"type"    "float"
+					} 
+					"Survivors_Only"
+					{
+						"type"    "bool"
+					}
+					"Music_From_Entity"
+					{
+						"type"    "bool"
+					}
+				}
+			}
+		}
+		"Signatures"
+		{
+			"Music::Play"
+			{
+				"library"		"server"
+				"linux"			"@_ZN5Music4PlayEPKcifbb"
+				"windows"		"\x55\x8B\xEC\x81\xEC\xDC\x00\x00\x00\xA1\x2A\x2A\x2A\x2A\x33\xC5\x89\x45\xFC\xA1\x2A\x2A\x2A\x2A\x83"
+								/* 55 8B EC 81 EC DC 00 00 00 A1 ? ? ? ? 33 C5 89 45 FC A1 ? ? ? ? 83 */
+				
+			}
+		}
+	}
+}

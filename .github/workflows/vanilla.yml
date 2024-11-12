@@ -19,11 +19,37 @@ jobs:
         shell: bash
         run: |
           cd server/vanilla/
-          bash action.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+          bash action-testing-build.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
           tar -czvf package.tar.gz package/
 
       - name: Done
         uses: actions/upload-artifact@v4
         with:
-          name: package.241107-0.tar.gz
+          name: package.241112-0.tar.gz
           path: server/vanilla/package.tar.gz
+          compression-level: 0
+
+  Update-Package:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install apt packages
+        shell: bash
+        run: |
+          sudo apt-get install -y wget curl
+
+      - name: Packing
+        shell: bash
+        run: |
+          cd server/vanilla/
+          bash action-update-package.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+          tar -czvf update-package.tar.gz package/
+
+      - name: Done
+        uses: actions/upload-artifact@v4
+        with:
+          name: update-package.241112-0.tar.gz
+          path: server/vanilla/package.tar.gz
+          compression-level: 0
