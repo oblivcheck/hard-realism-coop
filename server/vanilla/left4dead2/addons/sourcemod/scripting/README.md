@@ -17,7 +17,6 @@ l4d2_dynamic_jump.smx
 l4d2_incapped_crawling.smx
 l4d2_item_hint.smx
 l4d2_limit_jump.smx
-l4d2_realismMagnum.smx
 l4d2_sb_fix.smx
 L4D2_Survivor_Legs.smx
 l4d2_unreservelobby.smx

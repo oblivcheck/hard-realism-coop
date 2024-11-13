@@ -449,8 +449,9 @@ module Receive
 
     def self.revd_sha2(socket)
       return -1 unless IO.select([socket], nil, nil, @timeout)
-      sha256 = socket.gets.chomp
-      return 0 if sha256.nil?
+      data = socket.gets
+      return 0 if data.nil?
+      sha256 = data.gets.chomp
       return sha256
     end
 
@@ -589,8 +590,11 @@ module Control
               Log.sv("[C/#{@num}]", "等待数据超时(#{address})", 1)
               next
             end
-            
-            data = client.gets.chomp
+
+            client_key = client.gets
+            next if client_key.nil?
+
+            data = client_key.chomp
             if data != @key
               Log.sv("[C/#{@num}]", "未通过验证(#{address})", 1)
               client.close
