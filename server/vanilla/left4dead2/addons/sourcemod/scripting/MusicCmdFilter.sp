@@ -66,15 +66,22 @@ public void OnPluginStart()
 		
 	delete hGamedata;
 
-  CreateTimer(1.0, tDelay);
+  CreateTimer(5.0, tDelay);
 }
 
+ConVar hModeEnable;
 Action tDelay(Handle Timer)
 {
-  ConVar hModeEnable = FindConVar("rc_gamemode_realism_enable");
+  hModeEnable = FindConVar("rc_gamemode_realism_enable");
   if (hModeEnable != null)
-    bModeEnable = hModeEnable.BoolValue;
+    hModeEnable.AddChangeHook(Event_ConVarChanged);
+  else
+    PrintToChatAll("ERROR(MCF): Cant Find RPP ConVar");
   return Plugin_Continue;
+}
+
+public void Event_ConVarChanged(ConVar convar, const char[] oldValue, const char[] newValue){
+    bModeEnable = hModeEnable.BoolValue;
 }
 
 public MRESReturn MusicFilter(Handle hParams)

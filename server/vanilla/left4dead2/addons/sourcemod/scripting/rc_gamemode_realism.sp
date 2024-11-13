@@ -679,6 +679,13 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
   {
     char buf[24];
     GetClientWeapon(attacker, buf, sizeof(buf) );
+    if(StrContains(buf, "_mag") != -1 )
+    {
+      if(snum[attacker] == 2) return Plugin_Handled;
+      snum[attacker]++;
+      damage = 300.0 ;
+      return Plugin_Changed;
+    }
     if(StrContains(buf, "_awp") != -1 )
     {
       if(snum[attacker] == 2) return Plugin_Handled;
