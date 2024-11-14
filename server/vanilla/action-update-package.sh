@@ -11,7 +11,7 @@ PACKAGE_DIR="$SCRIPT_DIR/$TAG"
 
 # 创建必要文件夹
 cd "$SCRIPT_DIR"
-mkdir $TAG
+mkdir "$TAG"
 cd "$PACKAGE_DIR"
 mkdir left4dead2
 cd "$PACKAGE_DIR/left4dead2"
@@ -34,16 +34,16 @@ cd "$PACKAGE_DIR/left4dead2"
   # 编译插件
   ./compile.sh *.sp
   # 移动插件
-  mkdir $SCRIPT_DIR/tmp
-  cp compiled/*.smx $SCRIPT_DIR/tmp/
+  mkdir "$SCRIPT_DIR/tmp"
+  cp compiled/*.smx "$SCRIPT_DIR/tmp/"
   # 整理包裹
-  rm -r $PACKAGE_DIR/*
-  cp -r $SCRIPT_DIR/left4dead2 $PACKAGE_DIR/
-  cd $PACKAGE_DIR
+  rm -r "$PACKAGE_DIR/*"
+  cp -r "$SCRIPT_DIR/left4dead2" "$PACKAGE_DIR/"
+  cd "$PACKAGE_DIR"
   echo "https://github.com/${{ github.repository }}/tree/${{ github.sha }}" > COMMIT
-  cp $SCRIPT_DIR/tmp/* left4dead2/addons/sourcemod/plugins/
+  mkdir -p left4dead2/addons/sourcemod/plugins/ && cp "$SCRIPT_DIR/tmp/*" left4dead2/addons/sourcemod/plugins/
   cd ../
-  tar -cvf "package.tar" $PACKAGE_DIR
+  tar -cvf "package.tar" "$PACKAGE_DIR"
 
 
  
