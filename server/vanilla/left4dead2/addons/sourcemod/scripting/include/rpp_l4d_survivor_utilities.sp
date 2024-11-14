@@ -125,6 +125,7 @@ void rpp_OnClientRunCmd(int client, int buttons)
   if(buttons & IN_JUMP)
   {
     counter[client] = iTick;
+    SU_SetSpeed(client, SPEED_RUN, 115.0);
   }
 //  if(!bRPP) return;
   if(exhaust[client] > 0)

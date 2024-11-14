@@ -74,7 +74,10 @@ Action tDelay(Handle Timer)
 {
   hModeEnable = FindConVar("rc_gamemode_realism_enable");
   if (hModeEnable != null)
+  {
     hModeEnable.AddChangeHook(Event_ConVarChanged);
+    bModeEnable = hModeEnable.BoolValue;
+  }
   else
     PrintToChatAll("ERROR(MCF): Cant Find RPP ConVar");
   return Plugin_Continue;

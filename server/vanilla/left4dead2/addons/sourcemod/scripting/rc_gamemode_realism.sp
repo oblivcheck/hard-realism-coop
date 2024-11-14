@@ -3,6 +3,7 @@
 #include <sdktools>
 #include <left4dhooks>
 #include <rpp/weapon>
+#include <rpp/sound>
 
 #define PLUGIN_NAME       "Gamemode: Realism++"
 #define PLUGIN_DESCRIPTION    "Realism++"
@@ -150,7 +151,8 @@ public void ApplyCvars()
 
     ServerCommand("sm plugins reload l4d_reservecontrol"); 
     WEAPON_AdjWeaponAttr();
-
+    SOUND_CreateHook();
+    
     //削弱推挤
     //g_bNerfShove = true;
     ServerCommand("sm_cvar z_gun_swing_duration 0.15");
@@ -254,6 +256,8 @@ public void ApplyCvars()
 
     ServerCommand("sm plugins unload l4d_reservecontrol"); 
     WEAPON_ResetWeaponAttr();
+    SOUND_UnHook();
+
     //g_bNerfShove = false;
     ServerCommand("sm_cvar z_gun_swing_duration 0.2");
     ServerCommand("sm_cvar z_gun_swing_interval 0.7");
@@ -406,18 +410,17 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
         }
       }
     }
-    // 要追加友军伤害?
     if(iAttacker < MaxClients)
     {
       if(GetClientTeam(iVictim) == 3)
       {
-        if (IS_SURVIVOR_ALIVE(iAttacker))
+        if (GetClientTeam(iAttacker) == 2)
         {
           char buf[24];
           GetClientWeapon(iAttacker, buf, sizeof(buf) );
           if(StrContains(buf, "_awp") != -1 )
           {
-            fDamage = 400.0 ;
+            fDamage = 1000.0 ;
             return Plugin_Changed;
           }
           if(StrContains(buf, "_hunt") != -1 )
@@ -456,14 +459,36 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
           GetEntityClassname(weapon, weaponName, sizeof(weaponName));
           if(strcmp(weaponName, "weapon_melee") == 0.0) 
           {
-            fDamage = 1000.0; 
+            fDamage = 1000.0;
             return Plugin_Changed;
           }  
           if(strcmp(weaponName, "weapon_pistol_magnum") == 0)
           {
             fDamage = 100.0;
             return Plugin_Changed;
-          }  
+          }
+          if(StrContains(weaponName, "_awp") != -1 )
+          {
+            fDamage = 1000.0 ;
+            iDamagetype = iDamagetype | DMG_FALL;            
+            return Plugin_Changed;
+          }
+          if(StrContains(weaponName, "_hunt") != -1 )
+          {
+            fDamage = 80.0 ;
+            return Plugin_Changed;
+          }
+          if(StrContains(weaponName, "_scout") != -1 )
+          {
+            fDamage = 100.0 ;
+            return Plugin_Changed;
+          }
+          if(StrContains(weaponName, "_mili") != -1 )
+          {
+            fDamage = 80.0 ;
+            return Plugin_Changed;
+          }
+ 
         }
       }
     }
