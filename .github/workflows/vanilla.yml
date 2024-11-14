@@ -25,7 +25,7 @@ jobs:
       - name: Done
         uses: actions/upload-artifact@v4
         with:
-          name: package.241112-0.tar.gz
+          name: package.241114-0.tar.gz
           path: server/vanilla/package.tar.gz
           compression-level: 0
 
@@ -45,11 +45,10 @@ jobs:
         run: |
           cd server/vanilla/
           bash action-update-package.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
-          tar -czvf update-package.tar.gz package/
 
       - name: Done
         uses: actions/upload-artifact@v4
         with:
-          name: update-package.241112-0.tar.gz
-          path: server/vanilla/package.tar.gz
+          name: update-package.241114-0.tar
+          path: server/vanilla/package.tar
           compression-level: 0
