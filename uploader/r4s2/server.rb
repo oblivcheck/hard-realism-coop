@@ -171,6 +171,7 @@ module Receive
       reader.each_entry do |entry|
         reader.extract(entry, flags.to_i,  destination: e_path)
         name = entry.pathname
+        # 下面是在创建文件描述中的include部分
         if hash.nil?
           hash = [::File.basename(name) => name]
           file.include = hash
@@ -390,10 +391,15 @@ module Receive
       Log.sv(prefix, "#{address} 文件 #{info[0]} 接收完成")
       file.time = Time.now.strftime('%Y-%m-%d_%H-%M-%S')
       socket.puts "_VS_"
+
+      export_path = "#{save_path}"
       if Receive.valid_formats?(file.type)
         Log.sv(prefix, "#{address} 文件 #{info[0]} 开始解压...")
         socket.puts "_SEF_"
-        Receive::Archive.unzip(file, "#{@save_path}/#{file.name}", @save_path)
+        extname = ::File.extname(file.name);
+        export_path = "#{save_path}/#{::File.basename(file.name, extname)}"
+        `mkdir -p "#{export_path}" `
+        Receive::Archive.unzip(file, "#{@save_path}/#{file.name}", export_path)
       else
         socket.puts "_NONE_"
       end
@@ -402,7 +408,17 @@ module Receive
       Receive::Archive.write(file)
       socket.puts "_SUS_"
       Log.sv(prefix, "#{address} 文件 #{info[0]} 上传完成！")
-      `bash shell/linkvpk.sh`
+      # 重命名addons目录下的vpk文件，避免某些文件名不被专用服务器识别
+      # 可能需要更改源文件的名称而不是软链接?
+      Log.sv(prefix, "#{address} 正在为文件 #{info[0]} 创建符号链接")
+      socket.puts "_CSL_"
+      Log.sv(prefix, "#{address} 文件 #{info[0]} linkvpk.sh #{export_path} #{info[4]} ")
+      `bash shell/linkvpk.sh "#{export_path} "#{info[4]}" `
+      Log.sv(prefix, "#{address} 正在通知服务器重新启动...")
+      socket.puts "_CSL_"
+      msg = `bash shell/restart.sh`
+      socket.puts "#{msg}"
+    
       socket.close
     end
 
@@ -413,7 +429,7 @@ module Receive
     end
  
     def self.revd_file(socket, info, address, prefix)
-      name, size, type, uploader = info
+      name, size, type, uploader, target_server = info
       size = size.to_i
       file = Receive::File.new(name: name, size: size, type: type, uploader: uploader)
       path = "#{@save_path}/#{file.name}"

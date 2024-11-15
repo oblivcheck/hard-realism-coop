@@ -40,7 +40,7 @@ def upload(file_path, addr)
   name = File.basename(file_path)
   file_size = File.size(file_path)
   
-  socket.puts "::sctest_greenflu_/"
+  socket.puts "::sctest_greenflu_/1115"
   if socket.gets != "_READY_\n"
     Log.cl("等待服务器响应超时", 0)
     return
@@ -48,7 +48,7 @@ def upload(file_path, addr)
   
   file_size_fd = format('%.4f', file_size / 1048576.0)
   Log.cl ("准备上传文件: #{name} ，大小: #{file_size} bytes (#{file_size_fd} mbits)")
-  data = "#{name},#{file_size.to_s},#{File.extname(file_path)},test"
+  data = "#{name},#{file_size.to_s},#{File.extname(file_path)},test,#{addr}"
   socket.puts(data)
 
   sha256 = Digest::SHA256.new
@@ -97,8 +97,20 @@ def upload(file_path, addr)
     msg = socket.gets
     msg.nil? ? msg : msg = msg.chomp
     if msg == "_SUS_"
-      Log.cl("成功...")
+      Log.cl("移动vpk文件")
     end
+    msg = socket.gets
+    msg.nil? ? msg : msg = msg.chomp
+    if msg == "_CSL_"
+      Log.cl("正在为addons目录创建到vpk文件的符号链接...")
+    end
+    msg = socket.gets
+    msg.nil? ? msg : msg = msg.chomp 
+    if msg == "_REST_"
+      Log.cl("正在通知服务器重新启动...")
+    end
+    msg = socket.gets
+    Log.cl("来自服务器的消息: #{msg}");
   rescue => e
     Log.cl("#{e.class}|#{e.message}", 0)
   end
