@@ -413,7 +413,7 @@ module Receive
       Log.sv(prefix, "#{address} 正在为文件 #{info[0]} 创建符号链接")
       socket.puts "_CSL_"
       Log.sv(prefix, "#{address} 文件 #{info[0]} linkvpk.sh #{export_path} #{info[4]} ")
-      `bash shell/linkvpk.sh "#{export_path} "#{info[4]}" `
+      `bash shell/linkvpk.sh "#{export_path}" "#{info[4]}" `
       Log.sv(prefix, "#{address} 正在通知服务器重新启动...")
       socket.puts "_RESET_"
       msg = `bash shell/restart.sh`

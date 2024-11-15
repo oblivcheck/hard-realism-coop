@@ -102,7 +102,7 @@ def upload(file_path, addr)
     msg = socket.gets
     msg.nil? ? msg : msg = msg.chomp
     if msg == "_CSL_"
-      Log.cl("正在为addons目录创建到vpk文件的符号链接...")
+      Log.cl("正在addons目录中创建vpk文件的符号链接...")
     end
     msg = socket.gets
     msg.nil? ? msg : msg = msg.chomp 
