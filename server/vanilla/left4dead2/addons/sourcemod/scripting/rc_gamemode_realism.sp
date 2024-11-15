@@ -420,7 +420,7 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
           GetClientWeapon(iAttacker, buf, sizeof(buf) );
           if(StrContains(buf, "_awp") != -1 )
           {
-            fDamage = 1000.0 ;
+            fDamage = 400.0 ;
             return Plugin_Changed;
           }
           if(StrContains(buf, "_hunt") != -1 )

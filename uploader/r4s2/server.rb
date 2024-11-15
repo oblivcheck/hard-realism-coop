@@ -451,7 +451,7 @@ module Receive
       return -1 unless IO.select([socket], nil, nil, @timeout)
       data = socket.gets
       return 0 if data.nil?
-      sha256 = data.gets.chomp
+      sha256 = data.chomp
       return sha256
     end
 
