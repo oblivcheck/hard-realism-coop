@@ -392,12 +392,12 @@ module Receive
       file.time = Time.now.strftime('%Y-%m-%d_%H-%M-%S')
       socket.puts "_VS_"
 
-      export_path = "#{save_path}"
+      export_path = "#{@save_path}"
       if Receive.valid_formats?(file.type)
         Log.sv(prefix, "#{address} 文件 #{info[0]} 开始解压...")
         socket.puts "_SEF_"
         extname = ::File.extname(file.name);
-        export_path = "#{save_path}/#{::File.basename(file.name, extname)}"
+        export_path = "#{@save_path}/#{::File.basename(file.name, extname)}"
         `mkdir -p "#{export_path}" `
         Receive::Archive.unzip(file, "#{@save_path}/#{file.name}", export_path)
       else
@@ -415,7 +415,7 @@ module Receive
       Log.sv(prefix, "#{address} 文件 #{info[0]} linkvpk.sh #{export_path} #{info[4]} ")
       `bash shell/linkvpk.sh "#{export_path} "#{info[4]}" `
       Log.sv(prefix, "#{address} 正在通知服务器重新启动...")
-      socket.puts "_CSL_"
+      socket.puts "_RESET_"
       msg = `bash shell/restart.sh`
       socket.puts "#{msg}"
     

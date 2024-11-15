@@ -40,7 +40,7 @@ def upload(file_path, addr)
   name = File.basename(file_path)
   file_size = File.size(file_path)
   
-  socket.puts "::sctest_greenflu_/1115"
+  socket.puts "::sctest_greenflu1115"
   if socket.gets != "_READY_\n"
     Log.cl("等待服务器响应超时", 0)
     return
@@ -106,11 +106,13 @@ def upload(file_path, addr)
     end
     msg = socket.gets
     msg.nil? ? msg : msg = msg.chomp 
-    if msg == "_REST_"
+    if msg == "_RESET_"
       Log.cl("正在通知服务器重新启动...")
     end
     msg = socket.gets
-    Log.cl("来自服务器的消息: #{msg}");
+    msg.nil? ? msg : msg = msg.chomp 
+    Log.cl("来自服务器的消息:");
+    puts msg
   rescue => e
     Log.cl("#{e.class}|#{e.message}", 0)
   end

@@ -120,7 +120,8 @@ module Config
       config_get("server", "log_path")
     end
   end
-
+  # :)
+  `mkdir -p data`
   Dir.mkdir(Config.server_log_path) unless Dir.exist?(Config.server_log_path)
   Dir.mkdir(Config.server_data_path) unless Dir.exist?(Config.server_data_path)
 end
