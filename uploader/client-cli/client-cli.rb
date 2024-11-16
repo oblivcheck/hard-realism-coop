@@ -113,6 +113,7 @@ def upload(file_path, addr)
     msg.nil? ? msg : msg = msg.chomp 
     Log.cl("来自服务器的消息:");
     puts msg
+    msg = "_SUS_"
   rescue => e
     Log.cl("#{e.class}|#{e.message}", 0)
   end
@@ -282,7 +283,7 @@ module Archive
 
       list.each do |file|
         msg = upload(file, addr)
-        if msg == "_SWI_" || msg == "_SUS_"
+        if msg == "_SUS_"
           if Archive.linux?
             FileUtils.mv(file, "../#{path[1]}/")
           else

@@ -341,6 +341,7 @@ module Receive
 
     # def self.delete()
     def self.handle(socket, num)
+begin
       address = socket.peeraddr(:numeric)
       address = [address[2], address[1]].to_s
       prefix = "[R/#{num}]"
@@ -412,14 +413,25 @@ module Receive
       # 可能需要更改源文件的名称而不是软链接?
       Log.sv(prefix, "#{address} 正在为文件 #{info[0]} 创建符号链接")
       socket.puts "_CSL_"
-      Log.sv(prefix, "#{address} 文件 #{info[0]} linkvpk.sh #{export_path} #{info[4]} ")
-      `bash shell/linkvpk.sh "#{export_path}" "#{info[4]}" `
+      if Receive.valid_formats?(file.type)
+        Log.sv(prefix, "#{address} 文件 #{info[0]} linkvpk.sh #{export_path} #{info[4]} ")
+        `bash shell/linkvpk.sh "#{export_path}" "#{info[4]}" `
+      else
+        Log.sv(prefix, "#{address} 文件 #{info[0]} |linkvpk.sh|#{export_path}/#{info[0]}|#{info[4]} ")
+        `bash shell/linkvpk.sh "#{export_path}/#{info[0]}" "#{info[4]}" `
+      end
       Log.sv(prefix, "#{address} 正在通知服务器重新启动...")
       socket.puts "_RESET_"
       msg = `bash shell/restart.sh`
       socket.puts "#{msg}"
     
       socket.close
+rescue => e
+      Log.sv(prefix, "处理(#{address})时出现异常: #{e.class}|#{e.message}", 0)
+      e.backtrace.each do |line|
+        puts line
+      end 
+end
     end
 
     def self.revd_info(socket)
