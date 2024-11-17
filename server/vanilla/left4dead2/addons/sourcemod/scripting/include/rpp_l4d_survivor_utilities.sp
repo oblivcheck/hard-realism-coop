@@ -124,8 +124,8 @@ void rpp_OnClientRunCmd(int client, int buttons)
 
   if(buttons & IN_JUMP)
   {
+    // 考虑静步，这里实际上需要已经被减速才会触发
     counter[client] = iTick;
-    SU_SetSpeed(client, SPEED_RUN, 115.0);
   }
 //  if(!bRPP) return;
   if(exhaust[client] > 0)
