@@ -24,7 +24,6 @@ void rpp_start()
 {
   hTick = FindConVar("sv_minupdaterate");
   iTick = hTick.IntValue;
-  hTick.AddChangeHook(CvarChange);
   
   CreateTimer(3.0, tDelay);
 }
@@ -39,6 +38,9 @@ Action tDelay(Handle Timer)
     hRPP.AddChangeHook(CvarChange);
     HookEvent("weapon_fire", Event_WeaponFire);
   }
+
+  hTick.AddChangeHook(CvarChange);
+
   return Plugin_Continue;
 }
 
