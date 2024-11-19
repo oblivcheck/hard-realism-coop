@@ -64,8 +64,8 @@ public void OnPluginStart()
 
   hCvarModeEnable = CreateConVar("rc_gamemode_realism_enable", "0");  
   g_hCIDMG_Multi = CreateConVar("rc_gamemode_realism_cidmg", "1.0");
-  g_hCIDMG_Multi_Incap = CreateConVar("rc_gamemode_realism_cidmg_incap", "0.75");
-  g_hTankHP_Multi = CreateConVar("rc_gamemode_realism_tankhp", "2.0");
+  g_hCIDMG_Multi_Incap = CreateConVar("rc_gamemode_realism_cidmg_incap", "0.50");
+  g_hTankHP_Multi = CreateConVar("rc_gamemode_realism_tankhp", "2.5");
   g_hBotFF = CreateConVar("rc_gamemode_realism_bot_friendly_fire", "0");
 
   g_bModeEnable = hCvarModeEnable.BoolValue;
@@ -166,7 +166,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar l4d_si_ability_enabled \"1\"");
     ServerCommand("sm_cvar l4d_si_ability_shove \"18\"");
 
-    ServerCommand("sm_cvar z_speed \"300\"");
+//    ServerCommand("sm_cvar z_speed \"300\"");
     ServerCommand("sm_cvar rc_asdl_enable \"0\"");
     ServerCommand("sm_cvar l4d2_lj_enabled 1");
     ServerCommand("sm plugins load l4d_wam");
@@ -183,7 +183,10 @@ public void ApplyCvars()
     for(int i=1;i<MaxClients;i++)
     {
       if(IsClientInGame(i) && GetClientTeam(i) == 2)
-      SDKHook(i, SDKHook_OnTakeDamage, eOnTakeDamage);
+      {
+        SDKHook(i, SDKHook_OnTakeDamage, eOnTakeDamage);
+        // SDKHook(i, SDKHook_OnTakeDamagePost, eOnTakeDamagePost);
+      }
     }
     ServerCommand("sm_cvar Survivor_incapacitated_cycle_time \"0.45\"");
     //与自动射击插件配合，用于降低出现动画&特效错误的概率
@@ -217,8 +220,8 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tank_burn_duration_expert \"170\"");  
     ServerCommand("sm_cvar tank_stuck_time_suicide \"60\"");  
     
-    ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"50\"");  
-    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.3f\"");  
+    ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"35\"");  
+    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.1f\"");  
 
     ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.85\"");
     ServerCommand("sm_cvar l4d_weapon_auto_fire_enable \"1\"");
@@ -274,7 +277,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar z_jockey_leap_range 200");
 
     ServerCommand("sm_cvar l4d_si_ability_enabled \"0\"");
-    ServerCommand("sm_cvar z_speed \"250\"");
+//    ServerCommand("sm_cvar z_speed \"250\"");
     ServerCommand("sm_cvar rc_asdl_enable \"0\"");
     ServerCommand("sm_cvar l4d2_lj_enabled 0");
     ServerCommand("sm_cvar director_afk_timeout 45")
@@ -387,7 +390,7 @@ public void OnClientPutInServer(iClient)
   }
 }
 
-public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float &fDamage, int &iDamagetype, int &weapon, float damageForce[3], float damagePosition[3])
+public Action eOnTakeDamagePost(int iVictim, int &iAttacker, int &iInflictor, float &fDamage, int &iDamagetype, int &weapon, float damageForce[3], float damagePosition[3])
 {
   if(iAttacker < 1)  return Plugin_Continue;
 
@@ -403,11 +406,34 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
         GetEntityClassname(iAttacker, sClassName, sizeof(sClassName));
         if(strcmp(sClassName, "infected", false) == 0)
         {
-          if(L4D_IsPlayerIncapacitated(iVictim) )
-          fDamage = fDamage * g_fCIDMG_Multi_Incap;
-          else  fDamage = fDamage * g_fCIDMG_Multi;
-          return Plugin_Changed;
+          if(GetRandomFloat(0.00, 100.00) >= 50.00)
+          {
+            // 这会导致段错误
+            StaggerClient(GetClientUserId(iVictim), damagePosition);   
+          }
         }
+      }
+    }
+  }
+
+  return Plugin_Continue;
+}
+public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float &fDamage, int &iDamagetype, int &weapon, float damageForce[3], float damagePosition[3])
+{
+  if(iAttacker < 1)  return Plugin_Continue;
+
+  if(fDamage == 0.0)  return Plugin_Continue;
+
+  if( 0 < iVictim < MaxClients )
+  {
+    if( iAttacker > MaxClients)
+    {
+      if(GetClientTeam(iVictim) == 2)  
+      {
+        if(L4D_IsPlayerIncapacitated(iVictim) )
+          fDamage = fDamage * g_fCIDMG_Multi_Incap;
+        else  fDamage = fDamage * g_fCIDMG_Multi;
+        return Plugin_Changed;
       }
     }
     if(iAttacker < MaxClients)
@@ -747,4 +773,30 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
     return Plugin_Changed;
   }
   return Plugin_Continue;
+}
+
+// taken from:
+// [L4D & L4D2] Survivor Shove (1.15) [04-Aug-2022]
+// https://forums.alliedmods.net/showthread.php?p=2667050
+// Author = "Silvers"
+//===================================================================================================
+//    Stumble Client
+//===================================================================================================
+void StaggerClient(int userid, const float vPos[3])
+{
+        static int iScriptLogic = INVALID_ENT_REFERENCE;
+        if(iScriptLogic == INVALID_ENT_REFERENCE || !IsValidEntity(iScriptLogic))
+        {
+                iScriptLogic = EntIndexToEntRef(CreateEntityByName("logic_script"));
+                if(iScriptLogic == INVALID_ENT_REFERENCE || !IsValidEntity(iScriptLogic))
+                        LogError("Could not create 'logic_script");
+
+                DispatchSpawn(iScriptLogic);
+        }
+
+        char sBuffer[96];
+        Format(sBuffer, sizeof(sBuffer), "GetPlayerFromUserID(%d).Stagger(Vector(%d,%d,%d))", userid, RoundFloat(vPos[0]), RoundFloat(vPos[1]), RoundFloat(vPos[2]));
+        SetVariantString(sBuffer);
+        AcceptEntityInput(iScriptLogic, "RunScriptCode");
+        RemoveEntity(iScriptLogic);
 }

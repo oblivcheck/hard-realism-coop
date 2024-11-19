@@ -68,20 +68,30 @@ void WEAPON_ResetWeaponAttr()
   L4D2_SetIntWeaponAttribute("weapon_shotgun_chrome", L4D2IWA_ClipSize, 8);
   L4D2_SetIntWeaponAttribute("weapon_autoshotgun", L4D2IWA_ClipSize, 10);
   L4D2_SetIntWeaponAttribute("weapon_shotgun_spas", L4D2IWA_ClipSize, 10);
+
+  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_PelletScatterPitch, 5.0);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_chrome", L4D2FWA_PelletScatterPitch, 4.0);
+  L4D2_SetFloatWeaponAttribute("weapon_autoshotgun", L4D2FWA_PelletScatterPitch, 4.0);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_spas", L4D2FWA_PelletScatterPitch, 3.5);
+
+  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_PelletScatterYaw, 7.5);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_chrome", L4D2FWA_PelletScatterYaw, 5.0);
+  L4D2_SetFloatWeaponAttribute("weapon_autoshotgun", L4D2FWA_PelletScatterYaw, 8.5);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_spas", L4D2FWA_PelletScatterYaw, 8.0);
 }
 // 暂时懒得调整后坐力与散布 
 void WEAPON_AdjWeaponAttr()
 {
   // - 其它
   L4D2_SetFloatWeaponAttribute("weapon_pistol", L4D2FWA_CycleTime, 0.175);    
-  L4D2_SetIntWeaponAttribute("weapon_smg", L4D2IWA_ClipSize, 40);
+  L4D2_SetIntWeaponAttribute("weapon_smg", L4D2IWA_ClipSize, 30);
   L4D2_SetIntWeaponAttribute("weapon_smg_silenced", L4D2IWA_ClipSize, 30);
-  L4D2_SetIntWeaponAttribute("weapon_smg_mp5", L4D2IWA_ClipSize, 40);
-  L4D2_SetIntWeaponAttribute("weapon_smg", L4D2IWA_DefaultSize, 40);
+  L4D2_SetIntWeaponAttribute("weapon_smg_mp5", L4D2IWA_ClipSize, 30);
+  L4D2_SetIntWeaponAttribute("weapon_smg", L4D2IWA_DefaultSize, 32);
   L4D2_SetIntWeaponAttribute("weapon_smg_silenced", L4D2IWA_DefaultSize, 30);
-  L4D2_SetIntWeaponAttribute("weapon_smg_mp5", L4D2IWA_DefaultSize, 40);
-  // L4D2_SetFloatWeaponAttribute("weapon_smg", L4D2FWA_CycleTime, 0.063);
-  L4D2_SetFloatWeaponAttribute("weapon_smg_silenced", L4D2FWA_CycleTime, 0.055);
+  L4D2_SetIntWeaponAttribute("weapon_smg_mp5", L4D2IWA_DefaultSize, 30);
+  L4D2_SetFloatWeaponAttribute("weapon_smg", L4D2FWA_CycleTime, 0.1);
+  //L4D2_SetFloatWeaponAttribute("weapon_smg_silenced", L4D2FWA_CycleTime, 0.055);
   //L4D2_SetFloatWeaponAttribute("weapon_smg_mp5", L4D2FWA_CycleTime, 0.1);
 
   // - 步枪
@@ -141,5 +151,15 @@ void WEAPON_AdjWeaponAttr()
   L4D2_SetIntWeaponAttribute("weapon_shotgun_chrome", L4D2IWA_ClipSize, 7);
   L4D2_SetIntWeaponAttribute("weapon_autoshotgun", L4D2IWA_ClipSize, 6);
   L4D2_SetIntWeaponAttribute("weapon_shotgun_spas", L4D2IWA_ClipSize, 6);
+
+  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_PelletScatterPitch, 2.5);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_chrome", L4D2FWA_PelletScatterPitch, 2.0);
+  L4D2_SetFloatWeaponAttribute("weapon_autoshotgun", L4D2FWA_PelletScatterPitch, 2.0);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_spas", L4D2FWA_PelletScatterPitch, 1.75);
+
+  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_PelletScatterYaw, 3.75);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_chrome", L4D2FWA_PelletScatterYaw, 2.5);
+  L4D2_SetFloatWeaponAttribute("weapon_autoshotgun", L4D2FWA_PelletScatterYaw, 4.25);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_spas", L4D2FWA_PelletScatterYaw, 4.0);
 }
 
