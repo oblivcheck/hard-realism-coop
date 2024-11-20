@@ -84,7 +84,7 @@ void WEAPON_AdjWeaponAttr()
 {
   // - 其它
   L4D2_SetFloatWeaponAttribute("weapon_pistol", L4D2FWA_CycleTime, 0.175);    
-  L4D2_SetIntWeaponAttribute("weapon_smg", L4D2IWA_ClipSize, 30);
+  L4D2_SetIntWeaponAttribute("weapon_smg", L4D2IWA_ClipSize, 32);
   L4D2_SetIntWeaponAttribute("weapon_smg_silenced", L4D2IWA_ClipSize, 30);
   L4D2_SetIntWeaponAttribute("weapon_smg_mp5", L4D2IWA_ClipSize, 30);
   L4D2_SetIntWeaponAttribute("weapon_smg", L4D2IWA_DefaultSize, 32);

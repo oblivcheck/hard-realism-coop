@@ -166,6 +166,17 @@ Action tCookie(Handle Timer)
 {
   //cConnectServerHint = FindClientCookie("rc_menu_connectserverhint");
   cStatiGameTime = FindClientCookie("rc_stati_playtime_default_re2");
+
+  ServerCommand("l4d2_infected_marker_announce_type \"1\"");
+  ServerCommand("l4d2_item_hint_announce_type \"1\"");
+  ServerCommand("l4d2_infected_marker_glow_color \"\"");
+  ServerCommand("l4d2_item_hint_glow_color \"\"");
+  ServerCommand("l4d2_item_instructorhint_enable \"0\"");
+  ServerCommand("l4d2_spot_marker_color \"\"");
+  ServerCommand("l4d2_spot_marker_instructorhint_enable \"0\"");
+  ServerCommand("l4d2_spot_marker_sprite_model \"\"");     
+  ServerExecute();
+
   return Plugin_Continue;
 }
 
@@ -197,31 +208,21 @@ public void ApplyCvars()
 
   g_hGamemode.GetString(sMode, sizeof(sMode) );
   g_hDifficulty.GetString(sDiff, sizeof(sDiff) );
-    
+
   ServerCommand("l4d2_infected_marker_announce_type \"1\"");
-  ServerCommand("l4d2_infected_marker_glow_color \"255 120 203\"");
-  ServerCommand("l4d2_infected_marker_witch_enable \"1\"");
   ServerCommand("l4d2_item_hint_announce_type \"1\"");
-  ServerCommand("l4d2_item_hint_glow_color \"255 120 203\"");
-  ServerCommand("l4d2_item_instructorhint_enable \"1\"");
-  ServerCommand("l4d2_spot_marker_color \"255 120 203\"");
-  ServerCommand("l4d2_spot_marker_instructorhint_enable \"1\"");
-  char p[]="materials/vgui/icon_arrow_down.vmt";
-  ServerCommand("l4d2_spot_marker_sprite_model \"%s\"", p);
+  ServerCommand("l4d2_infected_marker_glow_color \"\"");
+  ServerCommand("l4d2_item_hint_glow_color \"\"");
+  ServerCommand("l4d2_item_instructorhint_enable \"0\"");
+  ServerCommand("l4d2_spot_marker_color \"\"");
+  ServerCommand("l4d2_spot_marker_instructorhint_enable \"0\"");
+  ServerCommand("l4d2_spot_marker_sprite_model \"\"");     
   ServerExecute();
 
   if(strcmp(sMode, "coop", false) == 0)
     Format(sMode, sizeof(sMode), "Campaign");
   else if(strcmp(sMode, "realism", false) == 0)
   {
-    ServerCommand("l4d2_infected_marker_glow_color \"\"");
-    ServerCommand("l4d2_item_hint_glow_color \"\"");
-    ServerCommand("l4d2_item_instructorhint_enable \"0\"");
-    ServerCommand("l4d2_spot_marker_color \"\"");
-    ServerCommand("l4d2_spot_marker_instructorhint_enable \"0\"");
-    ServerCommand("l4d2_spot_marker_sprite_model \"\"");    
-    ServerExecute();
-    PrintToChatAll("\x04[写实模式中，语音标记的轮廓高亮与悬浮提示将关闭！]");
     Format(sMode, sizeof(sMode), "Realism");
   }
   else if(strcmp(sMode, "survival", false) == 0)
@@ -362,7 +363,12 @@ public Action OnPlayerRunCmd(int client, int& buttons)
       
       if(AreClientCookiesCached(client) )
       {
-        PrintToChat(client, "\x03当前服务器    \x05%s", ServerName);
+        CPrintToChat(client, "{blue}    ========    \x01");
+        PrintToChat(client, "\x03  当前服务器    \x05%s", ServerName);
+        PrintToChat(client, "\x04  Steam组: \x01");
+        PrintToChat(client, "  steamcommunity.com/groups/GreenFluL4d");
+        PrintToChat(client, "\x04  QQ群: \x05948265569\x01");
+        CPrintToChat(client, "{blue}    ========    \x01");
         char sTime[64];
         GetClientCookie(client, cStatiGameTime, sTime, sizeof(sTime) );
         if(!sTime[0])
@@ -529,11 +535,6 @@ stock bool IsValidClient(int client)
 
 #define ADMIN0  1166595366  // wo
 #define ADMIN1  1266097403  // dp
-//#define ADMIN2  1162433713  // yi wu suo you
-//#define ADMIN3  1071849703  //yysy
-//#define ADMIN2  1122  // yi wu suo you
-//#define ADMIN3  1122  //yysy
-
 
 // 此文件用于各种自定义管理员功能
 void GM_Create()

@@ -36,7 +36,6 @@ l4d_unlimited_grenades_fix.smx
 l4d_use_priority.smx
 l4d_weapon_auto_fire.smx
 left4dhooks.smx
-MapChanger.smx
 rc_asd_limit.smx
 rc_cpr.smx
 rc_dsp.smx
