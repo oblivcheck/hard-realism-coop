@@ -1,1 +1,0 @@
-/home/tic//git/myplugins/scripting/include/multicolors/morecolors.inc
