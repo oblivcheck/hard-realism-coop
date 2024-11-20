@@ -43,7 +43,6 @@ rc_dsp.smx
 rc_fun.smx
 rc_menu.smx
 rc_onechance.smx
-rc_server.smx
 rc_stati.smx
 SaveChat-Ver-3.smx
 sm_dev_cmds.smx
