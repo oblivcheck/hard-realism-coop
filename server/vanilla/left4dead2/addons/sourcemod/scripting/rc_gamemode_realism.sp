@@ -149,6 +149,13 @@ public void ApplyCvars()
     ServerCommand("sm_cvar z_hunter_health 350");
     ServerCommand("sm_cvar z_jockey_health 500");
 
+    // 需要一个加速奔跑的功能
+    ServerCommand("sm_cvar  z_forwardspeed 300");
+    ServerCommand("sm_cvar  sv_accelerate 4");
+    ServerCommand("sm_cvar  z_backspeed 150");
+    ServerCommand("sm_cvar  z_sidespeed 200");
+    ServerCommand("sm_cvar  z_gas_speed 150");
+
     ServerCommand("sm plugins reload l4d_reservecontrol"); 
     WEAPON_AdjWeaponAttr();
     SOUND_CreateHook();
@@ -242,7 +249,7 @@ public void ApplyCvars()
       ServerCommand("sm_cvar l4d_bot_healing_pills \"50.0\"");
     }
     ServerCommand("sm_cvar hrc_zed_time_enable \"1\"");
-    CreateTimer(0.5, tSenMSG1);
+    CreateTimer(2.0, tSendMSG1);
   }
   else if(!g_bModeEnable && old_g_bModeEnable)
   {  
@@ -256,6 +263,13 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tongue_range 750");
     ServerCommand("sm_cvar z_hunter_health 250");
     ServerCommand("sm_cvar z_jockey_health 325");
+
+    ServerCommand("sm_cvar  z_forwardspeed 450");
+    ServerCommand("sm_cvar  sv_accelerate 5");
+    ServerCommand("sm_cvar  z_backspeed 450");
+    ServerCommand("sm_cvar  z_sidespeed 450");
+    ServerCommand("sm_cvar  z_gas_speed 210");
+
 
     ServerCommand("sm plugins unload l4d_reservecontrol"); 
     WEAPON_ResetWeaponAttr();
@@ -343,17 +357,22 @@ public void ApplyCvars()
       ServerCommand("sm_cvar l4d_bot_healing_pills \"%f\"", g_fBot_pills);
     }
     ServerCommand("sm_cvar hrc_zed_time_enable \"0\"");
-    CreateTimer(0.5, tSenMSG2);
+    CreateTimer(1.0, tSendMSG2);
   }
 }
-Action tSenMSG1(Handle Timer)
+Action tSendMSG1(Handle Timer)
 {
   PrintToChatAll("所有设置已经完成，重新开始回合以使特定功能生效.");  
   ServerCommand("sm_slay @all");
 
+  PrintToChatAll("\x03\x01要快捷切换奔跑状态，需要绑定\x04sm_rpp_run\x01命令");
+  PrintToChatAll("  绑定到Shift键示例");
+  PrintToChatAll("  alias +rpp_run \"sm_rpp_run\"; alias -rpp_run \"sm_rpp_run\" ");
+  PrintToChatAll("  bind \"shift\" \"+rpp_run\"  ");
+  // alias +rpp_run "sm_rpp_run"; alias -rpp_run "sm_rpp_run"; bind "shift" "+rpp_run" 
   return Plugin_Continue;
 }
-Action tSenMSG2(Handle Timer)
+Action tSendMSG2(Handle Timer)
 {
   PrintToChatAll("所有变化已经撤销，重新开始回合以完成设置.");
   ServerCommand("sm_slay @all");
@@ -715,9 +734,26 @@ public void OnEntityCreated(int entity, const char[] classname)
     if (StrEqual(classname, "infected"))
     {
         SDKHook(entity, SDKHook_TraceAttack, eOnTraceAttack);
+        CreateTimer(0.5, tDelayChangeSpeed, EntIndexToEntRef(entity), TIMER_FLAG_NO_MAPCHANGE)
     }
   }
 }
+
+Action tDelayChangeSpeed(Handle Timer, any ref)
+{
+  int entity = EntRefToEntIndex(ref);
+  if(entity == -1)
+    return Plugin_Continue;
+
+  int num = GetRandomInt(1, 10000);
+  if(num > 9000)
+      SetEntPropFloat(entity, Prop_Send, "m_flSpeed", 220.0);
+  else
+      SetEntPropFloat(entity, Prop_Send, "m_flSpeed", 150.0);
+ 
+  return Plugin_Continue;
+}
+
 public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &damage, int &damagetype, int &ammotype, int hitbox, int hitgroup)
 {
 

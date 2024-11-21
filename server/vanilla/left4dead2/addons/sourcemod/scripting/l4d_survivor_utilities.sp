@@ -363,7 +363,6 @@ public void OnClientPutInServer(int client)
 {
   rpp_OnClientPutInServer(client);
 	SetClientData(client, true);
-  rpp_OnClientPutInServer(client);
 }
 
 // Maybe this is redundant but to prevent conditions or speed transfer
@@ -371,7 +370,6 @@ public void OnClientDisconnect(int client)
 {
   rpp_OnClientDisconnect(client);
 	SetClientData(client, true);
-  rpp_OnClientDisconnect(client);
 }
 
 public void OnConfigsExecuted()
