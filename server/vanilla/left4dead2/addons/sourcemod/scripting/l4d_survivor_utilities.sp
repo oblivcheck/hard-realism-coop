@@ -33,7 +33,7 @@
  *      using natives and GlobalForwards.                                           *
  * ================================================================================ *
  */
-
+// 在关闭rpp时，这里需要重置玩家的速度！
 #pragma semicolon 1
 #pragma newdecls required
 

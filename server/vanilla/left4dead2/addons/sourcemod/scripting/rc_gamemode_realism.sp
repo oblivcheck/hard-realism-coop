@@ -173,7 +173,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar l4d_si_ability_enabled \"1\"");
     ServerCommand("sm_cvar l4d_si_ability_shove \"18\"");
 
-//    ServerCommand("sm_cvar z_speed \"300\"");
+    ServerCommand("sm_cvar z_speed \"150\"");
     ServerCommand("sm_cvar rc_asdl_enable \"0\"");
     ServerCommand("sm_cvar l4d2_lj_enabled 1");
     ServerCommand("sm plugins load l4d_wam");
@@ -291,7 +291,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar z_jockey_leap_range 200");
 
     ServerCommand("sm_cvar l4d_si_ability_enabled \"0\"");
-//    ServerCommand("sm_cvar z_speed \"250\"");
+    ServerCommand("sm_cvar z_speed \"250\"");
     ServerCommand("sm_cvar rc_asdl_enable \"0\"");
     ServerCommand("sm_cvar l4d2_lj_enabled 0");
     ServerCommand("sm_cvar director_afk_timeout 45")
@@ -341,7 +341,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tank_stuck_time_suicide \"10\"");  
     
     ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"100\"");  
-    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.25f\"");  
+    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.6f\"");  
 
     ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.4\"");
     ServerCommand("sm_cvar l4d_weapon_auto_fire_enable \"0\"");
@@ -734,22 +734,25 @@ public void OnEntityCreated(int entity, const char[] classname)
     if (StrEqual(classname, "infected"))
     {
         SDKHook(entity, SDKHook_TraceAttack, eOnTraceAttack);
-        CreateTimer(0.5, tDelayChangeSpeed, EntIndexToEntRef(entity), TIMER_FLAG_NO_MAPCHANGE)
+        // CreateTimer(0.5, tDelayChangeSpeed, entity, TIMER_FLAG_NO_MAPCHANGE)
     }
   }
 }
 
-Action tDelayChangeSpeed(Handle Timer, any ref)
+Action tDelayChangeSpeed(Handle Timer, any entity)
 {
-  int entity = EntRefToEntIndex(ref);
-  if(entity == -1)
-    return Plugin_Continue;
-
+  //int entity = EntRefToEntIndex(ref);
+  if(entity == INVALID_ENT_REFERENCE || !IsValidEntity(entity) || !IsValidEdict(entity))
+  {
+    return Plugin_Stop;
+  }
+/*
   int num = GetRandomInt(1, 10000);
   if(num > 9000)
       SetEntPropFloat(entity, Prop_Send, "m_flSpeed", 220.0);
   else
-      SetEntPropFloat(entity, Prop_Send, "m_flSpeed", 150.0);
+    */
+  SetEntPropFloat(entity, Prop_Data, "m_flSpeed", 0.5);
  
   return Plugin_Continue;
 }

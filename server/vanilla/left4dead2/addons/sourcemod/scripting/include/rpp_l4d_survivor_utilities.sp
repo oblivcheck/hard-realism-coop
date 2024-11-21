@@ -77,8 +77,9 @@ Action tDelay(Handle Timer)
   }
 
   iTick = hTick.IntValue;
-  run_timemax = iTick * 15;
-  run_timemin = iTick * 3;
+  run_timemax = iTick * 10;
+  // 考虑加入一个力竭状态，体力耗尽阻止推挤
+  run_timemin = iTick * 4;
  
   return Plugin_Continue;
 }
@@ -153,6 +154,9 @@ Action rpp_OnWeaponSwitch(int client)
     return Plugin_Continue;
 
   if(!bRPP)  return Plugin_Continue;
+  
+  if(run[client][0] != 0 ) return Plugin_Continue;
+
   //int Limit = RoundToNearest(iTick * 1.5);
   int Limit = iTick;
   if(counter[client] < Limit)
@@ -174,6 +178,7 @@ void rpp_OnClientRunCmd(int client, int buttons)
     if(run[client][0] == 1)
       counter[client] = 0;
     // 正在奔跑
+    // 考虑加入空手动作，参考抱着烟花盒
     if(run[client][0] == 2)
       run[client][1]--;
     
