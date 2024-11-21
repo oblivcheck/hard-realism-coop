@@ -27,8 +27,12 @@ int manual[MAXPLAYERS+1];
 void rpp_start()
 {
   hTick = FindConVar("sv_minupdaterate");
+
   iTick = hTick.IntValue;
+  hTick.AddChangeHook(CvarChange);
+
   CreateTimer(3.0, tDelay);
+
   RegConsoleCmd("sm_rpp_run", cmd_run);
 }
 public Action cmd_run(int client, int args)
@@ -72,8 +76,7 @@ Action tDelay(Handle Timer)
     HookEvent("weapon_fire", Event_WeaponFire);
   }
 
-  hTick.AddChangeHook(CvarChange);
-
+  iTick = hTick.IntValue;
   run_timemax = iTick * 15;
   run_timemin = iTick * 3;
  
