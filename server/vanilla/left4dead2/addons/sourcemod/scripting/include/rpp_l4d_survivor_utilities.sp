@@ -40,9 +40,6 @@ public Action cmd_run(int client, int args)
   if(!bRPP)
     return Plugin_Continue;
 
-  if(!IsAliveSurvivor(client))
-    return Plugin_Continue;
-
   if( GetClientRealHealth(client) >= 40 && !L4D_IsPlayerIncapacitated(client) )
   {
     // 针对场景：持续按住rpp_run1
@@ -62,6 +59,8 @@ public Action cmd_run(int client, int args)
       run[client][0] = 0;
     }
   }
+  else manual[client] = 0;
+
   return Plugin_Continue;
 }
 Action tDelay(Handle Timer)
