@@ -81,7 +81,7 @@ if [[ $2 != "testing" ]]; then
     fi
     unzip  main.zip
     rm main.zip
-    mv Left4DHooks-main/* ../addons/
+    cp -r Left4DHooks-main/* ../addons/
     rm -r Left4DHooks-main
     cd ..
 fi
