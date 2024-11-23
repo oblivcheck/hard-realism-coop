@@ -23,7 +23,7 @@ jobs:
           if [ -e SCRIPT_FAIL ]; then
             exit -1
           fi
-          FILE_NAME=$(cat PACKAGE_NAME)
+          echo "FILE_NAME=$(cat PACKAGE_NAME)" >> $GITHUB_ENV
           rm PACKAGE_NAME
 
       - name: 上传包裹
