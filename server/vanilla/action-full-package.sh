@@ -7,6 +7,8 @@
 URL_MM="https://mms.alliedmods.net/mmsdrop/1.11/mmsource-latest-linux"
 URL_SM="https://sm.alliedmods.net/smdrop/1.12/sourcemod-latest-linux"
 URL_L4DTOOLZ="https://github.com/lakwsh/l4dtoolz/releases/download/2.4.0/l4dtoolz-11977260267.zip"
+URL_LEFT4DOOKS="https://github.com/SilvDev/Left4DHooks/archive/refs/heads/main.zip"
+
 # echo "https://github.com/${{ github.repository }}/tree/${{ github.sha }}"
 URL_REPO="$1"
 echo "# $URL_REPO"
@@ -68,6 +70,19 @@ if [[ $2 != "testing" ]]; then
     rm *.zip
     rm *.dll
     mv * ../addons
+    cd .. && rm l4dtoolz
+
+    mkdir left4dhooks && cd left4dhooks
+    wget -q "$URL_LEFT4DOOKS"
+    if [ $? -ne 0 ]; then
+      echo "DOWNLOAD F Left4Dhooks"
+      touch $SCRIPT_DIR/SCRIPT_FAIL
+      exit -1
+    fi
+    unzip  main.zip
+    rm main.zip
+    mv * ../
+    cd ../
 fi
 # 移动已知的说明与许可证&&删除不必要的文件
   rm -r "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins"/*
