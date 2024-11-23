@@ -94,9 +94,9 @@ PLUGIN_NUM=$(ls *.sp | xargs -I {} basename {} | sed 's/.sp/.smx/' | grep -v "${
   mkdir "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled"
 
   mv ../orig .
-  mv spcomp  orig
-  mv spcomp64 .
-  mv *.sh .
+  mv spcomp  orig/
+  mv spcomp64 orig/
+  mv *.sh orig/
 
   cd compiled
   echo "$LIST_DISABLE_PLUGIN" | xargs -I {} -n 1 mv {} "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled/"

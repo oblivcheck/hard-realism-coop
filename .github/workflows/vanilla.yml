@@ -19,19 +19,12 @@ jobs:
         shell: bash
         run: |
           cd server/vanilla/
-          bash action-full-package.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}" "${{ secrets.GITHUB_TOKEN }}" > log.txt
+          bash action-full-package.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}" "${{ secrets.GITHUB_TOKEN }}"
           if [ -e SCRIPT_FAIL ]; then
             exit -1
           fi
           FILE_NAME=$(cat PACKAGE_NAME)
           rm PACKAGE_NAME
-
-      - name: 上传日志
-        uses: actions/upload-artifact@v4
-        with:
-          name: log.txt
-          path: server/vanilla/log.txt
-          compression-level: 0
 
       - name: 上传包裹
         uses: actions/upload-artifact@v4
