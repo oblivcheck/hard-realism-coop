@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Building server package and update repo:
+  Building-server-package-and-update-repo:
     runs-on: ubuntu-20.04
     steps:
       - name: 提取存储库
