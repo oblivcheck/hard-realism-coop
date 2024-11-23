@@ -6,7 +6,7 @@
 
 URL_MM="https://mms.alliedmods.net/mmsdrop/1.11/mmsource-latest-linux"
 URL_SM="https://sm.alliedmods.net/smdrop/1.12/sourcemod-latest-linux"
-URL_L4DTOOLZ="https://github.com/lakwsh/l4dtoolz/releases/download/2.3.4/l4dtoolz-11618361613.zip"
+URL_L4DTOOLZ="https://github.com/lakwsh/l4dtoolz/releases/download/2.4.0/l4dtoolz-11977260267.zip"
 # echo "https://github.com/${{ github.repository }}/tree/${{ github.sha }}"
 URL_REPO="$1"
 echo "# $URL_REPO"
@@ -78,16 +78,16 @@ LIST_DISABLE_PLUGIN="$(cat LIST_DISABLE_PLUGIN)"
   cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
 PLUGIN_NUM=$(ls *.sp | xargs -I {} basename {} | sed 's/.sp/.smx/' | grep -v "${LIST_DISABLE_PLUGIN}" | wc -l | tr -d '\n')
   mv orig ../
-  ./compile.sh *.sp
+  ./compile.sh *.sp > log
   mkdir "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled"
   mv ../orig .
   cd compiled
   echo "$LIST_DISABLE_PLUGIN" | xargs -I {} -n 1 mv {} "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled/"
-TMP=$(ls | wc -l | tr -d '\n')
-  if [ $TMP -ne $PLUGIN_NUM ]; then
-    echo "F PLUGIN NUM"
+  if [ cat ../log | grep -q " Error." ]; then
+    echo "F PLUGIN Fail"
     exit -1
   fi
+  rm ../log
   mv *.smx "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/"
 
 # 移动各种配置文件与脚本
