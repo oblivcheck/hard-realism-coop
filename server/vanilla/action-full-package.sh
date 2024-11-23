@@ -81,9 +81,8 @@ LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
   cat LIST_RDMD_LICENSE | sed '2~2s|^|package/README/|' | sed '1~2s|^|package/|' | xargs -L 2 mv
 # 移动仓库的SMX插件源代码与库文件到包裹
 LIST_DISABLE_PLUGIN="$(cat LIST_DISABLE_PLUGIN)"
-  mv -n "$SCRIPT_DIR/left4dead2/addons/sourcemod/scripting"/* "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
+  cp -rf "$SCRIPT_DIR/left4dead2/addons/sourcemod/scripting"/* "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
   cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
-PLUGIN_NUM=$(ls *.sp | xargs -I {} basename {} | sed 's/.sp/.smx/' | grep -v "${LIST_DISABLE_PLUGIN}" | wc -l | tr -d '\n')
 
   mv orig ../
   mv ../orig/spcomp .
@@ -103,6 +102,7 @@ PLUGIN_NUM=$(ls *.sp | xargs -I {} basename {} | sed 's/.sp/.smx/' | grep -v "${
   if grep -q " Error." ../log; then
     echo "F PLUGIN Fail"
     cat ../log
+    find ../
     touch $SCRIPT_DIR/SCRIPT_FAIL
     exit -1
   fi
