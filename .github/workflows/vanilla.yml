@@ -1,4 +1,4 @@
-name:  "Vanilla"
+name:  "Vanilla 服务器"
 
 on:
   workflow_dispatch:
@@ -7,24 +7,41 @@ jobs:
   Testing-build:
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout repository
+      - name: 提取存储库
         uses: actions/checkout@v4
 
-      - name: Install apt packages
+      - name: 安装必要软件包
         shell: bash
         run: |
-          sudo apt-get install -y wget curl 
+          sudo apt-get install -y wget curl
 
-      - name: Packing
+      - name: 执行脚本
         shell: bash
         run: |
           cd server/vanilla/
-          bash action-testing-build.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
-          tar -czvf package.tar.gz package/
+          bash action-full-package.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}" "${{ secrets.GITHUB_TOKEN }}" > log.txt
+          if [ -e SCRIPT_FAIL ]; then
+            exit -1
+          fi
+          FILE_NAME=$(cat PACKAGE_NAME)
+          rm PACKAGE_NAME
 
-      - name: Done
+      - name: 上传日志
         uses: actions/upload-artifact@v4
         with:
-          name: package.241123-0.tar.gz
-          path: server/vanilla/package.tar.gz
+          name: ${{ log.txt }}
+          path: server/vanilla/log.txt
           compression-level: 0
+
+      - name: 上传包裹
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.FILE_NAME }}
+          path: server/vanilla/*.tar.gz
+          compression-level: 0
+
+      - name: 更新存储库
+        shell: bash
+        run: |
+          rm log.txt
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}

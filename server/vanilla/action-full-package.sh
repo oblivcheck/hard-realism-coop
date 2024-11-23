@@ -10,6 +10,8 @@ URL_L4DTOOLZ="https://github.com/lakwsh/l4dtoolz/releases/download/2.4.0/l4dtool
 # echo "https://github.com/${{ github.repository }}/tree/${{ github.sha }}"
 URL_REPO="$1"
 echo "# $URL_REPO"
+TAG=$(TZ='China/ShangHai' date +"%y%m%d")
+TAG="package.$TAG"
 
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 PACKAGE_DIR="$SCRIPT_DIR/package"
@@ -30,11 +32,13 @@ if [[ $2 != "testing" ]]; then
     curl -s "${URL_MM}" > URL
     if [ $? -ne 0 ]; then
       echo "GET F MM"
+      touch $SCRIPT_DIR/SCRIPT_FAIL
       exit -1
     fi
     wget -q "https://mms.alliedmods.net/mmsdrop/1.11/$(cat URL)"
     if [ $? -ne 0 ]; then
       echo "DOWNLOAD F MM"
+      touch $SCRIPT_DIR/SCRIPT_FAIL
       exit -1
     fi
     tar -xzvf "$(cat URL)"
@@ -42,11 +46,13 @@ if [[ $2 != "testing" ]]; then
     curl -s "${URL_SM}" > URL
     if [ $? -ne 0 ]; then
       echo "GET F SM"
+      touch $SCRIPT_DIR/SCRIPT_FAIL
       exit -1
     fi
     wget -q "https://sm.alliedmods.net/smdrop/1.12/$(cat URL)"
     if [ $? -ne 0 ]; then
       echo "DOWNLOAD F SM"
+      touch $SCRIPT_DIR/SCRIPT_FAIL
       exit -1
     fi
     tar -xzvf "$(cat URL)"
@@ -55,6 +61,7 @@ if [[ $2 != "testing" ]]; then
     wget -q "${URL_L4DTOOLZ}"
     if [ $? -ne 0 ]; then
       echo "DOWNLOAD F TOOLZ"
+      touch $SCRIPT_DIR/SCRIPT_FAIL
       exit -1
     fi
     unzip *.zip
@@ -77,21 +84,35 @@ LIST_DISABLE_PLUGIN="$(cat LIST_DISABLE_PLUGIN)"
   mv -n "$SCRIPT_DIR/left4dead2/addons/sourcemod/scripting"/* "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
   cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
 PLUGIN_NUM=$(ls *.sp | xargs -I {} basename {} | sed 's/.sp/.smx/' | grep -v "${LIST_DISABLE_PLUGIN}" | wc -l | tr -d '\n')
+
   mv orig ../
+  mv ../orig/spcomp .
+  mv ../orig/spcomp64 .
+  mv ../orig/*.sh .
+
   ./compile.sh *.sp > log
   mkdir "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled"
+
   mv ../orig .
+  mv spcomp  orig
+  mv spcomp64 .
+  mv *.sh .
+
   cd compiled
   echo "$LIST_DISABLE_PLUGIN" | xargs -I {} -n 1 mv {} "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled/"
-  if [ cat ../log | grep -q " Error." ]; then
+  if grep -q " Error." ../log; then
     echo "F PLUGIN Fail"
+    touch $SCRIPT_DIR/SCRIPT_FAIL
     exit -1
   fi
+
   rm ../log
   mv *.smx "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/"
 
 # 移动各种配置文件与脚本
   cd $PACKAGE_DIR
+  mkdir left4dead2/ems/
+  mkdir -p left4dead2/scripts/vscripts/
   cp -r $SCRIPT_DIR/left4dead2/cfg/* left4dead2/cfg/
   cp -r $SCRIPT_DIR/left4dead2/scripts/vscripts/* left4dead2/scripts/vscripts/
   cp -r $SCRIPT_DIR/left4dead2/ems/* left4dead2/ems/
@@ -101,5 +122,15 @@ PLUGIN_NUM=$(ls *.sp | xargs -I {} basename {} | sed 's/.sp/.smx/' | grep -v "${
 # 清理
   cd left4dead2
   rm *.tar.gz URL
+  cd $SCRIPT_DIR
+VER=$(cat SERVER_VERSION)
+let NUM=$VER+1;
+  tar -czvf $TAG-$NUM.tar.gz package/
+  echo $NUM > SERVER_VERSION
 
-echo " $PLUGIN_NUM # $TMP "
+# 准备更新存储库
+  git add -A .
+  git rm -rf package/
+  git rm -rf *.tar.gz
+  git commit -m "Vanilla: $TAG-$NUM"
+  echo $TAG-$NUM.tar.gz > PACKAGE_NAME
