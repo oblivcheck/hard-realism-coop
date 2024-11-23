@@ -70,7 +70,7 @@ if [[ $2 != "testing" ]]; then
     rm *.zip
     rm *.dll
     mv * ../addons
-    cd .. && rm l4dtoolz
+    cd ..
 
     mkdir left4dhooks && cd left4dhooks
     wget -q "$URL_LEFT4DOOKS"
@@ -81,9 +81,9 @@ if [[ $2 != "testing" ]]; then
     fi
     unzip  main.zip
     rm main.zip
-    mv Left4DHooks-main/* ../
+    mv Left4DHooks-main/* ../addons/
     rm -r Left4DHooks-main
-    cd ../
+    cd ..
 fi
 # 移动已知的说明与许可证&&删除不必要的文件
   rm -r "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins"/*
@@ -95,6 +95,10 @@ fi
   cd "$SCRIPT_DIR"
 LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
   cat LIST_RDMD_LICENSE | sed '2~2s|^|package/README/|' | sed '1~2s|^|package/|' | xargs -L 2 mv
+
+  rm -rf $PACKAGE_DIR/left4dead2/l4dtoolz
+  rm -rf $PACKAGE_DIR/left4dead2/left4dhooks
+
 # 移动仓库的SMX插件源代码与库文件到包裹
 LIST_DISABLE_PLUGIN="$(cat LIST_DISABLE_PLUGIN)"
   cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
