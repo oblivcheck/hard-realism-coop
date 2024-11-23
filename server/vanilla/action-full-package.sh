@@ -132,5 +132,5 @@ let NUM=$VER+1;
   git add -A .
   git rm -rf package/
   git rm -rf *.tar.gz
-  git commit -m "Vanilla: $TAG-$NUM"
+  git commit -m "Vanilla: $TAG-$NUM 生成包裹并更新存储库"
   echo $TAG-$NUM.tar.gz > PACKAGE_NAME

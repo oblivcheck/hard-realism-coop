@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Testing-build:
+  生成包裹并更新存储库:
     runs-on: ubuntu-20.04
     steps:
       - name: 提取存储库
@@ -29,7 +29,7 @@ jobs:
       - name: 上传日志
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ log.txt }}
+          name: log.txt
           path: server/vanilla/log.txt
           compression-level: 0
 
