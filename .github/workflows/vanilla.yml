@@ -30,11 +30,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.FILE_NAME }}
-          path: server/vanilla/*.tar.gz
+          path: server/vanilla-*.tar.gz
           compression-level: 0
 
       - name: 更新存储库
         shell: bash
         run: |
-          rm log.txt
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
