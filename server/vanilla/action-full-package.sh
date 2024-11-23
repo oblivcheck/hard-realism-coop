@@ -102,6 +102,7 @@ PLUGIN_NUM=$(ls *.sp | xargs -I {} basename {} | sed 's/.sp/.smx/' | grep -v "${
   echo "$LIST_DISABLE_PLUGIN" | xargs -I {} -n 1 mv {} "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled/"
   if grep -q " Error." ../log; then
     echo "F PLUGIN Fail"
+    cat ../log
     touch $SCRIPT_DIR/SCRIPT_FAIL
     exit -1
   fi
