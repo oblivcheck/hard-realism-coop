@@ -81,7 +81,8 @@ if [[ $2 != "testing" ]]; then
     fi
     unzip  main.zip
     rm main.zip
-    mv * ../
+    mv Left4DHooks-main/* ../
+    rm -r Left4DHooks-main
     cd ../
 fi
 # 移动已知的说明与许可证&&删除不必要的文件
