@@ -147,12 +147,13 @@ LIST_DISABLE_PLUGIN="$(cat LIST_DISABLE_PLUGIN)"
   cd $SCRIPT_DIR
 VER=$(cat SERVER_VERSION)
 let NUM=$VER+1;
-  tar -czvf $TAG-$NUM.tar.gz package/
+  tar -czvf ../vanilla-$TAG-$NUM.tar.gz package/
   echo $NUM > SERVER_VERSION
 
 # 准备更新存储库
+  git config --global user.name "GitHub Actions"
+  git config --global user.email "actions@github.com"
   git add -A .
   git rm -rf package/
-  git rm -rf *.tar.gz
   git commit -m "Vanilla: $TAG-$NUM 生成包裹并更新存储库"
-  echo $TAG-$NUM.tar.gz > PACKAGE_NAME
+  echo vanilla-$TAG-$NUM.tar.gz > PACKAGE_NAME
