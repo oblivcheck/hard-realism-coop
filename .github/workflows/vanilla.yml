@@ -10,9 +10,9 @@ on:
 #    paths-ignore:
 #      - 'server/vanilla/'
 
-  concurrency:
-    group: ${{ github.ref }}
-    cancel-in-progress: false
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   Building-server-package-and-update-repo:
