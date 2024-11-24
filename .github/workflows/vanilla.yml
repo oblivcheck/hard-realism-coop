@@ -10,6 +10,10 @@ on:
 #    paths-ignore:
 #      - 'server/vanilla/'
 
+  concurrency:
+    group: ${{ github.ref }}
+    cancel-in-progress: false
+
 jobs:
   Building-server-package-and-update-repo:
     runs-on: ubuntu-20.04

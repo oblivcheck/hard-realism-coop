@@ -82,7 +82,6 @@ if [[ $2 != "testing" ]]; then
     unzip  main.zip
     rm main.zip
     cp -r Left4DHooks-main/* ../addons/
-    rm -r Left4DHooks-main
     cd ..
 fi
 # 移动已知的说明与许可证&&删除不必要的文件
