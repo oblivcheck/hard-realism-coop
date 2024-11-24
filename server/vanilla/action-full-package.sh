@@ -146,9 +146,19 @@ LIST_DISABLE_PLUGIN="$(cat LIST_DISABLE_PLUGIN)"
   rm *.tar.gz URL
   cd $SCRIPT_DIR
 VER=$(cat SERVER_VERSION)
-let NUM=$VER+1;
+VER_TIME=$( echo $VER | cut -d '-' -f 1)
+VER=$( echo $VER | cut -d '-' -f 2)
+
+TIME=$(TZ='China/ShangHai' date +"%y%m%d")
+NUM=0
+  if [[ $VER_TIME == $TIME ]]; then
+    let NUM=$((VER+1));
+  else
+     NUM=0
+  fi
+
   tar -czvf ../vanilla-$TAG-$NUM.tar.gz package/
-  echo $NUM > SERVER_VERSION
+  echo "$TAG-$NUM" > SERVER_VERSION
 
 # 准备更新存储库
   git config --global user.name "GitHub Actions"

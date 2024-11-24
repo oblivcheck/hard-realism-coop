@@ -3,6 +3,13 @@ name:  "Vanilla 服务器"
 on:
   workflow_dispatch:
 
+  push:
+    paths:
+      - 'server/vanilla/left4dead2/**'
+
+#    paths-ignore:
+#      - 'server/vanilla/'
+
 jobs:
   Building-server-package-and-update-repo:
     runs-on: ubuntu-20.04
