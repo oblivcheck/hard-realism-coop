@@ -81,7 +81,6 @@ if [[ $2 != "testing" ]]; then
     fi
     unzip  main.zip
     rm main.zip
-    cp -r Left4DHooks-main/* ../addons/
     cd ..
 fi
 # 移动已知的说明与许可证&&删除不必要的文件
@@ -94,6 +93,10 @@ fi
   cd "$SCRIPT_DIR"
 LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
   cat LIST_RDMD_LICENSE | sed '2~2s|^|package/README/|' | sed '1~2s|^|package/|' | xargs -L 2 mv
+
+  cd $PACKAGE_DIR/left4dead2/left4dhooks/
+  cp -r Left4DHooks-main/* ../addons/
+  cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
 
   rm -rf $PACKAGE_DIR/left4dead2/l4dtoolz
   rm -rf $PACKAGE_DIR/left4dead2/left4dhooks
