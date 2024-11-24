@@ -158,7 +158,7 @@ NUM=0
   fi
 
   tar -czvf ../vanilla-$TAG-$NUM.tar.gz package/
-  echo "$TAG-$NUM" > SERVER_VERSION
+  echo "$TIME-$NUM" > SERVER_VERSION
 
 # 准备更新存储库
   git config --global user.name "GitHub Actions"
