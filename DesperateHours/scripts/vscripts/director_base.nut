@@ -18,50 +18,14 @@ DirectorOptions <-
 		}
 	}
 
-	//Survivors
-	cm_AllowPillConversion = false
-	BuildUpMinInterval = 20
-	SustainPeakMinTime = 5
-	SustainPeakMaxTime = 8
-	RelaxMinInterval = 20
-	RelaxMaxInterval = 30
-	RelaxMaxFlowTravel = 2200
-	IntensityRelaxThreshold = 0.99
-	//IntensityRelaxAllowWanderersThreshold = 0.8
-
-	//Infected Limited Range
-	ZombieSpawnRange = 1200
-	ZombieDiscardRange = 2000
-
 	//Common Infected
-	CommonLimit = 50
-	WanderingZombieDensityModifier = 0.05
-	MobMinSize = 30
-	MobMaxSize = 50
 	BileMobSize = 80
-	MobSpawnMinTime = 150
-	MobSpawnMaxTime = 300
-	MegaMobSize = 120
-	NumReservedWanderers = 30
-	MusicDynamicMobSpawnSize = 50
-	MusicDynamicMobStopSize = 20
-	MusicDynamicMobScanStopSize = 8
-	//cm_BaseCommonAttackDamage = 0.5
-	//PreferredMobDirection = SPAWN_NEAR_POSITION
-	//PreferredMobPositionRange = 800.0			//Only works if PreferredMobDirection is set to SPAWN_NEAR_POSITION.
+	cm_BaseCommonAttackDamage = 0.5
 
 	//Special Infected
-	SpecialRespawnInterval = 90
 	MaxSpecials = 4
 	DominatorLimit = 4
-	HunterLimit = 2
-	JockeyLimit = 1
-	SmokerLimit = 1
-	ChargerLimit = 1
-	BoomerLimit = 1
-	SpitterLimit = 1
-	//SpecialInfectedAssault = ture
-	//PreferredSpecialDirection = SPAWN_SPECIALS_ANYWHERE
+	SpecialInfectedAssault = ture
 
 	//Boss
 	ZombieTankHealth = 6000

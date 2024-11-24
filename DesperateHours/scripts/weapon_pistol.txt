@@ -67,7 +67,7 @@ WeaponData
 	"RangeModifier"			"0.75"
 	"Bullets"			"1"
 	//"CycleTime"			"0.15"
-	"CycleTime"			"0.175"
+	"CycleTime"			"0.125"
 	
 	// Weapon data is loaded by both the Game and Client DLLs.
 	"printname"			"Pistol"

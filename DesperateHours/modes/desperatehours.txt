@@ -15,7 +15,7 @@
 	{
 		sv_consistency 0		//def 1	Whether the server enforces file consistency for critical files.
 		sv_pure_kick_clients 0	//def 1	If set to 1, the server will kick clients with mismatching files. Otherwise, it will issue a warning to the client.
-		director_afk_timeout 20	//def 45	Humans idle longer than this many seconds will be forced to spectator mode.
+		director_afk_timeout 15	//def 45	Humans idle longer than this many seconds will be forced to spectator mode.
 
 		//Original Cvars
 		sv_rescue_disabled 1			//def 1	If set to 1, dead survivors will never be rescue-able.
@@ -26,7 +26,7 @@
 		z_use_next_difficulty_damage_factor 0	//def 1	If set, uses the next higher difficulty mode for the purposes of damage factoring.
 		z_witch_always_kills 1		//def 1
 
-		//Realism[Basic HUD For Server: T Hard Realism Coop]
+		//Realism HUD[Hard Realism Coop]
 		//cl_drawhud 0			//def 1	Enable the rendering of the hud.
 		cl_tracers 0			//def 1	Display bullet trajectories.
 		cl_drawprogressbar 0		//def 1	Draw progress bar when healing.
@@ -39,19 +39,31 @@
 
 		//SurvivorBots Behavior
 		allow_all_bot_survivor_team 1			//def 0	Allow a survivor team of nothing but bots. Human players are still required for the game to be active.
-		sb_vomit_blind_time 0.5			//def 5	How long Boomer vomit/explosion gore blinds us.
 		sb_max_team_melee_weapons 1		//def 0	The total number of melee weapons allowed on the team. 0 = bots never use melee
+		sb_vomit_blind_time 0.5			//def 5	How long Boomer vomit/explosion gore blinds us.
+		sb_follow_stress_factor 0.8			//def 0.5
+		sb_temp_health_consider_factor 0.8		//def 0.5	Temporary health is multiplied by this when SurvivorBots consider who needs healing.
 		sb_allow_shoot_through_survivors 0		//def 1	Allow SurvivorBots to shoot through fellow survivors.
 		sb_sidestep_for_horde 1			//def 0	Allow sidestepping left/right to acquire common infected targets.
+		sb_normal_saccade_speed 1000			//def 350
+		sb_combat_saccade_speed 3000		//def 1000
 		sb_battlestation_human_hold_time 3		//def 4	How long the nearest human must hold their place before SurvivorBots will re-evaluate their Battlestations.
-		sb_temp_health_consider_factor 0.8		//def 0.5	Temporary health is multiplied by this when SurvivorBots consider who needs healing.
-		sb_separation_range 150			//def 200	Desired distance between Survivors.
-		sb_separation_danger_max_range 500		//def 600	A Survivor teammate this far away needs to be gathered back into the group.
-		sb_max_scavenge_separation 500		//def 750	SurvivorBots won't scavenge items farther away from the group than this.
+		sb_battlestation_give_up_range_from_human 800	//def 1500
 		sb_max_battlestation_range_from_human 500	//def 750
-		sb_threat_far_range 900			//def 600	Close enough to be a threat if near several other threats.
-		sb_friend_immobilized_reaction_time_normal 0.5	//def 2.0	How quickly a SurvivorBot realizes a friend has been Pounced or Tongued.
-		sb_friend_immobilized_reaction_time_hard 0.5	//def 1.0	How quickly a SurvivorBot realizes a friend has been Pounced or Tongued.
+		sb_max_scavenge_separation 500		//def 750	SurvivorBots won't scavenge items farther away from the group than this.
+		sb_neighbor_range 250			//def 300	How close a friend needs to be to feel safe.
+		sb_separation_range 150			//def 200	Desired distance between Survivors.
+		sb_separation_danger_min_range 250		//def 200	A Survivor teammate this far away is straying from the group.
+		sb_separation_danger_max_range 500		//def 600	A Survivor teammate this far away needs to be gathered back into the group.
+		sb_close_threat_range 300			//def 200
+		sb_threat_close_range 300			//def 150	Very close range for threats.
+		sb_threat_medium_range 500			//def 300	Too close for comfort, even when neutral.
+		sb_threat_far_range 1000			//def 600	Close enough to be a threat if near several other threats.
+		shout_threat_range 1000			//def 500
+		//How quickly a SurvivorBot realizes a friend has been Pounced or Tongued
+		sb_friend_immobilized_reaction_time_normal 0.5	//def 2.0
+		sb_friend_immobilized_reaction_time_hard 0.25	//def 1.0
+		sb_friend_immobilized_reaction_time_expert 0.25	//def 0.5
 
 		//Survivors
 		//z_gun_kick 0.5				//def 0	Firing a gun can knock the player's view this amount of the current spread.
@@ -60,39 +72,40 @@
 		z_survivor_respawn_health 30			//def 50	How much health does a respawned survivor get?
 		chainsaw_attack_distance 60.0			//def 50.0
 		melee_range 60				//def 70
-		melee_combo_reset_time 1.8			//def 1.2	Seconds after a swing until we reset the combo activities.
+		melee_combo_reset_time 1.5			//def 1.2	Seconds after a swing until we reset the combo activities.
 		melee_collateral_shove_count 5			//def 16
 		survivor_limp_health 60			//def 40
 		survivor_crouch_speed 65			//def 75
 		survivor_fumes_walk_speed 65			//def 85
 		survivor_allow_crawling 1			//def 0
-		survivor_incap_decay_rate 2			//def 3
 		survivor_revive_health 20			//def 30	How much temp health you get revived with.
 		survivor_respawn_with_guns 0			//def 1	0: Just a pistol, 1: Downgrade of last primary weapon, 2: Last primary weapon.
+		survivor_incap_decay_rate 2			//def 3
 		survivor_incap_max_fall_damage 100 		//def 200	Taking falling damage greater than this will kill survivors outright instead of incapacitating them.
+		survivor_incapacitated_cycle_time 0.25		//def 0.3	New cycle time (RoF) used when incapacitated, overriding weapon.
 		survivor_incapacitated_reload_multiplier 1.5	//def 1.25	Multiplier to reload time when incapacitated.
 		survivor_incapacitated_accuracy_penalty 0.25	//def 0.4	Penalty given for shooting while incapacitated.
+		survivor_intensity_decay_threat_range 900		//def 750
 
 		//Healing Item
+		director_convert_pills 0		//def 1	Allows pills to be converted to health kits or defibrillators in non-Expert difficulties.
 		first_aid_heal_percent 0.6		//def 0.8	Percent of injuries to heal.
 		pain_pills_health_value 40		//def 50
 		pain_pills_decay_rate 0.20		//def 0.27
 		pain_pills_health_threshold 65		//def 99	Pills can't be used unless total health is less than this amount.
 		adrenaline_health_buffer 20		//def 25
-		adrenaline_revive_speedup 1.0		//def 0.5	Percent of normal revive duration to use when affected by Adrenaline.
-		adrenaline_backpack_speedup 0.8	//def 0.5	Percent of normal backpack item use duration to use when affected by Adrenaline.
+		adrenaline_revive_speedup 0.8		//def 0.5	Percent of normal revive duration to use when affected by Adrenaline.
+		adrenaline_backpack_speedup 0.6	//def 0.5	Percent of normal backpack item use duration to use when affected by Adrenaline.
 
 		//Reserve Ammunition
 		ammo_pistol_max 210		//def -2
-		ammo_assaultrifle_max 240		//def 360
-		ammo_autoshotgun_max 72		//def 90
-		ammo_grenadelauncher_max 8		//def 30
-		ammo_huntingrifle_max 80		//def 150
-		ammo_shotgun_max 56		//def 72
 		ammo_smg_max 360			//def 650
+		ammo_assaultrifle_max 240		//def 360
+		ammo_shotgun_max 56		//def 72
+		ammo_autoshotgun_max 72		//def 90
+		ammo_huntingrifle_max 80		//def 150
 		ammo_sniperrifle_max 80		//def 180
-		ammo_turret_max 100		//def 300
-		ammo_minigun_max 250		//def 800
+		ammo_grenadelauncher_max 8		//def 30
 
 		//Friendlyfire
 		bullet_ff_through_walls 1		//def 0
@@ -113,15 +126,15 @@
 		survivor_burn_factor_expert 1		//def 1
 
 		//Weapon Spawn Density: Items per 100 yards square (-1 to spawn all)
+		director_configurable_weapon_spawn_density -1.0 	//def -1.0
 		director_pistol_density 4			//def 4
-		director_magnum_spawn_density 1.08		//def -1.0
-		director_configurable_weapon_spawn_density 3.24 	//def -1.0
-		director_super_weapon_density 2.16		//def 6.48
-		director_ammo_density 3.24			//def 6.48
+		director_magnum_spawn_density 2.16		//def -1.0
+		director_super_weapon_density 3.24		//def 6.48
+		director_ammo_density 6.48			//def 6.48
 		director_upgradepack_density 3.24		//def 6.48
 		director_melee_weapon_density 3.24		//def 6.48
-		director_adrenaline_density 2.16		//def 6.48
 		director_pain_pill_density 3.24			//def 6.48
+		director_adrenaline_density 2.16		//def 6.48
 		director_defibrillator_density 1.08		//def 6.48
 		director_molotov_density 3.24			//def 6.48
 		director_pipe_bomb_density 2.16		//def 6.48
@@ -137,16 +150,11 @@
 		grenadelauncher_radius_kill 250		//def 180
 		grenadelauncher_radius_stumble 320		//def 250
 		z_tank_grenade_launcher_dmg_scale 1.0		//def 3.0	Percent increase in damage done to the tank by grenade launcher.
-		//Turret damage per shot against organism (turret fires at 10Hz)
-		ammo_turret_infected_damage 200		//def 15
-		ammo_turret_pz_damage 200			//def 8
-		ammo_turret_survivor_damage 200		//def 1
-		ammo_turret_tank_damage 200		//def 40
-		ammo_turret_witch_damage 200		//def 16
-		//Minigun (default damage, 48000/1500=32)
-		z_minigun_damage_rate 150000		//def 48000
+		//Minigun (Default damage, 48000/1500=32)
+		z_minigun_damage_rate 60000			//def 48000
 
 		//Miscellaneous Cvars
+		r_flashlightfar 900.0				//def 750.0
 		fuel_barrel_health 200			//def 20
 		gascan_use_range 35			//def 65
 		gas_can_use_duration 3			//def 2
@@ -156,17 +164,44 @@
 		car_alarm_chirp_distance 750			//def 350
 		chainsaw_attract_distance 1500.0		//def 500.0
 		upgrade_laser_sight_spread_factor 1.0		//def 0.4
+		shotgun_reload_cancel_delay 0.8		//def 0.5	On reload from empty, time before a fire command is recognized to cancel the reload.
 		sv_infected_ceda_vomitjar_probability 0.03	//def 0.1
+		sv_stopspeed 65				//def 75	Minimum stopping speed when on ground.
+		sv_pushaway_min_player_speed 85		//def 75	If a player is moving slower than this, don't push away physics objects (enables ducking behind things).
 		sv_tankpropfade 0				//def 1
 		sv_ragdoll_maxcount 145			//def 75
 		sv_ragdoll_maxcount_boss 5			//def 3
 		sv_ragdoll_maxcount_generic 120		//def 60
 		sv_ragdoll_maxcount_gib 60			//def 30
 		sv_ragdoll_maxcount_special 20			//def 12
+		z_witch_wander_music_min_interval 99999	//def 3.0
+		z_witch_wander_music_max_interval 99999	//def 20.0
+		music_dynamic_witch_near_min 0		//def 360
+		music_dynamic_witch_near_max 0		//def 1800
+		music_calm_min_interval 60			//def 45	Minimum time between DisturbingAtmosphere performances
+		music_dynamic_SI_inrange_distmax 0		//def 2400
+		//music_dynamic_attack_CI_distmax 0		//def 2400
+		//music_manager 0				//def 1	Using the new music manager system.
+
+		//Director Tempo[BUILD_UP -> SUSTAIN_PEAK -> PEAK_FADE -> RELAX -> BUILD_UP]
+		director_build_up_min_interval 20		//def 15	Minimum time in seconds the BUILD_UP stage lasts.
+		director_sustain_peak_min_time 5		//def 3
+		director_sustain_peak_max_time 8		//def 5
+		director_relax_min_interval 20			//def 30	Minimum seconds to spend in the RELAX tempo.
+		director_relax_max_interval 30			//def 45	Maximum seconds to spend in the RELAX tempo.
+		director_relax_max_flow_travel 2200		//def 3000How far the survivors can advance along the flow before transitioning from RELAX to BUILD_UP.
+		director_intensity_threshold 0.99		//def 0.9
+		director_intensity_relax_threshold 0.9		//def 0.9	All survivors must be below this intensity before a Peak is allowed to switch to Relax (in addition to the normal peak timer)
 		//All survivors must be below this intensity during RELAX for wandering zombies to be spawned
 		director_intensity_relax_allow_wanderers_threshold 0.5	//def 0.3
 		director_intensity_relax_allow_wanderers_threshold_hard 0.8	//def 0.5
 		director_intensity_relax_allow_wanderers_threshold_expert 0.8	//def 0.8
+
+		//Infected Limited Range
+		z_spawn_range 1200			//def 1500Maximum distance from the survivors that the infected can spawn.
+		z_spawn_flow_limit 1200		//def 1500
+		z_spawn_safety_range 250		//def 550
+		z_discard_range 2000		//def 2500Discard Zombies farther away than this(Any CI beyond this point will be deleted, while any AI-controlled SI will suicide).
 
 		//Common Infected
 		//z_health 100			//def 50
@@ -175,137 +210,172 @@
 		z_acquire_near_range 500		//def 200
 		z_acquire_far_time 3			//def 5
 		z_hear_gunfire_range 1200		//def 200
+		z_force_attack_from_sound_range 1200	//def 750
 		z_close_target_notice_distance 500	//def 60	How far an attacking zombie will look for a nearby target on their way to their chosen victim.
+		z_common_limit 50			//def 30	How many common infecteds we can have at once.
+		z_wandering_density 0.05		//def 0.03
 		z_background_limit 30		//def 20	How many common infected are on the background map at once.
-		z_mega_mob_spawn_min_interval 520	//def 420
+		z_mob_min_notify_count 30		//def 10	Mobs at least this large trigger 'mob' events.
+		z_mob_spawn_min_size 30		//def 10	Minimum amount of infected that can spawn in a mob.
+		z_mob_spawn_max_size 50		//def 30	Maximum amount of infected that can spawn in a mob.
+		z_mob_spawn_finale_size 30		//def 20
+		z_mob_spawn_min_interval_easy 150	//def 120
+		z_mob_spawn_max_interval_easy 240	//def 240
+		z_mob_spawn_min_interval_normal 120	//def 90
+		z_mob_spawn_max_interval_normal 210	//def 180
+		z_mob_spawn_min_interval_hard 120	//def 90
+		z_mob_spawn_max_interval_hard 210	//def 180
+		z_mob_spawn_min_interval_expert 120	//def 90
+		z_mob_spawn_max_interval_expert 210	//def 180
+		z_mega_mob_size 80			//def 50	The amount of total infected spawned during a panic event.
+		z_mega_mob_spawn_min_interval 480	//def 420
 		z_mega_mob_spawn_max_interval 720	//def 900
 		z_spawn_mobs_behind_chance 25	//def 75	Percentage chance that a mob will spawn behind the Survivor team.
-		z_hit_from_behind_factor 0.8 		//def 0.5	Damage multiplier if zombie hits Survivor from behind.
+		z_hit_from_behind_factor 1.0 		//def 0.5	Damage multiplier if zombie hits Survivor from behind.
 		z_hit_chainsawer_factor 1.0		//def 0.5
 		//Damage multiplier if zombie hits incapacitated Survivor.
-		z_hit_incap_factor_easy 0.5		//def 0.1
-		z_hit_incap_factor_normal 1.0		//def 1.0
-		z_hit_incap_factor_hard 1.2		//def 1.0
-		z_hit_incap_factor_expert 1.5		//def 1.0
+		z_hit_incap_factor_easy 0.3		//def 0.1
+		z_hit_incap_factor_normal 0.5		//def 1.0
+		z_hit_incap_factor_hard 1.0		//def 1.0
+		z_hit_incap_factor_expert 1.0		//def 1.0
 		//Minimum time between damaging a Survivor from a mob.
 		z_throttle_hit_interval_easy 0.5		//def 0.5
-		z_throttle_hit_interval_normal 0.5	//def 0.33
+		z_throttle_hit_interval_normal 0.33	//def 0.33
 		z_throttle_hit_interval_hard 0.33	//def 0.5
 		z_throttle_hit_interval_expert 0.33	//def 1
 		//Damage to zombie from non-headshots is multiplied by this factor.
  		z_non_head_damage_factor_easy 1.0	//def 2.0
 		z_non_head_damage_factor_normal 0.5	//def 1.0
 		z_non_head_damage_factor_hard 0.4	//def 0.75
-		z_non_head_damage_factor_expert 0.3	//def 0.5
+		z_non_head_damage_factor_expert 0.25	//def 0.5
+		director_num_reserved_wanderers 20		//def 0	The number of wandering infected that cannot be despawned for mobs.
+		director_music_dynamic_mob_size 50		//def 25	Spawning a mob this large can play music.
+		director_music_dynamic_mobstop_size 20		//def 8	When a mob gets to this size we think about stopping the music.
+		director_music_dynamic_scanmobstop_size 8	//def 3	When see less than this many of a mob, music stops.
 
 		//Special Infected
-		z_max_stagger_duration 1.2			//def 6	Max time a PZ staggers when bashed by a survivor.
-		z_spawn_safety_range 250			//def 550
+		z_max_stagger_duration 1.0			//def 6	Max time a PZ staggers when bashed by a survivor.
 		z_director_special_spawn_delay 2		//def 10
+		director_special_battlefield_respawn_interval 2	//def 10
+		director_special_respawn_interval 60		//def 45
 		director_special_initial_spawn_delay_min 20	//def 30
 		director_special_initial_spawn_delay_max 30	//def 60
 		director_special_initial_spawn_delay_max_extra 60	//def 180
-		director_special_battlefield_respawn_interval 2	//def 10
-		//Hunter
+		//[Hunter]
 		hunter_leap_away_give_up_range 1200		//def 1000
 		z_lunge_up 250 				//def 200
 		z_lunge_power 750				//def 600
 		z_hunter_lunge_distance 900			//def 750	Distance at which bot hunters will try to lunge.
 		z_pounce_crouch_delay 0.5			//def 1
 		z_pounce_damage_delay 0.5			//def 1
-		z_pounce_damage_interrupt 150		//def 50	Taking this much damage interrupts a pounce attempt.
+		z_pounce_damage_interrupt 125		//def 50	Taking this much damage interrupts a pounce attempt.
 		z_pounce_stumble_radius 120 	 		//def 0	Radius of the stumble effect when a hunter pounces on someone.
-		//Smoker
+		//[Smoker]
 		smoker_tongue_delay 0.2			//def 1.5
 		smoker_escape_range 900			//def 750
 		z_gas_speed 240				//def 210
 		tongue_range 900				//def 750	How far a smoker can shoot his tongue.
-		tongue_hit_delay 8				//def 20	How long a smoker must wait to shoot his tongue after a hit, from the time he lets go.
+		tongue_hit_delay 5				//def 20	How long a smoker must wait to shoot his tongue after a hit, from the time he lets go.
 		tongue_miss_delay 5				//def 15	How long a smoker must wait to shoot his tongue after a miss.
 		tongue_choke_damage_amount 5		//def 10	How much damage the choke does.
+		tongue_victim_max_speed 210			//def 175	The fastest the tongue can get you going.
 		tongue_victim_accuracy_penalty 0.25		//def 0.13	How much someone's accuracy suffers while being dragged by a tongue.
 		tongue_dropping_to_ground_time 0.5		//def 2	A miss or a wall hit will wait this long before pulling back.
-		tongue_break_from_damage_amount 150		//def 50	How much damage to the smoker makes him let go of his victim.
-		//Boomer
+		tongue_health 125				//def 100	Tongue health.
+		tongue_break_from_damage_amount 125		//def 50	How much damage to the smoker makes him let go of his victim.
+		//[Boomer]
 		boomer_exposed_time_tolerance 0.5		//def 1.0	How long an out-of-range Boomer will tolerate being visible before fleeing.
 		boomer_leaker_chance 20			//def 0	Chance (0 - 100) in which a boomer with modified behavior will spawn. Explodes and set aflame when player is near.
 		boomer_vomit_delay 0.2			//def 1	How long the Boomer waits before he vomits on his target on Normal difficulty.
 		z_exploding_health 120			//def 50
-		z_exploding_splat 80				//def 50	Boomers splat instead of making a thud when taking this much falling damage.
+		z_exploding_splat 100			//def 50	Boomers splat instead of making a thud when taking this much falling damage.
 		z_exploding_splat_radius 250			//def 200	Boomers splattering on the ground make survivors inside this radius it.
+		z_exploding_inner_radius 150			//def 130
 		z_exploding_outer_radius 250			//def 200
 		z_exploding_speed 210			//def 175
+		z_vomit_range 350				//def 300
 		z_vomit_interval 12				//def 30	How often a puker can puke.
-		//Jockey
+		z_female_boomer_spawn_chance 50		//def 25	Chance (0 - 100) if a female Boomer shouldn't be allowed to spawn. Setting to 100 means no female Boomers.
+		//[Jockey]
 		z_jockey_health 350				//def 325
 		z_jockey_leap_range 900			//def 200	If victim is this close, leap at them.
+		z_jockey_ride_damage 5			//def 4
 		z_leap_interval 0.2				//def 0.5
 		z_leap_power 500				//def 400
 		z_leap_interval_post_incap 0.5			//def 30.0
 		z_leap_interval_post_ride 0.5			//def 6.0
-		//Spitter
+		//[Spitter]
 		z_spitter_health 150				//def 100
 		z_spitter_range 1000				//def 850
 		z_spitter_speed 240				//def 210
 		z_spitter_max_wait_time 12			//def 30
 		z_spit_interval 10				//def 20
-		//Charger
+		//[Charger]
+		z_charger_health 900			//def 600
 		z_charger_pound_dmg 20			//def 15
 		z_charge_interval 3				//def 12
 		z_charge_duration 3.0			//def 2.5
 
 		//Boss
-		//Witch
+		//[Witch]
 		z_witch_speed_inured 250		//def 200
-		z_witch_burn_time 25		//def 15
+		z_witch_burn_time 20		//def 15
 		z_witch_anger_rate 0.3		//def 0.2	Rate at which Witches become agitated, a higher value will increase the speed Witches become agitated.
 		z_witch_hostile_at_me_anger 3		//def 2
 		z_witch_personal_space 150		//def 100	Range at which survivors will always agitate sitting Witches, even if the Witch cannot see or hear the survivor.
 		z_witch_flashlight_range 800		//def 400	Range at which survivors can continue to agitate witches by pointing flashlights at her, survivors at this range will not initially agitate Witches.
 		z_witch_threat_hostile_range 800	//def 600	Range at which survivors can continue to agitate witches by committing 'hostile' actions, survivors at this range will not initially agitate Witches.
-		z_witch_threat_normal_range 400	//def 300	Range at which survivors can agitate Witches based on line-of-sight and sound.
+		z_witch_threat_normal_range 500	//def 300	Range at which survivors can agitate Witches based on line-of-sight and sound.
 		z_witch_wander_hear_radius 150	//def 72
+		z_witch_wander_personal_space 300	//def 240
 		z_witch_tongue_range 20		//def 100	If a tongue passes this close to a witch's head, she will snap it.
-		z_witch_damage_per_kill_hit 60		//def 30
-		//Tank
+		z_witch_damage_per_kill_hit 60		//def 30	(For easy mode)
+		//[Tank]
 		z_tank_speed 250			//def 210
 		z_tank_health 6000			//def 4000
 		z_tank_throw_interval 3		//def 5	How often a tank can throw.
 		z_tank_throw_health 100		//def 50	Health of the tank projectile. (0 disables)
 		z_tank_throw_force 1200		//def 800
-		z_tank_attack_interval 0.8		//def 1.5
+		z_tank_attack_interval 1.0		//def 1.5
+		z_tank_max_stagger_distance 300	//def 400	Max distance a Tank staggers when hurt by a grenade.
+		z_tank_max_stagger_duration 3		//def 6	Max time a Tank staggers when hit by a grenade.
+		z_tank_max_stagger_fade_duration 3	//def 6	Fade in time when a Tank is staggered by a grenade.
 		z_tank_incapacitated_health 2000	//def 5000Health Tank starts with in death throes.
+		z_tank_incapacitated_decay_rate 10	//def 1	How much health a dying Tank loses each update.
 		z_tank_damage_slow_min_range 300	//def 200	Range at which Tank is slowed by gunfire.
 		z_tank_damage_slow_max_range 500	//def 400	Range at which Tank is slowed by gunfire.
 		z_tank_has_special_blood 1		//def 0	Does the Tank get his own blood effect instead of the normal infected one?
-		tank_swing_interval 0.8		//def 1.5	Interval between tank swings.
+		tank_swing_interval 1.0		//def 1.5	Interval between tank swings.
 		tank_swing_miss_interval 0.5		//def 1.0	Interval between tank swings after a miss.
+		tank_swing_physics_prop_force 8.0	//def 4.0	Multiplier for tank hitting a phys prop.
+		tank_throw_aim_error 0		//def 100	Margin of error for Easy mode Tank rock throws.
 		tank_throw_min_interval 5		//def 8	Minimum interval between Tank rock throws.
 		tank_throw_allow_range 350		//def 250	How far away our victim must be before we'll try to throw debris at them.
 		tank_throw_max_loft_angle 45		//def 30	Maximum loft angle for Tank throw angle adjustment.
 		tank_rock_overhead_percent 75	//def 100	Percent of time the tank throws overhand (0-100).
-		tank_ground_pound_duration 1.0	//def 1.5
-		tank_swing_physics_prop_force 8.0	//def 4.0	Multiplier for tank hitting a phys prop.
-		tank_burn_duration 100		//def 75	Number of seconds a burning Tank takes to die in easy, normal, versus and survival.
-		tank_burn_duration_hard 200		//def 80	Number of seconds a burning Tank takes to die in hard.
+		tank_ground_pound_duration 1.2	//def 1.5
+		tank_burn_duration 120		//def 75	Number of seconds a burning Tank takes to die in easy, normal, versus and survival.
+		tank_burn_duration_hard 240		//def 80	Number of seconds a burning Tank takes to die in hard.
 		tank_burn_duration_expert 300		//def 85	Number of seconds a burning Tank takes to die in expert.
-		tank_stasis_time_suicide 900		//def 30
 		tank_stuck_time_suicide 900		//def 10
+		tank_stasis_time_suicide 900		//def 30
 		tank_visibility_tolerance_suicide 900	//def 60
 		tank_stuck_visibility_tolerance_suicide 900	//def 15
-		tank_stuck_time_choose_new_target 0.5		//def 2
 		tank_stuck_visibility_tolerance_choose_new_target 2	//def 5
-
-//		def
-//		hunter_pounce_air_speed 700			z_pounce_damage 5
-//		jockey_pounce_air_speed 700			z_jockey_ride_damage 4
-//		tongue_fly_speed 1000			tongue_choke_damage_amount 10
-//		z_spit_velocity 900				spit_scaling_min_scale 0.35
-//		z_charge_start_speed 250			z_charge_max_damage 10
-//		z_charge_max_speed 500			z_charger_pound_dmg 15
-//		z_charge_min_force 550
-//		z_charge_max_force 800
-//		z_vomit_velocity 1700.0
-
+		tank_stuck_time_choose_new_target 0.5		//def 2
+		director_tank_bypass_max_flow_travel 1000	//def 1500
 	}
 }
+
+//		def
+//		hunter_pounce_air_speed 700
+//		jockey_pounce_air_speed 700
+//		tongue_fly_speed 1000
+//		z_spit_velocity 900
+//		spit_scaling_min_scale 0.35
+//		z_charge_start_speed 250
+//		z_charge_max_speed 500
+//		z_charge_min_force 550
+//		z_charge_max_force 800
+//		z_charge_max_damage 10
+//		z_vomit_velocity 1700.0

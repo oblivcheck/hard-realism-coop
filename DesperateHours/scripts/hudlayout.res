@@ -377,7 +377,7 @@
 		"EndRadius" "80"
 		"MinimumHeight" "30"
 		"MaximumHeight" "60"
-		"MinimumTime" "-1"
+		"MinimumTime" "-2"
 
 		// CS Damage Indicator vars
 		"DmgColorLeft" "255 0 0 0"

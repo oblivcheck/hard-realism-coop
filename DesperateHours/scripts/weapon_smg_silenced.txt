@@ -62,12 +62,12 @@ WeaponData
 	"PenetrationPower"			"30"
 	"PenetrationMaxDistance"	"0"	// none
 
-	"Damage"			"25"
+	"Damage"			"28"
 	"GainRange"			"900"
 	"Range"				"2200"
 	"RangeModifier"			"0.84"
 	"Bullets"			"1"
-	"CycleTime"			"0.0625"
+	"CycleTime"			"0.06"
 
 	"TimeToIdle"			"2"
 	"IdleInterval"			"20"
