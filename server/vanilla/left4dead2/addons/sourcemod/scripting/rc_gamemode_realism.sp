@@ -150,16 +150,16 @@ public void ApplyCvars()
     ServerCommand("sm_cvar z_jockey_health 500");
 
     // 需要一个加速奔跑的功能
-    ServerCommand("sm_cvar  z_forwardspeed 300");
-    ServerCommand("sm_cvar  sv_accelerate 4");
-    ServerCommand("sm_cvar  z_backspeed 150");
-    ServerCommand("sm_cvar  z_sidespeed 200");
-    ServerCommand("sm_cvar  z_gas_speed 150");
+    //ServerCommand("sm_cvar  z_forwardspeed 300");
+    //ServerCommand("sm_cvar  sv_accelerate 4");
+    //ServerCommand("sm_cvar  z_backspeed 150");
+    //ServerCommand("sm_cvar  z_sidespeed 200");
+    //ServerCommand("sm_cvar  z_gas_speed 150");
 
     ServerCommand("sm plugins reload l4d_reservecontrol"); 
     WEAPON_AdjWeaponAttr();
     SOUND_CreateHook();
-    
+    ServerCommand("l4d_silenced_enable 1");
     //削弱推挤
     //g_bNerfShove = true;
     ServerCommand("sm_cvar z_gun_swing_duration 0.15");
@@ -173,7 +173,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar l4d_si_ability_enabled \"1\"");
     ServerCommand("sm_cvar l4d_si_ability_shove \"18\"");
 
-    ServerCommand("sm_cvar z_speed \"150\"");
+    //ServerCommand("sm_cvar z_speed \"150\"");
     ServerCommand("sm_cvar rc_asdl_enable \"0\"");
     ServerCommand("sm_cvar l4d2_lj_enabled 1");
     ServerCommand("sm plugins load l4d_wam");
@@ -270,6 +270,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar  z_sidespeed 450");
     ServerCommand("sm_cvar  z_gas_speed 210");
 
+    ServerCommand("l4d_silenced_enable 0");
 
     ServerCommand("sm plugins unload l4d_reservecontrol"); 
     WEAPON_ResetWeaponAttr();

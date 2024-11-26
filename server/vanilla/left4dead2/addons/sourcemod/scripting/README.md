@@ -1,11 +1,13 @@
 ## Source
 (*) 已修改而非原始版本
 
-* ([ALLM](https://forums.alliedmods.net/showthread.php?t=334274)) **l4d_reservecontrol.smx**
+* ([ALLM](https://forums.alliedmods.net/showthread.php?t=334274)) **l4d_reservecontrol.sp**
 
-* ([ALLM](https://forums.alliedmods.net/showthread.php?t=317810)|[GitHub](https://github.com/LuxLuma/L4DMusic_stuff/tree/master/MusicCmdFilter)) **MusicCmdFilter.smx**
+* ([ALLM](https://forums.alliedmods.net/showthread.php?t=317810)|[GitHub](https://github.com/LuxLuma/L4DMusic_stuff/tree/master/MusicCmdFilter)) **MusicCmdFilter.sp**
 
-([ALLM](https://forums.alliedmods.net/showthread.php?t=327105)) **l4d_reload_fix.smx**
+* ([ALLM](https://forums.alliedmods.net/showthread.php?t=137397)) **l4d_silenced_infected.sp**
+
+([ALLM](https://forums.alliedmods.net/showthread.php?t=327105)) **l4d_reload_fix.sp**
 
 ## To Do:
 
