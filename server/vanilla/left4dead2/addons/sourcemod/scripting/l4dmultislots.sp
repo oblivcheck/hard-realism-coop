@@ -673,6 +673,7 @@ void Event_FinaleStart(Event event, const char[] name, bool dontBroadcast)
 		if( amount > 0 && client > 0 )
 		{
 			GetClientAbsOrigin(client, vPos);
+      PrintToChatAll("额外的医疗包已经在 %N 的位置生成", client);
 			for(int i = 1; i <= amount; i++)
 			{
 				weapon = CreateEntityByName("weapon_first_aid_kit");
@@ -974,6 +975,7 @@ Action Timer_PluginStart(Handle timer)
 	if( g_bGiveKitSafeRoom && amount > 0 && client > 0 )
 	{
 		GetClientAbsOrigin(client, vPos);
+    PrintToChatAll("额外的医疗包已经在 %N 的位置生成", client);
 		for(int i = 1; i <= amount; i++)
 		{
 			weapon = CreateEntityByName("weapon_first_aid_kit");
