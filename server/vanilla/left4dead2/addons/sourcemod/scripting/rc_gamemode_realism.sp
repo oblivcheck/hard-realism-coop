@@ -186,6 +186,7 @@ public void ApplyCvars()
     HookEvent("witch_killed", WitchPanic_Event);
     HookEvent("witch_harasser_set", WitchPanic_Harasse_Event);
     HookEvent("weapon_fire", Event_WeaponFire);
+    HookEvent("revive_success", Event_Revive);
 
     for(int i=1;i<MaxClients;i++)
     {
@@ -232,8 +233,9 @@ public void ApplyCvars()
 
     ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.85\"");
     ServerCommand("sm_cvar l4d_weapon_auto_fire_enable \"1\"");
-    ServerCommand("sm_cvar rc_dsp_enable \"1\"");
-  
+    // ServerCommand("sm_cvar rc_dsp_enable \"1\"");
+    // dsp插件不兼容4人以上的服务器  
+
     g_hBot_die_first = FindConVar("l4d_bot_healing_die_first");
     //只是为了确定插件存不存在
     if(g_hBot_die_first != null)
@@ -306,6 +308,7 @@ public void ApplyCvars()
       UnhookEvent("witch_killed", WitchPanic_Event);
       UnhookEvent("witch_harasser_set", WitchPanic_Harasse_Event);
       UnhookEvent("weapon_fire", Event_WeaponFire)
+      UnhookEvent("revive_success", Event_Revive);
     }
     for(int i=1;i<MaxClients;i++)
     {
@@ -366,11 +369,6 @@ Action tSendMSG1(Handle Timer)
   PrintToChatAll("所有设置已经完成，重新开始回合以使特定功能生效.");  
   ServerCommand("sm_slay @all");
 
-  PrintToChatAll("\x03\x01要快捷切换奔跑状态，需要绑定\x04sm_rpp_run\x01命令");
-  PrintToChatAll("  绑定到Shift键示例");
-  PrintToChatAll("  alias +rpp_run \"sm_rpp_run\"; alias -rpp_run \"sm_rpp_run\" ");
-  PrintToChatAll("  bind \"shift\" \"+rpp_run\"  ");
-  // alias +rpp_run "sm_rpp_run"; alias -rpp_run "sm_rpp_run"; bind "shift" "+rpp_run" 
   return Plugin_Continue;
 }
 Action tSendMSG2(Handle Timer)
@@ -815,6 +813,29 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
   return Plugin_Continue;
 }
 
+void Event_Revive(Event event, const char[] name, bool dontBroadcast)
+{
+  int userid;
+  if( (userid = event.GetInt("subject")) && event.GetInt("ledge_hang") == 0 )
+  {
+    int client = GetClientOfUserId(userid);
+    if( client )
+    {
+      RequestFrame(OnFrameRevive, userid);
+    }
+  }
+}
+
+void OnFrameRevive(int client)
+{
+  client = GetClientOfUserId(client);
+  if( client && IsClientInGame(client) && GetClientTeam(client) == 2 && IsPlayerAlive(client) )
+  {
+    if(GetEntProp(client, Prop_Send, "m_bIsOnThirdStrike") == 1)
+      SetEntProp(client, Prop_Send, "m_bIsOnThirdStrike", 0);
+  }
+}
+
 // taken from:
 // [L4D & L4D2] Survivor Shove (1.15) [04-Aug-2022]
 // https://forums.alliedmods.net/showthread.php?p=2667050
@@ -840,3 +861,4 @@ void StaggerClient(int userid, const float vPos[3])
         AcceptEntityInput(iScriptLogic, "RunScriptCode");
         RemoveEntity(iScriptLogic);
 }
+
