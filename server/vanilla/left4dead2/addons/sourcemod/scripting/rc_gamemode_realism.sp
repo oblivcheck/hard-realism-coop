@@ -57,6 +57,8 @@ bool  bWam;
 
 int snum[MAXPLAYERS+1];
 
+bool  bAfk;
+
 public void OnPluginStart()
 {
   //https://forums.alliedmods.net/showthread.php?t=337799
@@ -160,6 +162,10 @@ public void ApplyCvars()
     WEAPON_AdjWeaponAttr();
     SOUND_CreateHook();
     ServerCommand("l4d_silenced_enable 1");
+
+    bAfk = true;
+    ServerCommand("sm plugins load l4d_afk_commands");
+
     //削弱推挤
     //g_bNerfShove = true;
     ServerCommand("sm_cvar z_gun_swing_duration 0.15");
@@ -273,6 +279,9 @@ public void ApplyCvars()
     ServerCommand("sm_cvar  z_gas_speed 210");
 
     ServerCommand("l4d_silenced_enable 0");
+
+    bAfk = false;
+    ServerCommand("sm plugins unload l4d_afk_commands");
 
     ServerCommand("sm plugins unload l4d_reservecontrol"); 
     WEAPON_ResetWeaponAttr();
@@ -404,6 +413,11 @@ public void OnClientPutInServer(iClient)
     {
       PrintToServer("\n%s: 卸载默认不启用的插件", PLUGIN_NAME);
       ServerCommand("sm plugins unload l4d_wam");  
+    }
+    if(!bAfk)
+    {
+      PrintToServer("\n%s: 卸载默认不启用的插件", PLUGIN_NAME);
+      ServerCommand("sm plugins unload l4d_afk_commands");  
     }
   }
 }
