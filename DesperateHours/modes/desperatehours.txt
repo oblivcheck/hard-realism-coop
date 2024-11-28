@@ -321,11 +321,10 @@
 		z_witch_speed_inured 250		//def 200
 		z_witch_burn_time 20		//def 15
 		z_witch_anger_rate 0.3		//def 0.2	Rate at which Witches become agitated, a higher value will increase the speed Witches become agitated.
-		z_witch_hostile_at_me_anger 3		//def 2
 		z_witch_personal_space 150		//def 100	Range at which survivors will always agitate sitting Witches, even if the Witch cannot see or hear the survivor.
 		z_witch_flashlight_range 800		//def 400	Range at which survivors can continue to agitate witches by pointing flashlights at her, survivors at this range will not initially agitate Witches.
 		z_witch_threat_hostile_range 800	//def 600	Range at which survivors can continue to agitate witches by committing 'hostile' actions, survivors at this range will not initially agitate Witches.
-		z_witch_threat_normal_range 500	//def 300	Range at which survivors can agitate Witches based on line-of-sight and sound.
+		z_witch_threat_normal_range 400	//def 300	Range at which survivors can agitate Witches based on line-of-sight and sound.
 		z_witch_wander_hear_radius 150	//def 72
 		z_witch_wander_personal_space 300	//def 240
 		z_witch_tongue_range 20		//def 100	If a tongue passes this close to a witch's head, she will snap it.
