@@ -87,7 +87,7 @@ if [[ $2 != "testing" ]]; then
     mkdir actions_ext && cd actions_ext
     wget -q "$URL_ACTION"
     if [ $? -ne 0 ]; then
-      echo "DOWNLOAD F Action.ext"
+      echo "DOWNLOAD F Actions.ext"
       touch $SCRIPT_DIR/SCRIPT_FAIL
       exit -1
     fi
