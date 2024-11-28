@@ -25,7 +25,7 @@ jobs:
 
       - name: Building an executable
         run: |
-          ocran uploader\client-cli\client-cli.rb --icon uploader\client-cli\greenflu.icon --gem-all=digest/sha2 --output uploader\client-cli\client-windows.241128-0.exe
+          ocran uploader\client-cli\client-cli.rb --debug --gem-all=digest/sha2 --output uploader\client-cli\client-windows.241128-0.exe
 
       - name: Upload Windows binary
         uses: actions/upload-artifact@v4
