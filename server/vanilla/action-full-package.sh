@@ -7,7 +7,8 @@ URL_MM="https://mms.alliedmods.net/mmsdrop/1.11/mmsource-latest-linux"
 URL_SM="https://sm.alliedmods.net/smdrop/1.12/sourcemod-latest-linux"
 URL_L4DTOOLZ="https://github.com/lakwsh/l4dtoolz/releases/download/2.4.0/l4dtoolz-11977260267.zip"
 URL_LEFT4DOOKS="https://github.com/SilvDev/Left4DHooks/archive/refs/heads/main.zip"
-URL_ACTION=
+# 06-12-24
+URL_ACTION="https://forums.alliedmods.net/attachment.php?attachmentid=204593&d=1718157838"
 
 # echo "https://github.com/${{ github.repository }}/tree/${{ github.sha }}"
 URL_REPO="$1"
@@ -82,6 +83,19 @@ if [[ $2 != "testing" ]]; then
     unzip  main.zip
     rm main.zip
     cd ..
+
+    mkdir actions_ext && cd actions_ext
+    wget -q "$URL_ACTION"
+    if [ $? -ne 0 ]; then
+      echo "DOWNLOAD F Action.ext"
+      touch $SCRIPT_DIR/SCRIPT_FAIL
+      exit -1
+    fi
+    mv att*.zip actions.ext.zip
+    unzip actions.ext.zip
+    cp -r actions.ext/* addons/sourcemod/
+    cd ..
+    rm -r actions_ext
 fi
 # 移动已知的说明与许可证&&删除不必要的文件
   rm -r "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins"/*
