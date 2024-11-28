@@ -37,6 +37,7 @@ void rpp_start()
 }
 public Action cmd_run(int client, int args)
 {
+  return Plugin_Continue;
   if(!bRPP)
     return Plugin_Continue;
 
@@ -97,7 +98,7 @@ public void Event_WeaponFire(Event event, const char[] name, bool dontBroadcast)
   event.GetString("weapon", sWeapon, sizeof(sWeapon) );
   if(strcmp(sWeapon, "melee") == 0)
   {
-    SU_SetSpeed(client, SPEED_RUN, 100.0);
+    SU_SetSpeed(client, SPEED_RUN, 115.0);
 /*
     exhaust[client] = exhaust[client] + (iTick * 3);
     if(exhaust[client] >= (30 * iTick) )
@@ -163,7 +164,7 @@ Action rpp_OnWeaponSwitch(int client)
  
 //  SU_SetSpeed(client, SPEED_RUN, RoundToNearest(SU_GetSpeed(client, SPEED_RUN) * 0.9) ) ;
  
-  SU_SetSpeed(client, SPEED_RUN, 125.0 ) ;
+  SU_SetSpeed(client, SPEED_RUN, 150.0 ) ;
  
   return Plugin_Continue;
 }
@@ -172,6 +173,7 @@ void rpp_OnClientRunCmd(int client, int buttons)
 {
   if(!bRPP)
     return;
+    /*
   if(run[client][0] != 0) 
   {
     if(run[client][0] == 1)
@@ -204,7 +206,7 @@ void rpp_OnClientRunCmd(int client, int buttons)
       run[client][2]=0;
     }
   }
-
+*/
   if(!IsAliveSurvivor(client) )
   {
     exhaust[client] = 0;
@@ -231,7 +233,7 @@ void rpp_OnClientRunCmd(int client, int buttons)
   counter[client]--;
   if(counter[client] == 0)
   {
-      SU_SetSpeed(client, SPEED_RUN, 150.0);
+      SU_SetSpeed(client, SPEED_RUN, 220.0);
     }
 }
 /*

@@ -1,11 +1,49 @@
 ## Source
 (*) 已修改而非原始版本
 
-* ([ALLM](https://forums.alliedmods.net/showthread.php?t=334274)) **l4d_reservecontrol.smx**
+* ([ALLM](https://forums.alliedmods.net/showthread.php?t=334274)) **l4d_reservecontrol.sp**
 
-* ([ALLM](https://forums.alliedmods.net/showthread.php?t=317810)|[GitHub](https://github.com/LuxLuma/L4DMusic_stuff/tree/master/MusicCmdFilter)) **MusicCmdFilter.smx**
+* ([ALLM](https://forums.alliedmods.net/showthread.php?t=317810)|[GitHub](https://github.com/LuxLuma/L4DMusic_stuff/tree/master/MusicCmdFilter)) **MusicCmdFilter.sp**
 
-([ALLM](https://forums.alliedmods.net/showthread.php?t=327105)) **l4d_reload_fix.smx**
+* ([ALLM](https://forums.alliedmods.net/showthread.php?t=137397)) **l4d_silenced_infected.sp**
+
+* ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dmultislots)) **l4dmultislots.sp**
+
+* ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_afk_commands)) **l4d_afk_commands.sp**
+
+([ALLM](https://forums.alliedmods.net/showpost.php?p=2729883&postcount=16)) **l4d_CreateSurvivorBot.sp**
+
+([ALLM](https://forums.alliedmods.net/showthread.php?t=327105)) **l4d_reload_fix.sp**
+
+([ALLM](https://forums.alliedmods.net/showthread.php?t=315483)) **Defib_Fix.sp**
+
+([ALLM](https://forums.alliedmods.net/showpost.php?p=2718792&postcount=36)) **l4d_survivor_identity_fix.sp**
+
+([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dafkfix_deadbot)) **l4dafkfix_deadbot.sp**
+
+([GitHub](https://github.com/fbef0102/L4D2-Plugins/tree/master/lfd_both_fixUpgradePack)) **lfd_both_fixUpgradePack.sp**
+
+([GitHub](https://github.com/nosoop/SMExt-SourceScramble)) **sourcescramble_manager.sp**
+  - 服务器实际使用以前在本地构建的旧版本，链接仅参考
+
+([ALLM](https://forums.alliedmods.net/showthread.php?t=315482)) **Charger_Collision_patch.sp**
+
+([GitHub](https://github.com/LuxLuma/Left-4-fix/tree/master/left%204%20fix/witch/witch_target_patch)) **Witch_Target_patch.sp**
+
+([GitHub](https://github.com/Target5150/MoYu_Server_Stupid_Plugins/tree/master/The%20Last%20Stand/l4d2_fix_changelevel)) **l4d2_fix_changelevel.sp**
+
+([ALLM](https://forums.alliedmods.net/showpost.php?p=2810276&postcount=12)) **l4d2_transition_info_fix.sp**
+
+([ALLM](https://forums.alliedmods.net/showthread.php?t=339155)) **l4d2_trigger_flow_fix.sp**
+
+([ALLM](https://forums.alliedmods.net/showthread.php?t=332860)) **l4d2_client_inputkill_prevention.sp**
+
+([ALLM](https://forums.alliedmods.net/showpost.php?p=2771588&postcount=53)) **l4d2_rescue_vehicle_mover.sp**
+
+([GitHub](https://github.com/fbef0102/L4D2-Plugins/tree/master/l4d2_ty_saveweapons)) **l4d2_ty_saveweapons.sp**
+
+([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_heartbeat)) **l4d_heartbeat.sp**
+
 
 ## To Do:
 
@@ -46,7 +84,6 @@ rc_stati.smx
 SaveChat-Ver-3.smx
 sm_dev_cmds.smx
 sm_RestartEmpty.smx
-sourcescramble_manager.smx
 ThirdPersonShoulder_Detect.smx
 vscript_replacer.smx
 WeaponHandling.smx

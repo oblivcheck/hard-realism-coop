@@ -3,11 +3,12 @@
 # 很不巧，我还位于/tmp中，且该目录挂载为tmpfs :(
 # 我现在唯一能做的是记录这件事情，然后*耐心地*重新编写 :)
 
-
 URL_MM="https://mms.alliedmods.net/mmsdrop/1.11/mmsource-latest-linux"
 URL_SM="https://sm.alliedmods.net/smdrop/1.12/sourcemod-latest-linux"
 URL_L4DTOOLZ="https://github.com/lakwsh/l4dtoolz/releases/download/2.4.0/l4dtoolz-11977260267.zip"
 URL_LEFT4DOOKS="https://github.com/SilvDev/Left4DHooks/archive/refs/heads/main.zip"
+# 06-12-24
+URL_ACTION="https://forums.alliedmods.net/attachment.php?attachmentid=204593&d=1718157838"
 
 # echo "https://github.com/${{ github.repository }}/tree/${{ github.sha }}"
 URL_REPO="$1"
@@ -81,9 +82,20 @@ if [[ $2 != "testing" ]]; then
     fi
     unzip  main.zip
     rm main.zip
-    cp -r Left4DHooks-main/* ../addons/
-    rm -r Left4DHooks-main
     cd ..
+
+    mkdir actions_ext && cd actions_ext
+    wget -q "$URL_ACTION"
+    if [ $? -ne 0 ]; then
+      echo "DOWNLOAD F Actions.ext"
+      touch $SCRIPT_DIR/SCRIPT_FAIL
+      exit -1
+    fi
+    mv att*.zip actions.ext.zip
+    unzip actions.ext.zip
+    cp -r actions.ext/* addons/sourcemod/
+    cd ..
+    rm -r actions_ext
 fi
 # 移动已知的说明与许可证&&删除不必要的文件
   rm -r "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins"/*
@@ -95,6 +107,10 @@ fi
   cd "$SCRIPT_DIR"
 LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
   cat LIST_RDMD_LICENSE | sed '2~2s|^|package/README/|' | sed '1~2s|^|package/|' | xargs -L 2 mv
+
+  cd $PACKAGE_DIR/left4dead2/left4dhooks/
+  cp -r Left4DHooks-main/* ../addons/
+  cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
 
   rm -rf $PACKAGE_DIR/left4dead2/l4dtoolz
   rm -rf $PACKAGE_DIR/left4dead2/left4dhooks

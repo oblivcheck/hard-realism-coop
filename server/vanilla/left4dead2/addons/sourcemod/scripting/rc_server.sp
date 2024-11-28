@@ -409,7 +409,7 @@ char AvailableCmds[][]=
   "sm_mark",
   "sm_drop",
   "sm_cvar",
-  "sm_jg",
+  "sm_join",
   "sm_away",
   "sm_rpp_run"
 };

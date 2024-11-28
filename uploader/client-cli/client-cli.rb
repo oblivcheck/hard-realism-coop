@@ -40,7 +40,7 @@ def upload(file_path, addr)
   name = File.basename(file_path)
   file_size = File.size(file_path)
   
-  socket.puts "::sctest_greenflu1115"
+  socket.puts "::sctest_greenflu1128"
   if socket.gets != "_READY_\n"
     Log.cl("等待服务器响应超时", 0)
     return

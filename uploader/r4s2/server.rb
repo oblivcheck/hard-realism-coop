@@ -406,7 +406,7 @@ begin
       end
       Log.sv(prefix, "#{address} 文件 #{info[0]} 写入信息...")
       socket.puts "_SWI_"
-      Receive::Archive.write(file)
+      Receive::Archive.write(file.dup)
       socket.puts "_SUS_"
       Log.sv(prefix, "#{address} 文件 #{info[0]} 上传完成！")
       # 重命名addons目录下的vpk文件，避免某些文件名不被专用服务器识别
