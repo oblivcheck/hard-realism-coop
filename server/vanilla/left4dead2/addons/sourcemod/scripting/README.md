@@ -9,6 +9,8 @@
 
 * ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dmultislots)) **l4dmultislots.sp**
 
+* ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_afk_commands)) **l4d_afk_commands.sp**
+
 ([ALLM](https://forums.alliedmods.net/showpost.php?p=2729883&postcount=16)) **l4d_CreateSurvivorBot.sp**
 
 ([ALLM](https://forums.alliedmods.net/showthread.php?t=327105)) **l4d_reload_fix.sp**

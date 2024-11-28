@@ -3,11 +3,11 @@
 # 很不巧，我还位于/tmp中，且该目录挂载为tmpfs :(
 # 我现在唯一能做的是记录这件事情，然后*耐心地*重新编写 :)
 
-
 URL_MM="https://mms.alliedmods.net/mmsdrop/1.11/mmsource-latest-linux"
 URL_SM="https://sm.alliedmods.net/smdrop/1.12/sourcemod-latest-linux"
 URL_L4DTOOLZ="https://github.com/lakwsh/l4dtoolz/releases/download/2.4.0/l4dtoolz-11977260267.zip"
 URL_LEFT4DOOKS="https://github.com/SilvDev/Left4DHooks/archive/refs/heads/main.zip"
+URL_ACTION=
 
 # echo "https://github.com/${{ github.repository }}/tree/${{ github.sha }}"
 URL_REPO="$1"
