@@ -82,11 +82,10 @@ if [[ $2 != "testing" ]]; then
     fi
     unzip  main.zip
     rm main.zip
-    cd ..
 
+    cd $SCRIPT_DIR
     unzip actions.ext.zip
     cp -r actions.ext/* addons/sourcemod/
-    cd ..
     rm -r actions.ext*
 
 fi
