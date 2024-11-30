@@ -85,7 +85,7 @@ if [[ $2 != "testing" ]]; then
 
     cd $SCRIPT_DIR
     unzip actions.ext.zip
-    cp -r actions.ext/* addons/sourcemod/
+    cp -r actions.ext/* left4dead2/addons/sourcemod/
     rm -r actions.ext*
 
 fi
