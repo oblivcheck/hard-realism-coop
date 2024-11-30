@@ -1,4 +1,8 @@
-## Source
+## 扩展
+
+[Actions.ext](https://forums.alliedmods.net/attachment.php?attachmentid=204593) 241130
+
+## 链接
 (*) 已修改而非原始版本
 
 * ([ALLM](https://forums.alliedmods.net/showthread.php?t=334274)) **l4d_reservecontrol.sp**
@@ -10,6 +14,8 @@
 * ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dmultislots)) **l4dmultislots.sp**
 
 * ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_afk_commands)) **l4d_afk_commands.sp**
+
+* ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dinfectedbots)) **l4dinfectedbots.sp**
 
 ([ALLM](https://forums.alliedmods.net/showpost.php?p=2729883&postcount=16)) **l4d_CreateSurvivorBot.sp**
 
@@ -45,7 +51,7 @@
 ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_heartbeat)) **l4d_heartbeat.sp**
 
 
-## To Do:
+## 未上传的部分:
 
 ```
 fix_fastmelee.smx

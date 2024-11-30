@@ -162,6 +162,7 @@ public void ApplyCvars()
     WEAPON_AdjWeaponAttr();
     SOUND_CreateHook();
     ServerCommand("l4d_silenced_enable 1");
+    ServerCommand("l4d_infectedbots_allow 1");
 
     bAfk = true;
     ServerCommand("sm plugins load l4d_afk_commands");
@@ -279,6 +280,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar  z_gas_speed 210");
 
     ServerCommand("l4d_silenced_enable 0");
+    ServerCommand("l4d_infectedbots_allow 0");
 
     bAfk = false;
     ServerCommand("sm plugins unload l4d_afk_commands");
