@@ -1,21 +1,33 @@
+## 关于
+
+...
+
 ## 扩展
 
-[Actions.ext](https://forums.alliedmods.net/attachment.php?attachmentid=204593) 241130
+[ALLM](https://forums.alliedmods.net/showthread.php?t=336374) 
+
+* 截至241130的最新版本
+
+* https://github.com/Vinillia/actions.ext
 
 ## 链接
-(*) 已修改而非原始版本
 
-* ([ALLM](https://forums.alliedmods.net/showthread.php?t=334274)) **l4d_reservecontrol.sp**
+已修改:
 
-* ([ALLM](https://forums.alliedmods.net/showthread.php?t=317810)|[GitHub](https://github.com/LuxLuma/L4DMusic_stuff/tree/master/MusicCmdFilter)) **MusicCmdFilter.sp**
+([ALLM](https://forums.alliedmods.net/showthread.php?t=334274)) **l4d_reservecontrol.sp**
 
-* ([ALLM](https://forums.alliedmods.net/showthread.php?t=137397)) **l4d_silenced_infected.sp**
+([ALLM](https://forums.alliedmods.net/showthread.php?t=317810)|[GitHub](https://github.com/LuxLuma/L4DMusic_stuff/tree/master/MusicCmdFilter)) **MusicCmdFilter.sp**
 
-* ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dmultislots)) **l4dmultislots.sp**
+([ALLM](https://forums.alliedmods.net/showthread.php?t=137397)) **l4d_silenced_infected.sp**
 
-* ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_afk_commands)) **l4d_afk_commands.sp**
+([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dmultislots)) **l4dmultislots.sp**
 
-* ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dinfectedbots)) **l4dinfectedbots.sp**
+([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_afk_commands)) **l4d_afk_commands.sp**
+
+([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dinfectedbots)) **l4dinfectedbots.sp**
+
+
+无修改:
 
 ([ALLM](https://forums.alliedmods.net/showpost.php?p=2729883&postcount=16)) **l4d_CreateSurvivorBot.sp**
 
@@ -49,6 +61,8 @@
 ([GitHub](https://github.com/fbef0102/L4D2-Plugins/tree/master/l4d2_ty_saveweapons)) **l4d2_ty_saveweapons.sp**
 
 ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_heartbeat)) **l4d_heartbeat.sp**
+
+([ALLM](https://forums.alliedmods.net/showthread.php?t=309656)) **command_buffer.sp**
 
 
 ## 未上传的部分:
