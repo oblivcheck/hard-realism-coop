@@ -235,7 +235,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tank_burn_duration_expert \"170\"");  
     ServerCommand("sm_cvar tank_stuck_time_suicide \"60\"");  
     
-    ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"35\"");  
+    ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"75\"");  
     ServerCommand("sm_cvar survivor_damage_speed_factor \"0.1f\"");  
 
     ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.85\"");
@@ -476,26 +476,41 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
       {
         if (GetClientTeam(iAttacker) == 2)
         {
+          bool isTank;
+          if(GetEntProp(iAttacker, Prop_Send, "m_zombieClass") == 8)
+            isTank = true;
+
           char buf[24];
           GetClientWeapon(iAttacker, buf, sizeof(buf) );
+          if(StrContains(buf, "_smg") != -1 )
+          {
+            if(!isTank)
+              return Plugin_Continue;
+
+            fDamage = fDamage * 0.8
+
+            return Plugin_Changed;
+          }
           if(StrContains(buf, "_awp") != -1 )
           {
-            fDamage = 400.0 ;
+            fDamage = 400.0;
             return Plugin_Changed;
           }
           if(StrContains(buf, "_hunt") != -1 )
           {
-            fDamage = 120.0 ;
+            fDamage = 120.0;
             return Plugin_Changed;
           }
           if(StrContains(buf, "_scout") != -1 )
           {
-            fDamage = 80.0 ;
+            if(isTank)
+              fDamage = 100.0;
+            else fDamage = 125.0;
             return Plugin_Changed;
           }
           if(StrContains(buf, "_mili") != -1 )
           {
-            fDamage = 150.0 ;
+            fDamage = 150.0;
             return Plugin_Changed;
           }
         }

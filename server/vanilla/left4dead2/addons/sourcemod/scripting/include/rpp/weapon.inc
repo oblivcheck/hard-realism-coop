@@ -12,6 +12,10 @@ void WEAPON_ResetWeaponAttr()
   L4D2_SetFloatWeaponAttribute("weapon_smg_silenced", L4D2FWA_CycleTime, 0.0625);
   //L4D2_SetFloatWeaponAttribute("weapon_smg_mp5", L4D2FWA_CycleTime, 0.1);
 
+  L4D2_SetIntWeaponAttribute("weapon_smg", L4D2IWA_Damage, 20);
+  L4D2_SetIntWeaponAttribute("weapon_smg_silenced", L4D2IWA_Damage, 25);
+  L4D2_SetIntWeaponAttribute("weapon_smg_mp5", L4D2IWA_Damage, 26);
+
   // - 步枪
   //L4D2_SetFloatWeaponAttribute("weapon_rifle", L4D2FWA_CycleTime, 0.1);
   L4D2_SetFloatWeaponAttribute("weapon_rifle_sg552", L4D2FWA_CycleTime, 0.0825);
@@ -87,12 +91,18 @@ void WEAPON_AdjWeaponAttr()
   L4D2_SetIntWeaponAttribute("weapon_smg", L4D2IWA_ClipSize, 32);
   L4D2_SetIntWeaponAttribute("weapon_smg_silenced", L4D2IWA_ClipSize, 30);
   L4D2_SetIntWeaponAttribute("weapon_smg_mp5", L4D2IWA_ClipSize, 30);
+
   L4D2_SetIntWeaponAttribute("weapon_smg", L4D2IWA_DefaultSize, 32);
   L4D2_SetIntWeaponAttribute("weapon_smg_silenced", L4D2IWA_DefaultSize, 30);
   L4D2_SetIntWeaponAttribute("weapon_smg_mp5", L4D2IWA_DefaultSize, 30);
+
   L4D2_SetFloatWeaponAttribute("weapon_smg", L4D2FWA_CycleTime, 0.1);
   //L4D2_SetFloatWeaponAttribute("weapon_smg_silenced", L4D2FWA_CycleTime, 0.055);
   //L4D2_SetFloatWeaponAttribute("weapon_smg_mp5", L4D2FWA_CycleTime, 0.1);
+
+  L4D2_SetIntWeaponAttribute("weapon_smg", L4D2IWA_Damage, 33);
+  L4D2_SetIntWeaponAttribute("weapon_smg_silenced", L4D2IWA_Damage, 36);
+  L4D2_SetIntWeaponAttribute("weapon_smg_mp5", L4D2IWA_Damage, 33);
 
   // - 步枪
   //L4D2_SetFloatWeaponAttribute("weapon_rifle", L4D2FWA_CycleTime, 0.1);
