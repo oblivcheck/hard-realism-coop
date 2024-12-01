@@ -13,7 +13,7 @@ URL_ACTION="https://forums.alliedmods.net/attachment.php?attachmentid=204593&d=1
 # echo "https://github.com/${{ github.repository }}/tree/${{ github.sha }}"
 URL_REPO="$1"
 echo "# $URL_REPO"
-TAG=$(TZ='China/ShangHai' date +"%y%m%d")
+TAG=$(TZ='Asia/Shanghai' date +"%y%m%d")
 TAG="package.$TAG"
 
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
