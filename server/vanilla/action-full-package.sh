@@ -83,11 +83,6 @@ if [[ $2 != "testing" ]]; then
     unzip  main.zip
     rm main.zip
 
-    cd $SCRIPT_DIR
-    unzip actions.ext.zip
-    cp -r actions.ext/* left4dead2/addons/sourcemod/
-    rm -r actions.ext*
-
 fi
 # 移动已知的说明与许可证&&删除不必要的文件
   rm -r "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins"/*

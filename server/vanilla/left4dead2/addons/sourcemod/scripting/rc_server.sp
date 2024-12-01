@@ -139,8 +139,8 @@ public void OnPluginStart()
 
   RegConsoleCmd("sm_zs", cmd_zs);
   RegConsoleCmd("sm_kill", cmd_zs);
-  RegConsoleCmd("sm_jg", Cmd_Join);
-  RegConsoleCmd("sm_away", Cmd_Away);
+//  RegConsoleCmd("sm_jg", Cmd_Join);
+//  RegConsoleCmd("sm_away", Cmd_Away);
 
   // 懒惰方法
   CreateTimer(5.0, tCookie);
@@ -340,12 +340,21 @@ public void OnClientConnected(int client)
     PrintToServer("\n %s : 组成员优先取消", PLUGIN_NAME);
   }
 }
+public void OnClientPutInServer(int client)
+{
+  int value = GetPlayerNum();
+  if(value >= 4)
+    ServerCommand("l4d_multislots_min_survivors %d", value);
+}
 
 public void OnClientDisconnect_Post(int client)
 {
   PrintLobbyIsReservedHint[client] = false;
   g_iPrintHint_ButtonsCount[client] = 0;
   PrintServerHint[client] = false;
+  int value = GetPlayerNum();
+  if(value >= 4)
+    ServerCommand("l4d_multislots_min_survivors %d", value);
 }
 public Action OnPlayerRunCmd(int client, int& buttons)
 {
@@ -411,7 +420,7 @@ char AvailableCmds[][]=
   "sm_cvar",
   "sm_join",
   "sm_away",
-  "sm_rpp_run"
+  "sm_ob"
 };
 
 public Action fuc_CommandListener(int client, const char[] command, int argc)
@@ -426,7 +435,14 @@ public Action fuc_CommandListener(int client, const char[] command, int argc)
 
     for(int i =0; i<AvaCmdsNum; i++)
     {
-      
+      if(strcmp(command, "sm_join", false) == 0)
+      {
+        if(IsClientIdle(client) )
+        {
+          PrintToChat(client, "  请直接使用鼠标左键来加入游戏");
+          break;
+        }
+      }
       if(strcmp(command, AvailableCmds[i], false) !=0)
       {
         g_bAvaCmd[client] = false;
@@ -824,4 +840,58 @@ bool IsClientDead(int client, bool ignore = true) {
 bool TakeOverBot(int client, int bot) {
 	SDKCall(hSpec, bot, client);
 	return SDKCall(hSwitch, client, true);
+}
+
+stock bool IsClientIdle(client)
+{
+    for(new i = 1; i <= MaxClients; i++)
+    {
+        if(!IsClientConnected(i))
+            continue
+        if(!IsClientInGame(i))
+            continue
+        if(GetClientTeam(i)!=2)
+            continue
+        if(!IsFakeClient(i))
+            continue
+        if(!HasIdlePlayer(i))
+            continue
+        
+        new spectator_userid = GetEntData(i, FindSendPropInfo("SurvivorBot", "m_humanSpectatorUserID"))
+        new spectator_client = GetClientOfUserId(spectator_userid)
+        
+        if(spectator_client == client)
+            return true
+    }
+    return false
+}
+
+stock bool HasIdlePlayer(bot)
+{
+    new userid = GetEntData(bot, FindSendPropInfo("SurvivorBot", "m_humanSpectatorUserID"))
+    new client = GetClientOfUserId(userid)
+    
+    if(client)
+    {
+        // Do not count bots
+        // Do not count 3rd person view players
+        if(IsClientInGame(client) && !IsFakeClient(client) && (GetClientTeam(client)!=2))
+            return true
+    }    
+    return false
+}
+
+stock int GetPlayerNum()
+{
+  int count;
+  for(int i =1; i<=MaxClients; i++)
+  {
+    //https://forums.alliedmods.net/archive/index.php/t-132438.html
+    if(IsClientConnected(i) )
+    {
+      if(!IsFakeClient(i) )
+        count++;
+    }
+  }
+  return count;
 }
