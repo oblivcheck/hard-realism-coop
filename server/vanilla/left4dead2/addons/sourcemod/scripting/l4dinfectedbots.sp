@@ -1052,7 +1052,7 @@ public void OnPluginStart()
 	h_Announce = 						CreateConVar("l4d_infectedbots_infhud_announce", 						"0", 		"Toggle whether Infected HUD announces itself to clients.", FCVAR_NOTIFY, true, 0.0, true, 1.0);
 	h_VersusCoop = 						CreateConVar("l4d_infectedbots_versus_coop", 							"0", 		"If 1, The plugin will force all players to the infected side against the survivor AI for every round and map in versus/scavenge.\nEnable this also allow game to continue with survivor bots", FCVAR_NOTIFY, true, 0.0, true, 1.0);
 	h_ZSDisableGamemode = 				CreateConVar("l4d_infectedbots_sm_zss_disable_gamemode", 				"6", 		"Disable sm_zss command in these gamemode (0: None, 1: coop/realism, 2: versus/scavenge, 4: survival, add numbers together)", FCVAR_NOTIFY, true, 0.0, true, 7.0);
-	h_IncludingDead = 					CreateConVar("l4d_infectedbots_calculate_including_dead", 				"0", 		"If 1, including dead players when count the number of survivors.", FCVAR_NOTIFY, true, 0.0, true, 1.0);
+	h_IncludingDead = 					CreateConVar("l4d_infectedbots_calculate_including_dead", 				"1", 		"If 1, including dead players when count the number of survivors.", FCVAR_NOTIFY, true, 0.0, true, 1.0);
 	g_hCvarReloadSettings = 			CreateConVar("l4d_infectedbots_read_data", 								"", 		"Which xxxx.cfg file should this plugin read for settings in data/l4dinfectedbots folder (Ex: \"custom_tanks\" = reads 'data/l4dinfectedbots/custom_tanks.cfg')\nEmpty=By default, reads data/l4dinfectedbots/xxxx.cfg (xxxx = gamemode or mutation name).", FCVAR_NOTIFY);
 
 	g_hCvarMPGameMode = FindConVar("mp_gamemode");

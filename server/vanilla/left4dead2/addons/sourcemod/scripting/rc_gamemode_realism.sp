@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME       "Gamemode: Realism++"
 #define PLUGIN_DESCRIPTION    "Realism++"
-#define PLUGIN_VERSION      "1.3.22"
+#define PLUGIN_VERSION      "1.3.23"
 #define PLUGIN_AUTHOR       "oblivcheck"
 #define PLUGIN_URL        "https://github.com/oblivcheck/hard-realism-coop/"
 
@@ -565,7 +565,7 @@ void Event_Tank_Spawn(Event event, const char[] name, bool dontBroadcast)
   
 //  PrintToChatAll("Tank:%d", health);
 //  导演Tank刚生成时的生命值似乎是固定的，下一帧才会被设置
-  RequestFrame(SetTankHP, index);
+//  RequestFrame(SetTankHP, index);
 }
 public Action eTank_OnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float &fDamage, int &iDamagetype, int &weapon, float damageForce[3], float damagePosition[3])
 {
