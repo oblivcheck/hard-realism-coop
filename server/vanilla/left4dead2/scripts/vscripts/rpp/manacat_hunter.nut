@@ -258,26 +258,6 @@ if (!("manacatInfo" in getroottable())){
 
 	//	victim.TakeDamage(distDmg, 129, attacker);
 		
-		if(Convars.GetFloat("z_pounce_stumble_radius") < 30){
-			local vicPos = victim.GetOrigin();
-			local player = null;
-			while (player = Entities.FindByClassname(player, "player")){
-				if(!player.IsValid() || NetProps.GetPropInt( player, "m_iTeamNum" ) != 2
-				|| player.IsDead() || player.IsDying() || player.IsDominatedBySpecialInfected() || player.IsGettingUp())continue;
-				local dist = (player.GetOrigin() - vicPos).Length();
-				if(dist < 160){
-					local m_trace = { start = player.EyePosition(), end = attacker.EyePosition(), ignore = player, mask = 33636363 };
-					TraceLine(m_trace);
-					local m_trace2 = { start = player.EyePosition(), end = victim.EyePosition(), ignore = player, mask = 33636363 };
-					TraceLine(m_trace2);
-					if(("enthit" in m_trace && m_trace.enthit == attacker)
-					|| ("enthit" in m_trace2 && m_trace2.enthit == victim)){
-						player.Stagger(vicPos);
-						if(Convars.GetFloat("z_max_stagger_duration") > 0.8)::manacatAddTimer(0.8, false, ::manacat_hunter.activity_skip, {si = player, act = null});
-					}
-				}
-			}
-		}
 	}
 
 	function findNearSurv(params){

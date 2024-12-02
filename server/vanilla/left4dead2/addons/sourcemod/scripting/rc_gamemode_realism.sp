@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME       "Gamemode: Realism++"
 #define PLUGIN_DESCRIPTION    "Realism++"
-#define PLUGIN_VERSION      "1.3.23"
+#define PLUGIN_VERSION      "1.3.24"
 #define PLUGIN_AUTHOR       "oblivcheck"
 #define PLUGIN_URL        "https://github.com/oblivcheck/hard-realism-coop/"
 
@@ -167,6 +167,9 @@ public void ApplyCvars()
     bAfk = true;
     ServerCommand("sm plugins load l4d_afk_commands");
 
+    ServerCommand("sm_cvar z_pounce_stumble_radius 180");
+    ServerCommand("sm_cvar z_max_stagger_duration 1.0");
+
     //削弱推挤
     //g_bNerfShove = true;
     ServerCommand("sm_cvar z_gun_swing_duration 0.15");
@@ -178,7 +181,8 @@ public void ApplyCvars()
     //ServerCommand("sm_cvar ");
 
     ServerCommand("sm_cvar l4d_si_ability_enabled \"1\"");
-    ServerCommand("sm_cvar l4d_si_ability_shove \"18\"");
+    ServerCommand("sm_cvar l4d_si_ability_shove \"50\"");
+    ServerCommand("sm_cvar l4d_si_ability_cooldown_shove 1.0");
 
     //ServerCommand("sm_cvar z_speed \"150\"");
     ServerCommand("sm_cvar rc_asdl_enable \"0\"");
@@ -236,7 +240,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tank_stuck_time_suicide \"60\"");  
     
     ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"75\"");  
-    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.1f\"");  
+    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.5f\"");  
 
     ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.85\"");
     ServerCommand("sm_cvar l4d_weapon_auto_fire_enable \"1\"");
@@ -284,6 +288,10 @@ public void ApplyCvars()
 
     bAfk = false;
     ServerCommand("sm plugins unload l4d_afk_commands");
+
+    ServerCommand("sm_cvar z_pounce_stumble_radius 0");
+    ServerCommand("sm_cvar z_max_stagger_duration 6.0");
+
 
     ServerCommand("sm plugins unload l4d_reservecontrol"); 
     WEAPON_ResetWeaponAttr();
@@ -408,13 +416,15 @@ public void OnClientPutInServer(iClient)
     }
 
     hWam = FindConVar("l4d_wam_enabled");  
+
     if(hWam != null)
-      bWam = hWam.BoolValue;
-    else  return;
-    if(!bWam)
     {
-      PrintToServer("\n%s: 卸载默认不启用的插件", PLUGIN_NAME);
-      ServerCommand("sm plugins unload l4d_wam");  
+      bWam = hWam.BoolValue;   
+      if(!bWam)
+      {
+        PrintToServer("\n%s: 卸载默认不启用的插件", PLUGIN_NAME);
+        ServerCommand("sm plugins unload l4d_wam");  
+      }
     }
     if(!bAfk)
     {
@@ -517,10 +527,21 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
       }
 
       if(GetClientTeam(iVictim) != 2) return Plugin_Continue;
-      // Charger
       if(GetClientTeam(iAttacker) == 3) {
-        if(GetEntProp(iAttacker, Prop_Send, "m_zombieClass") == 6) {
+        int Class = GetEntProp(iAttacker, Prop_Send, "m_zombieClass");
+        // charger
+        if(Class == 6) {
           fDamage = fDamage * 2.0;
+          return Plugin_Changed;
+        }
+        // jockey
+        if(Class == 5) {
+          fDamage = fDamage * 2.0;
+          return Plugin_Changed;
+        }
+        // hunter
+        if(Class == 3) {
+          fDamage = fDamage * 1.5;
           return Plugin_Changed;
         }
       }

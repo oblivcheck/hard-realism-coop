@@ -73,7 +73,7 @@ Action tDelay(Handle Timer)
   {
     bRPP = hRPP.BoolValue;
     hRPP.AddChangeHook(CvarChange);
-    HookEvent("weapon_fire", Event_WeaponFire);
+    //HookEvent("weapon_fire", Event_WeaponFire);
   }
 
   iTick = hTick.IntValue;
@@ -98,7 +98,7 @@ public void Event_WeaponFire(Event event, const char[] name, bool dontBroadcast)
   event.GetString("weapon", sWeapon, sizeof(sWeapon) );
   if(strcmp(sWeapon, "melee") == 0)
   {
-    SU_SetSpeed(client, SPEED_RUN, 115.0);
+    SU_SetSpeed(client, SPEED_RUN, 150.0);
 /*
     exhaust[client] = exhaust[client] + (iTick * 3);
     if(exhaust[client] >= (30 * iTick) )
