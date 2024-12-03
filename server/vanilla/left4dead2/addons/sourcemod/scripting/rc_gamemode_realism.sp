@@ -167,8 +167,8 @@ public void ApplyCvars()
     bAfk = true;
     ServerCommand("sm plugins load l4d_afk_commands");
 
-    ServerCommand("sm_cvar z_pounce_stumble_radius 180");
-    ServerCommand("sm_cvar z_max_stagger_duration 1.0");
+    ServerCommand("sm_cvar z_pounce_stumble_radius 160");
+//    ServerCommand("sm_cvar z_max_stagger_duration 1.0");
 
     //削弱推挤
     //g_bNerfShove = true;
@@ -240,7 +240,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tank_stuck_time_suicide \"60\"");  
     
     ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"75\"");  
-    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.5f\"");  
+//    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.25f\"");  
 
     ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.85\"");
     ServerCommand("sm_cvar l4d_weapon_auto_fire_enable \"1\"");
@@ -290,7 +290,7 @@ public void ApplyCvars()
     ServerCommand("sm plugins unload l4d_afk_commands");
 
     ServerCommand("sm_cvar z_pounce_stumble_radius 0");
-    ServerCommand("sm_cvar z_max_stagger_duration 6.0");
+//    ServerCommand("sm_cvar z_max_stagger_duration 6.0");
 
 
     ServerCommand("sm plugins unload l4d_reservecontrol"); 
