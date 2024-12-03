@@ -73,7 +73,7 @@ Action tDelay(Handle Timer)
   {
     bRPP = hRPP.BoolValue;
     hRPP.AddChangeHook(CvarChange);
-    //HookEvent("weapon_fire", Event_WeaponFire);
+    HookEvent("weapon_fire", Event_WeaponFire);
   }
 
   iTick = hTick.IntValue;
@@ -133,7 +133,7 @@ void rpp_OnClientPutInServer(int client)
   run[client][1] = run_timemax
   run[client][2] = 0;
  
-  SDKHook(client, SDKHook_WeaponSwitchPost, rpp_OnWeaponSwitch);
+  //SDKHook(client, SDKHook_WeaponSwitchPost, rpp_OnWeaponSwitch);
 }
 
 void rpp_OnClientDisconnect(int client)

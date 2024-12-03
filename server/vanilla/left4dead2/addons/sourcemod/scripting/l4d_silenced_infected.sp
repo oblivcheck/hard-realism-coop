@@ -44,7 +44,7 @@ char g_sCommon[5][] =
 };
 int g_iCommonLen[sizeof(g_sCommon)];
 
-char g_sInfected[12][] = {
+char g_sInfected[11][] = {
 	"player/boomer/voice/alert/",
 	"player/boomer/voice/idle/",
 	"player/charger/voice/alert/",
@@ -53,8 +53,7 @@ char g_sInfected[12][] = {
 	"player/hunter/voice/idle/",
 	"player/jockey/voice/alert/",
 	"player/jockey/voice/idle/",
-	"player/smoker/voice/alert/",
-	"player/smoker/voice/idle/",
+	"player/smoker/",
 	"player/spitter/voice/alert/",
 	"player/spitter/voice/idle/"
 };
