@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME       "Gamemode: Realism++"
 #define PLUGIN_DESCRIPTION    "Realism++"
-#define PLUGIN_VERSION      "1.3.24"
+#define PLUGIN_VERSION      "1.3.25"
 #define PLUGIN_AUTHOR       "oblivcheck"
 #define PLUGIN_URL        "https://github.com/oblivcheck/hard-realism-coop/"
 
@@ -191,7 +191,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar rc_gamemode_realism_dynjump 1");
 
     ServerCommand("idle_antispam 1");
-    ServerCommand("sm_cvar director_afk_timeout 20");
+   // ServerCommand("sm_cvar director_afk_timeout 20");
     HookEvent("tank_spawn", Event_Tank_Spawn);
     HookEvent("witch_spawn", Event_Witch_Spawn);
     HookEvent("witch_killed", WitchPanic_Event);
@@ -503,7 +503,7 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
           }
           if(StrContains(buf, "_awp") != -1 )
           {
-            fDamage = 400.0;
+            fDamage = 600.0;
             return Plugin_Changed;
           }
           if(StrContains(buf, "_hunt") != -1 )
@@ -824,14 +824,15 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
     {
       if(snum[attacker] == 2) return Plugin_Handled;
       snum[attacker]++;
-      damage = 300.0 ;
+      damage = 300.0;
+      damagetype = 2;
       return Plugin_Changed;
     }
     if(StrContains(buf, "_awp") != -1 )
     {
       if(snum[attacker] == 2) return Plugin_Handled;
       snum[attacker]++;
-      damage = 2000.0 ;
+      damage = 2000.0;
       return Plugin_Changed;
     }
     if(StrContains(buf, "_hunt") != -1 )
@@ -845,14 +846,14 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
     {
       if(snum[attacker] == 1) return Plugin_Handled;
       snum[attacker]++;
-      damage = 600.0 ;
+      damage = 600.0;
       return Plugin_Changed;
     }
     if(StrContains(buf, "_mili") != -1 )
     {
       if(snum[attacker] == 2) return Plugin_Handled;
       snum[attacker]++;
-      damage = 200.0 ;
+      damage = 200.0;
       return Plugin_Changed;
     }
     if(StrContains(buf, "shotgun") == -1 || StrContains(buf, "melee") == -1)
