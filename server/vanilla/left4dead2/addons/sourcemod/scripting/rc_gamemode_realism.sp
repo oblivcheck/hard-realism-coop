@@ -503,7 +503,7 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
           }
           if(StrContains(buf, "_awp") != -1 )
           {
-            fDamage = 600.0;
+            fDamage = 400.0;
             return Plugin_Changed;
           }
           if(StrContains(buf, "_hunt") != -1 )
@@ -825,6 +825,7 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
       if(snum[attacker] == 2) return Plugin_Handled;
       snum[attacker]++;
       damage = 300.0;
+      ammotype = 1;
       damagetype = 2;
       return Plugin_Changed;
     }
