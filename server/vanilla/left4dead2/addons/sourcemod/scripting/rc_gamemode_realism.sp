@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME       "Gamemode: Realism++"
 #define PLUGIN_DESCRIPTION    "Realism++"
-#define PLUGIN_VERSION      "1.3.25"
+#define PLUGIN_VERSION      "1.3.26"
 #define PLUGIN_AUTHOR       "oblivcheck"
 #define PLUGIN_URL        "https://github.com/oblivcheck/hard-realism-coop/"
 
@@ -149,7 +149,15 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tongue_health 200");
     ServerCommand("sm_cvar tongue_range 900");
     ServerCommand("sm_cvar z_hunter_health 350");
+
     ServerCommand("sm_cvar z_jockey_health 500");
+    ServerCommand("sm_cvar z_jockey_area_range_factor 5.0");
+    ServerCommand("sm_cvar z_jockey_leap_again_timer 0.5");
+    ServerCommand("sm_cvar z_jockey_leap_time 30.0");
+    ServerCommand("sm_cvar jockey_pounce_loft_rate 0.0");
+    ServerCommand("sm_cvar z_jockey_speed 350");
+    ServerCommand("sm_cvar z_jockey_leap_range 1000");
+    ServerCommand("sm_cvar jockey_pounce_air_speed 2000");
 
     // 需要一个加速奔跑的功能
     //ServerCommand("sm_cvar  z_forwardspeed 300");
@@ -177,8 +185,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar z_gun_swing_vs_max_penalty 4");
     ServerCommand("sm_cvar z_gun_swing_vs_min_penalty 1");
     ServerCommand("sm_cvar z_gun_swing_vs_restore_time 6.0");
-    ServerCommand("sm_cvar z_jockey_leap_range 1000");
-    //ServerCommand("sm_cvar ");
+   //ServerCommand("sm_cvar ");
 
     ServerCommand("sm_cvar l4d_si_ability_enabled \"1\"");
     ServerCommand("sm_cvar l4d_si_ability_shove \"50\"");
@@ -198,6 +205,9 @@ public void ApplyCvars()
     HookEvent("witch_harasser_set", WitchPanic_Harasse_Event);
     HookEvent("weapon_fire", Event_WeaponFire);
     HookEvent("revive_success", Event_Revive);
+
+    HookUserMessage(GetUserMessageId("CloseCaption"), OnCloseCaption, true);
+    HookUserMessage(GetUserMessageId("CloseCaptionDirect"), OnCloseCaption, true);
 
     for(int i=1;i<MaxClients;i++)
     {
@@ -275,7 +285,6 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tongue_health 100");
     ServerCommand("sm_cvar tongue_range 750");
     ServerCommand("sm_cvar z_hunter_health 250");
-    ServerCommand("sm_cvar z_jockey_health 325");
 
     ServerCommand("sm_cvar  z_forwardspeed 450");
     ServerCommand("sm_cvar  sv_accelerate 5");
@@ -310,7 +319,15 @@ public void ApplyCvars()
     //  ServerCommand("sm_cvar hunter_leap_away_give_up_range 0");
     //  ServerCommand("sm_cvar hunter_pounce_max_loft_angle 0");
     //  ServerCommand("sm_cvar z_pounce_damage_interrupt 150");
+    ServerCommand("sm_cvar z_jockey_health 325");
+    ServerCommand("sm_cvar z_jockey_area_range_factor 2.0");
+    ServerCommand("sm_cvar z_jockey_leap_again_timer 5.0");
+    ServerCommand("sm_cvar z_jockey_leap_time 1.0");
+    ServerCommand("sm_cvar jockey_pounce_loft_rate .035");
+    ServerCommand("sm_cvar z_jockey_speed 250");
     ServerCommand("sm_cvar z_jockey_leap_range 200");
+    ServerCommand("sm_cvar jockey_pounce_air_speed 1400");
+
 
     ServerCommand("sm_cvar l4d_si_ability_enabled \"0\"");
     ServerCommand("sm_cvar z_speed \"250\"");
@@ -328,7 +345,10 @@ public void ApplyCvars()
       UnhookEvent("witch_harasser_set", WitchPanic_Harasse_Event);
       UnhookEvent("weapon_fire", Event_WeaponFire)
       UnhookEvent("revive_success", Event_Revive);
-    }
+  
+      UnhookUserMessage(GetUserMessageId("CloseCaption"), OnCloseCaption, true);
+      UnhookUserMessage(GetUserMessageId("CloseCaptionDirect"), OnCloseCaption, true);
+   }
     for(int i=1;i<MaxClients;i++)
     {
       if(IsClientInGame(i) && GetClientTeam(i) == 2)
@@ -385,9 +405,12 @@ public void ApplyCvars()
 }
 Action tSendMSG1(Handle Timer)
 {
-  PrintToChatAll("所有设置已经完成，重新开始回合以使特定功能生效.");  
-  ServerCommand("sm_slay @all");
-
+  PrintToChatAll("所有设置已经完成，重新开始回合以使特定功能生效."); 
+  char name[48]; 
+  GetCurrentMap(name, sizeof(name) );
+  ForceChangeLevel(name, "Realism++ Enable")
+  // ServerCommand("sm_slay @all");
+  
   return Plugin_Continue;
 }
 Action tSendMSG2(Handle Timer)
@@ -916,3 +939,8 @@ void StaggerClient(int userid, const float vPos[3])
         RemoveEntity(iScriptLogic);
 }
 
+public Action OnCloseCaption(UserMsg msg_id, Handle bf, const players[], playersNum, bool reliable, bool init)
+{
+    // 阻止全部还是一部分警告？
+    return Plugin_Handled;
+}

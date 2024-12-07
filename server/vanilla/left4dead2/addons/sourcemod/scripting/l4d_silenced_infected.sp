@@ -32,7 +32,7 @@
 
 #include <sourcemod>
 #include <sdktools>
-
+//#include <fastdl_list>
 
 char g_sCommon[5][] =
 {
@@ -121,7 +121,7 @@ public void OnPluginStart()
 	g_iInfected = g_CvarInfect.IntValue;
 	g_iTank = g_CvarTank.IntValue;
 	g_iWitch = g_CvarWitch.IntValue;
-	HookEvents();
+	//HookEvents();
 
 	// Str Lengths
 	for( int i = 0; i < sizeof(g_sCommon); i++ )
@@ -200,6 +200,25 @@ public Action SoundHook(int clients[64], int &numClients, char sample[PLATFORM_M
 				volume = 0.0;
 				return Plugin_Changed;
 			}
+      // 针对Jockey，使用headcrab的声音进行替换
+      else 
+      {
+        if(strncmp(sample[7], "jockey/", 7, false) == 0)
+        {
+          ReplaceStringEx(sample, sizeof(sample), "jockey", "headcrab", -1, -1, false);
+          ReplaceStringEx(sample, sizeof(sample), ".wav", ".mp3", -1, -1, false);
+          ReplaceStringEx(sample, sizeof(sample), "player/", "rpp/", -1, -1, false);
+          if(strcmp("rpp/headcrab/voice/attack/jockey_attackloop04.mp3", sample, false) == 0)
+            Format(sample, sizeof(sample), "%s", "rpp/headcrab/voice/attack/jockey_attackloop03.mp3");
+
+          if(!IsSoundPrecached(sample))
+          {
+            volume = 0.0;
+            return Plugin_Handled;
+          }
+        } 
+        return Plugin_Changed;
+      }
 		}
 	}
 
