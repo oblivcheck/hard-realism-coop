@@ -152,7 +152,7 @@ VER=$(cat SERVER_VERSION)
 VER_TIME=$( echo $VER | cut -d '-' -f 1)
 VER=$( echo $VER | cut -d '-' -f 2)
 
-TIME=$(TZ='China/ShangHai' date +"%y%m%d")
+TIME=$(TZ='Asia/Shanghai' date +"%y%m%d")
 NUM=0
   if [[ $VER_TIME == $TIME ]]; then
     let NUM=$((VER+1));
