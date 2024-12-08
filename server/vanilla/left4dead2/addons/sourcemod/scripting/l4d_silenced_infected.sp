@@ -208,16 +208,18 @@ public Action SoundHook(int clients[64], int &numClients, char sample[PLATFORM_M
           ReplaceStringEx(sample, sizeof(sample), "jockey", "headcrab", -1, -1, false);
           ReplaceStringEx(sample, sizeof(sample), ".wav", ".mp3", -1, -1, false);
           ReplaceStringEx(sample, sizeof(sample), "player/", "rpp/", -1, -1, false);
+          //PrintToChatAll("%s", sample);
           if(strcmp("rpp/headcrab/voice/attack/jockey_attackloop04.mp3", sample, false) == 0)
             Format(sample, sizeof(sample), "%s", "rpp/headcrab/voice/attack/jockey_attackloop03.mp3");
-
+       
           if(!IsSoundPrecached(sample))
           {
             volume = 0.0;
             return Plugin_Handled;
           }
-        } 
-        return Plugin_Changed;
+          volume = 1.0;
+          return Plugin_Changed;
+        }
       }
 		}
 	}

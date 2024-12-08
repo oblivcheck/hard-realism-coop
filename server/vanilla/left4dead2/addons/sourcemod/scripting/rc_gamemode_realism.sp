@@ -150,14 +150,14 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tongue_range 900");
     ServerCommand("sm_cvar z_hunter_health 350");
 
-    ServerCommand("sm_cvar z_jockey_health 500");
+    ServerCommand("sm_cvar z_jockey_health 250");
     ServerCommand("sm_cvar z_jockey_area_range_factor 5.0");
     ServerCommand("sm_cvar z_jockey_leap_again_timer 0.5");
     ServerCommand("sm_cvar z_jockey_leap_time 30.0");
     ServerCommand("sm_cvar jockey_pounce_loft_rate 0.0");
-    ServerCommand("sm_cvar z_jockey_speed 350");
+    ServerCommand("sm_cvar z_jockey_speed 600");
     ServerCommand("sm_cvar z_jockey_leap_range 1000");
-    ServerCommand("sm_cvar jockey_pounce_air_speed 2000");
+    ServerCommand("sm_cvar jockey_pounce_air_speed 4000");
 
     // 需要一个加速奔跑的功能
     //ServerCommand("sm_cvar  z_forwardspeed 300");
@@ -188,7 +188,7 @@ public void ApplyCvars()
    //ServerCommand("sm_cvar ");
 
     ServerCommand("sm_cvar l4d_si_ability_enabled \"1\"");
-    ServerCommand("sm_cvar l4d_si_ability_shove \"50\"");
+    ServerCommand("sm_cvar l4d_si_ability_shove \"18\"");
     ServerCommand("sm_cvar l4d_si_ability_cooldown_shove 1.0");
 
     //ServerCommand("sm_cvar z_speed \"150\"");
@@ -246,7 +246,7 @@ public void ApplyCvars()
 
     ServerCommand("sm_cvar survivor_incap_decay_rate  \"1\"");  
     ServerCommand("sm_cvar z_tank_autoshotgun_dmg_scale  \"1.0\"");  
-    ServerCommand("sm_cvar tank_burn_duration_expert \"170\"");  
+    ServerCommand("sm_cvar tank_burn_duration_expert \"340\"");  
     ServerCommand("sm_cvar tank_stuck_time_suicide \"60\"");  
     
     ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"75\"");  
@@ -559,12 +559,12 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
         }
         // jockey
         if(Class == 5) {
-          fDamage = fDamage * 2.0;
+          fDamage = fDamage * 1.5;
           return Plugin_Changed;
         }
         // hunter
         if(Class == 3) {
-          fDamage = fDamage * 1.5;
+          fDamage = fDamage * 2.0;
           return Plugin_Changed;
         }
       }
@@ -646,7 +646,7 @@ public Action eTank_OnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, f
     if(StrContains(weaponName, "shotgun") != -1)
     {
 //    PrintToChatAll("shotgun");
-    fDamage = fDamage * 0.7;
+    fDamage = fDamage * 0.85;
     }
     return Plugin_Changed;  
   }
