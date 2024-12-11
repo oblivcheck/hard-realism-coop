@@ -7,7 +7,44 @@ char Fastdl_Files[][] = {
   "models/headcrab/jockey.mdl",
   "models/headcrab/jockey.vvd",
   "models/headcrab/jockey.phy",
-  "models/headcrab/jockey.dx90.vtx"
+  "models/headcrab/jockey.dx90.vtx",
+  "models/kancolle/survivors/survivor_biker_light.vvd",
+  "models/kancolle/survivors/survivor_biker.vvd",
+  "models/kancolle/survivors/survivor_biker_light.mdl",
+  "models/kancolle/survivors/survivor_biker.mdl",
+  "models/kancolle/survivors/survivor_biker_light.dx90.vtx",
+  "models/kancolle/survivors/survivor_biker.dx90.vtx",
+  "models/kancolle/weapons/arms/v_arms_francis.vvd",
+  "models/kancolle/weapons/arms/v_arms_francis.mdl",
+  "models/kancolle/weapons/arms/v_arms_francis.dx90.vtx",
+  "materials/kancolle/jfsz/normal.vtf",
+  "materials/kancolle/jfsz/f.vtf",
+  "materials/kancolle/jfsz/e.vtf",
+  "materials/kancolle/jfsz/d.vtf",
+  "materials/kancolle/jfsz/c.vtf",
+  "materials/kancolle/jfsz/basewarp.vtf",
+  "materials/kancolle/jfsz/b.vtf",
+  "materials/kancolle/jfsz/a.vtf",
+  "materials/kancolle/jfsz/f.vmt",
+  "materials/kancolle/jfsz/e.vmt",
+  "materials/kancolle/jfsz/d.vmt",
+  "materials/kancolle/jfsz/c.vmt",
+  "materials/kancolle/jfsz/b.vmt",
+  "materials/kancolle/jfsz/a.vmt",
+  "models/280/survivors/survivor_manager.mdl",
+  "models/280/survivors/survivor_Manager.dx90.vtx",
+  "models/280/survivors/survivor_Manager.phy",
+  "models/280/survivors/survivor_manager.vvd",
+  "models/215/survivors/survivor_gambler.vvd",
+  "models/215/survivors/survivor_gambler.mdl",
+  "models/215/survivors/survivor_gambler.phy",
+  "models/215/survivors/survivor_gambler.dx90.vtx",
+  "materials/215/head/head_normal.vtf",
+  "materials/215/head/head.vmt",
+  "materials/215/head/blod.vmt",
+  "materials/215/head/head.vtf",
+  "materials/215/head/blod_normal.vtf",
+  "materials/215/head/blod.vtf"
 };
 
 char Fastdl_Sounds[][] = {
@@ -38,6 +75,6 @@ char Fastdl_Sounds[][] = {
   "rpp/headcrab/voice/pain/jockey_painshort03.mp3",
   "rpp/headcrab/voice/pain/jockey_pain02.mp3",
   "rpp/headcrab/voice/warn/jockey_08.mp3",
-  "rpp/headcrab/voice/warn/jockey_06.mp3"
+  "rpp/headcrab/voice/warn/jockey_06.mp3",
 };
 

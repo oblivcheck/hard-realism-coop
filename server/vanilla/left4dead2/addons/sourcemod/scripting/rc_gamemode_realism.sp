@@ -559,7 +559,7 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
         }
         // jockey
         if(Class == 5) {
-          fDamage = fDamage * 1.5;
+          fDamage = fDamage * 1.0;
           return Plugin_Changed;
         }
         // hunter

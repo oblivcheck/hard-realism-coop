@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "head/head"
+	"$bumpmap" "head/head_normal"
+}
