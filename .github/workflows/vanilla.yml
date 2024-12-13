@@ -3,6 +3,10 @@ name:  "Server-Vanilla"
 on:
   workflow_dispatch:
 
+  pull_request:
+    branches:
+      - main
+
   push:
     paths:
       - 'server/vanilla/left4dead2/**'
@@ -79,6 +83,7 @@ jobs:
           tar -xzvf devenv.tar.gz  && cd devenv
           bash server/vanilla/action-full-package.sh
           echo "FILE_NAME=$TIMESTAMP" >> $GITHUB_ENV
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
 
       - name: 上传包裹
         uses: actions/upload-artifact@v4
@@ -86,5 +91,3 @@ jobs:
           name: ${{ env.FILE_NAME }}
           path: server/vanilla/package*.tar.gz
           compression-level: 0
-        run: |
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
