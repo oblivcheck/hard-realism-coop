@@ -86,7 +86,8 @@ jobs:
           bash ../server/vanilla/action-full-package.sh
           echo "FILE_NAME=$TIMESTAMP" >> $GITHUB_ENV
 
-      - name: 上传包裹 uses: actions/upload-artifact@v4 with:
-          name: ${{ env.FILE_NAME }}
-          path: server/vanilla/package*.tar.gz
-          compression-level: 0
+      - name: 上传包裹 uses: actions/upload-artifact@v4
+          with:
+            name: ${{ env.FILE_NAME }}
+            path: server/vanilla/package*.tar.gz
+            compression-level: 0
