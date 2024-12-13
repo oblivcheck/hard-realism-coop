@@ -66,6 +66,9 @@ jobs:
 
   File-Packaging:
     runs-on: ubuntu-20.04
+    environment:
+      name: base
+
     needs: Plugin-Compiling
     steps:
       - name: 提取存储库

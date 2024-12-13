@@ -125,4 +125,5 @@ NUM=0
   fi
 PACKAGE_NMAE="devenv-$TAGSTAMP-$NUM"
   touch PACKAGE_NAME
+  mv package devenv
   tar -czvf devenv.tar.gz package/
