@@ -2,7 +2,7 @@
 cd ..
 SCRIPT_DIR=$(pwd)
 SCRIPT_DIR="$SCRIPT_DIR/server/vanilla"
-cd ..
+cd devenv
 
 DEVENV_ROOT=$(pwd)
 
@@ -35,16 +35,17 @@ LIST_DISABLE_PLUGIN="$(cat $SCRIPT_DIR/LIST_DISABLE_PLUGIN)"
   cp -rf "$SCRIPT_DIR/left4dead2/addons/sourcemod"/* "$PACKAGE_DIR/left4dead2/addons/sourcemod/"
 
 # 准备更新存储库
-  git config --global user.name "GitHub Actions"
-  git config --global user.email "actions@github.com"
-  git add -A .
+#  git config --global user.name "GitHub Actions"
+#  git config --global user.email "actions@github.com"
+#  git add -A .
   cd $DEVENV_ROOT
 TIMESTAMP=$(cat PACKAGE_NAME)
   cd ../
-  mv devenv/ package
-  tar -czvf server/vanilla/package-$TIMESTAMP.tar.gz package
-  git rm -rf package/
-  git commit -m "Vanilla: $TIMESTAMP 生成包裹并更新存储库"
+#  mv devenv/ package
+#  tar -czvf server/vanilla/package-$TIMESTAMP.tar.gz package
+
+#  git rm -rf package/
+#  git commit -m "Vanilla: $TIMESTAMP 生成包裹并更新存储库"
   cd server/vanilla/
   echo "TIMESTAMP" > PACKAGE_NAME
-  git add -A .
+#  git add -A .
