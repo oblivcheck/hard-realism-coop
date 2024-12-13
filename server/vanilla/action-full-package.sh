@@ -1,6 +1,9 @@
 #!/bin/bash
-SCRIPT_DIR="../server/vanilla/"
+
+SCRIPT_DIR=$(pwd)
+SCRIPT_DIR="$SCRIPT_DIR/server/vanilla"
 DEVENV_ROOT=$(pwd)
+
   cd $DEVENV_ROOT/left4dead2/addons/sourcemod/scripting
 # 将Sourcemod的原始插件代码备份移回scpiting目录
   mv ../orig .
