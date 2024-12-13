@@ -1,4 +1,4 @@
-name: Packaging Windows executable
+name: MapUploader
 
 on:
 #  push:
@@ -14,20 +14,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Ruby
+      - name: 设置Ruby
         uses: ruby/setup-ruby@v1.193.0
         with:
             ruby-version: '3.3'
 
-      - name: Install Gems
+      - name: 安装必要的Gem
         run: |
           gem install ocran colorize cli-ui
 
-      - name: Building an executable
+      - name: 打包可执行文件
         run: |
           ocran uploader\client-cli\client-cli.rb --icon uploader\client-cli\greenflu.icon --gem-all=digest/sha2 --output uploader\client-cli\client-windows.241128-1.exe
 
-      - name: Upload Windows binary
+      - name: 上传包裹
         uses: actions/upload-artifact@v4
         with:
           name: windows-binary.241128-1

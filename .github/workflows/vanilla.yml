@@ -1,4 +1,4 @@
-name:  "Vanilla 服务器"
+name:  "Server-Vanilla"
 
 on:
   workflow_dispatch:
@@ -15,36 +15,76 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  Building-server-package-and-update-repo:
+  Setup:
     runs-on: ubuntu-20.04
     steps:
       - name: 提取存储库
         uses: actions/checkout@v4
 
-      - name: 安装必要软件包
-        shell: bash
-        run: |
-          sudo apt-get install -y wget curl
-
       - name: 执行脚本
         shell: bash
         run: |
           cd server/vanilla/
-          bash action-full-package.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}" "${{ secrets.GITHUB_TOKEN }}"
+          bash action-setup.sh "https://github.com/${{ github.repository }}/commit/${{ github.sha }}" "${{ secrets.GITHUB_TOKEN }}"
           if [ -e SCRIPT_FAIL ]; then
             exit -1
           fi
           echo "FILE_NAME=$(cat PACKAGE_NAME)" >> $GITHUB_ENV
-          rm PACKAGE_NAME
+
+      - name: 上传包裹
+        uses: actions/upload-artifact@v4
+        with:
+          name: devenv
+          path: server/devenv.tar.gz
+          compression-level: 0
+
+  Plugin-Compiling:
+    runs-on: ubuntu-20.04
+    needs: Setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: 下载开发环境
+        uses: actions/download-artifact@v4
+        with:
+          name: devenv
+
+      - name: 编译插件
+        shell: bash
+        run: |
+          tar -xzvf *.tar.gz && ls -lR && cd devenv
+          cd left4dead2/addons/sourcemod/scripting/
+          ./compile.sh *.sp > log
+          cd compiled
+          if grep -q " Error." ../log; then
+            cat ../log
+            find ../
+            exit -1
+          fi
+
+  File-Packaging:
+    runs-on: ubuntu-20.04
+    needs: Plugin-Compiling
+    steps:
+      - name: 提取存储库
+        uses: actions/checkout@v4
+
+      - name: 下载开发环境
+        uses: actions/download-artifact@v4
+        with:
+          name: devenv
+
+      - name: 执行脚本
+        shell: bash
+        run: |
+          tar -xzvf devenv.tar.gz  && cd devenv
+          bash server/vanilla/action-full-package.sh
+          echo "FILE_NAME=$TIMESTAMP" >> $GITHUB_ENV
 
       - name: 上传包裹
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.FILE_NAME }}
-          path: server/vanilla-*.tar.gz
+          path: server/vanilla/package*.tar.gz
           compression-level: 0
-
-      - name: 更新存储库
-        shell: bash
         run: |
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
