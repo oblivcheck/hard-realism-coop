@@ -1,7 +1,9 @@
 #!/bin/bash
-
+cd ..
 SCRIPT_DIR=$(pwd)
 SCRIPT_DIR="$SCRIPT_DIR/server/vanilla"
+cd ..
+
 DEVENV_ROOT=$(pwd)
 
   cd $DEVENV_ROOT/left4dead2/addons/sourcemod/scripting
@@ -29,6 +31,9 @@ LIST_DISABLE_PLUGIN="$(cat $SCRIPT_DIR/LIST_DISABLE_PLUGIN)"
   cp -r $SCRIPT_DIR/left4dead2/host.txt $DEVENV_ROOT/left4dead2/host.txt
   cp -r $SCRIPT_DIR/left4dead2/motd.txt $DEVENV_ROOT/left4dead2/motd.txt
 
+  # 所有的已更改文件
+  cp -rf "$SCRIPT_DIR/left4dead2/addons/sourcemod"/* "$PACKAGE_DIR/left4dead2/addons/sourcemod/"
+
 # 准备更新存储库
   git config --global user.name "GitHub Actions"
   git config --global user.email "actions@github.com"
@@ -43,4 +48,3 @@ TIMESTAMP=$(cat PACKAGE_NAME)
   cd server/vanilla/
   echo "TIMESTAMP" > PACKAGE_NAME
   git add -A .
-  cd ../../ && find .

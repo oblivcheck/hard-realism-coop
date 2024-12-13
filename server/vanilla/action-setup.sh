@@ -97,7 +97,8 @@ LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
 # 移动仓库的SMX插件源代码与库文件到包裹
   cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
   cp -rf orig/* .
-  cp -rf "$SCRIPT_DIR/left4dead2/addons/sourcemod/"/* "$PACKAGE_DIR/left4dead2/addons/sourcemod/"
+#  cp -rf "$SCRIPT_DIR/left4dead2/addons/sourcemod/"/* "$PACKAGE_DIR/left4dead2/addons/sourcemod/"
+  cp -rf "$SCRIPT_DIR/left4dead2/addons/sourcemod/scripting"/* "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
 
 # 移动编译器
   mv orig ../
@@ -125,5 +126,5 @@ NUM=0
   fi
 PACKAGE_NMAE="devenv-$TIMESTAMP-$NUM"
   mv package devenv
-  echo $PACKAGE_NAME > devenv/PACKAGE_NAME
+  echo "VER_TIMESTAM-$NUM" > devenv/PACKAGE_NAME
   tar -czvf devenv.tar.gz devenv/

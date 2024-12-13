@@ -85,11 +85,8 @@ jobs:
           tar -xzvf devenv.tar.gz  && cd devenv
           bash ../server/vanilla/action-full-package.sh
           echo "FILE_NAME=$TIMESTAMP" >> $GITHUB_ENV
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} origin main:testing
 
-      - name: 上传包裹
-        uses: actions/upload-artifact@v4
-        with:
+      - name: 上传包裹 uses: actions/upload-artifact@v4 with:
           name: ${{ env.FILE_NAME }}
           path: server/vanilla/package*.tar.gz
           compression-level: 0
