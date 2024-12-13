@@ -11,7 +11,7 @@ URL_ACTION="https://forums.alliedmods.net/attachment.php?attachmentid=204593&d=1
 URL_REPO="$1"
 echo "# $URL_REPO"
 
-TAGSTAMP=$(TZ='Asia/Shanghai' date +"%y%m%d")
+TIMESTAMP=$(TZ='Asia/Shanghai' date +"%y%m%d")
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 PACKAGE_DIR="$SCRIPT_DIR/package"
 
@@ -116,14 +116,15 @@ LIST_DISABLE_PLUGIN="$(cat LIST_DISABLE_PLUGIN)"
 VER=$(cat SERVER_VERSION)
 VER_TIMESTAMP=$( echo $VER | cut -d '-' -f 1)
 VER=$( echo $VER | cut -d '-' -f 2)
+
 # 构造新的版本号
 NUM=0
-  if [[ $VER_TIMESTAMP == $TIME ]]; then
+  if [[ $VER_TIMESTAMP == $TIMESTAMP ]]; then
     let NUM=$((VER+1));
   else
      NUM=0
   fi
-PACKAGE_NMAE="devenv-$TAGSTAMP-$NUM"
-  touch PACKAGE_NAME
+PACKAGE_NMAE="devenv-$TIMESTAMP-$NUM"
   mv package devenv
+  echo  $PACKAGE_NAME >  /devenv/PACKAGE_NAME
   tar -czvf devenv.tar.gz devenv/
