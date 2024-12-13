@@ -45,7 +45,6 @@ jobs:
   Plugin-Compiling:
     runs-on: ubuntu-20.04
     needs: Setup
-    runs-on: ubuntu-latest
     steps:
       - name: 下载开发环境
         uses: actions/download-artifact@v4
