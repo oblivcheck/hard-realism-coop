@@ -27,8 +27,8 @@ jobs:
         run: |
           mkdir action-tmp/ && cd action-tmp
           bash ../.github/scripts/vanilla/testing.sh $(pwd) "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
-          echo "FILE_NAME=$(cat PACKAGE_NAME)" >> $GITHUB_ENV
-          rm PACKAGE_NAME
+          echo "FILE_NAME=$(cat ../PACKAGE_NAME)" >> $GITHUB_ENV
+          rm ../PACKAGE_NAME
           echo "name=$FILE_NAME" >> "$GITHUB_OUTPUT"
 
       - name: 上传包裹
