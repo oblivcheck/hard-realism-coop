@@ -50,10 +50,10 @@ jobs:
       - name: 编译插件
         shell: bash
         env:
-          NAME: ${{ needs.ENV-Packaging.outputs.devenv_name }} 
+          name: ${{ needs.ENV-Packaging.outputs.devenv_name }} 
         run: |
-          echo "${{ env.$NAME }}"
-          tar -xzvf "${{ env.NAME }}.tar.gz" && ls -lR && cd "${ env.NAME }}"
+          echo "# $name"
+          tar -xzvf "$name.tar.gz" && ls -lR && cd "$name"
           echo "####  ####"
           cd left4dead2/addons/sourcemod/scripting/
           ./compile.sh *.sp > log.txt
