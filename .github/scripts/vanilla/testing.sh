@@ -120,7 +120,7 @@ LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
   cp -rf ../origin/* .
 
 # 移动存储库的插件源代码到包裹
-  cp -rf "$SCRIPT_DIR/left4dead2/addons/sourcemod/scripting"/* .
+  cp -rf "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting"/* .
 
 # 删除MMS/SM的压缩包与URL临时文件
   cd $PACKAGE_DIR/left4dead2
