@@ -15,7 +15,7 @@ concurrency:
 jobs:
   ENV-Packaging:
     runs-on: ubuntu-20.04
-    output:
+    outputs:
       devenv_name: ${{ steps.script.outputs.name }}
     steps:
       - name: 提取存储库
