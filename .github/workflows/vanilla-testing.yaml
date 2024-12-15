@@ -1,8 +1,13 @@
-name:  "Vanilla | Packing Full Server"
-
+name: "Vanilla | Plugin Compiling Testing"
 on:
   workflow_dispatch:
-
+  workflow_call:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - "server/vanilla/SERVER_VERSION"
+      
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: false
@@ -33,14 +38,9 @@ jobs:
           path: *.tar.gz
           compression-level: 0
 
-  Server-Packing:
+  Plugin-Compiling:
     runs-on: ubuntu-20.04
     needs: ENV-Packaging
-
-    steps:
-      - name: 提取存储库
-        uses: actions/checkout@v4
-
     steps:
       - name: 下载开发环境包
         uses: actions/download-artifact@v4
@@ -50,7 +50,7 @@ jobs:
       - name: 编译插件
         shell: bash
         env:
-          NAME: ${{ needs.ENV-Packaging.outputs.devenv_name }}
+          NAME: ${{ needs.ENV-Packaging.outputs.devenv_name }} 
         run: |
           tar -xzvf $NAME.tar.gz && ls -lR && cd $NAME
           echo "####  ####"
@@ -63,8 +63,6 @@ jobs:
             find ../ >> ../log.txt
             exit 1
           fi
-          # 回到devenv根目录
-          cd $GITHUB_WORKSPACE/$NAME
 
       - name: 上传日志
         uses: actions/upload-artifact@v4
@@ -72,36 +70,4 @@ jobs:
         with:
           name: log
           path: left4dead2/addons/sourcemod/scripting/log.txt
-
-      - name: 打包服务器目录
-        shell: bash
-        env:
-          NAME: ${{ needs.ENV-Packaging.outputs.devenv_name }}
-        run: |
-            echo "VERSION=$(cat SERVER_VERSION)" >> $GITHUB_ENV
-            bash ../.github/scripts/vanilla/full-package.sh "$NAME" "$(pwd)" $(cat SERVER_VERSION)
-            echo "${{ secrets.ACTION_KEY }}" > id_rsa
-            chmod 600 id_rsa
-            ssh-keyscan github.com >> ~/.ssh/known_hosts
-            GIT_SSH_COMMAND="ssh -i id_rsa" git push 
-           
-      - name: 上传包裹
-        uses: actions/upload-artifact@v4
-        env:
-          NAME: "package-${{ env.VERSION }}"
-        with:
-          name: $NAME
-          path: "$NAME.tar.gz"
-          compression-level: 0
-
-
-
-
-
-
-
-
-
-
-
-
+ 
