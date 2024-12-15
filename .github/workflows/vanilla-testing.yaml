@@ -52,7 +52,8 @@ jobs:
         env:
           NAME: ${{ needs.ENV-Packaging.outputs.devenv_name }} 
         run: |
-          tar -xzvf $NAME.tar.gz && ls -lR && cd $NAME
+          echo "$NAME"
+          tar -xzvf "$NAME.tar.gz" && ls -lR && cd "$NAME"
           echo "####  ####"
           cd left4dead2/addons/sourcemod/scripting/
           ./compile.sh *.sp > log.txt
