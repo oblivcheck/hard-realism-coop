@@ -179,4 +179,4 @@ PACKAGE_NAME="devenv-$TIME_STAMP-$NUM"
   tar -czvf "$PACKAGE_NAME.tar.gz" "$PACKAGE_NAME" > /dev/null
 
 # 让Runner知道这个包裹的名字
-  cat "$PACKAGE_NAME" > ../PACKAGE_NAME
+  echo "$PACKAGE_NAME" > ../PACKAGE_NAME
