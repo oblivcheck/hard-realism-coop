@@ -26,7 +26,7 @@ PACKAGE_DIR="$1/devenv/"
 SERVER_DIR="$1/../server/vanilla/"
 
 
-cd "$PACKAGE_DIR"
+mkdir -p "$PACKAGE_DIR" && cd "$PACKAGE_DIR"
 
 mkdir left4dead2 left4dead2/l4dtoolz README
 
