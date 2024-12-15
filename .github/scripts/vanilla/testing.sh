@@ -168,7 +168,7 @@ NUM=0
   else
      NUM=0
   fi
-PACKAGE_NMAE="devenv-$TIMESTAMP-$NUM"
+PACKAGE_NAME="devenv-$TIMESTAMP-$NUM"
 
 # 创建版本标识文件
   cd "$PACKAGE_DIR/../"
