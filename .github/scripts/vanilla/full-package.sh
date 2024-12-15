@@ -9,7 +9,7 @@ PACKAGE_NAME="$1"
 PACKAGE_DIR="$2"
 # 服务器文件根目录的绝对路径
 SERVER_DIR="$2/../server/vanilla/"
-TIMESTAMP="$3"
+TIME_STAMP="$3"
 
  # 将不使用的插件关闭
   cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/compiled/"
@@ -43,12 +43,12 @@ LIST_DISABLE_PLUGIN="$(cat $SERVER_DIR/LIST_DISABLE_PLUGIN)"
   cd $PACKAGE_DIR
   rm PACKAGE_NAME
   cd ../
-  mv "$PACKAGE_NAME"  "package-$TIMESTAMP"
-PACKAGE_NAME="package-$TIMESTAMP"
+  mv "$PACKAGE_NAME"  "package-$TIME_STAMP"
+PACKAGE_NAME="package-$TIME_STAMP"
   tar -czvf "$PACKAGE_NAME.tar.gz" $PACKAGE_NAME/ > /dev/null
 
   git rm -rf "$PACKAGE_NAME"
-  git commit -m "Vanilla: $TIMESTAMP 生成包裹并更新存储库"
+  git commit -m "Vanilla: $TIME_STAMP 生成包裹并更新存储库"
   cd $SERVER_DIR
-  echo "$TIMESTAMP" > SERVER_VERSION
+  echo "$TIME_STAMP" > SERVER_VERSION
   git add -A .

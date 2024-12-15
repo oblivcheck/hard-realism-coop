@@ -158,21 +158,21 @@ LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
   cd $SERVER_DIR
 # 获取服务器之前的版本号
 VER=$(cat SERVER_VERSION)
-VER_TIMESTAMP=$( echo $VER | cut -d '-' -f 1)
+VER_TIME_STAMP=$( echo $VER | cut -d '-' -f 1)
 VER_NUM=$( echo $VER | cut -d '-' -f 2)
 
 # 构造新的版本号
 NUM=0
-  if [[ $VER_TIMESTAMP == $TIMESTAMP ]]; then
+  if [[ $VER_TIME_STAMP == $TIME_STAMP ]]; then
     let NUM=$((VER_NUM+1));
   else
      NUM=0
   fi
-PACKAGE_NAME="devenv-$TIMESTAMP-$NUM"
+PACKAGE_NAME="devenv-$TIME_STAMP-$NUM"
 
 # 创建版本标识文件
   cd "$PACKAGE_DIR/../"
-  echo "$TIMESTAMP-$NUM" > devenv/SERVER_VERSION
+  echo "$TIME_STAMP-$NUM" > devenv/SERVER_VERSION
   mv devenv "$PACKAGE_NAME"
 
 # 打包
