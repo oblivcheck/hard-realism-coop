@@ -146,7 +146,7 @@ LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
     exit -1
   fi
 
-  if [ ! -e "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/origin" ]; then
+  if [ ! -e "$PACKAGE_DIR/left4dead2/addons/sourcemod/origin" ]; then
     echo "目录 scripting/ 的原始备份不在正确的位置"
     touch $SCRIPT_DIR/SCRIPT_FAIL
     exit -1
