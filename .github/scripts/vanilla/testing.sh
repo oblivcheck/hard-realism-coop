@@ -108,7 +108,7 @@ fi
 # 移动已知的 MMS/SM/L4DToolZ/Left4Dhooks 的 许可证,README,更新记录 文件并重命名保存它们
   cd "$SERVER_DIR"
 LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
-  cat LIST_RDMD_LICENSE | sed '2~2s|^|package/README/|' | sed '1~2s|^|devenv/|' | xargs -L 2 mv
+  cat LIST_RDMD_LICENSE | sed '2~2s|^|${SERVER_DIR}/README/|' | sed '1~2s|^|${SERVER_DIR}/|' | xargs -L 2 mv
 
 # 移动Left4Dhooks到正确的位置
   cd $PACKAGE_DIR/left4dead2/left4dhooks/
