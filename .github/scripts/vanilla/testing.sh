@@ -21,9 +21,9 @@ TIME_STAMP=$(TZ='Asia/Shanghai' date +"%y%m%d")
 # 这个脚本的当前绝对路径
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 # 目标包裹根目录的绝对路径
-PACKAGE_DIR="$1/devenv/"
+PACKAGE_DIR="$1/devenv"
 # 服务器文件根目录的绝对路径
-SERVER_DIR="$1/../server/vanilla/"
+SERVER_DIR="$1/../server/vanilla"
 
 
 mkdir -p "$PACKAGE_DIR" && cd "$PACKAGE_DIR"
@@ -120,7 +120,7 @@ LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
   cp -rf ../origin/* .
 
 # 移动存储库的插件源代码到包裹
-  cp -rf "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting"/* .
+  cp -rf "$SERVER_DIR/left4dead2/addons/sourcemod/scripting"/* .
 
 # 删除MMS/SM的压缩包与URL临时文件
   cd $PACKAGE_DIR/left4dead2
