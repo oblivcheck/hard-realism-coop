@@ -20,6 +20,8 @@
 
 ([ALLM](https://forums.alliedmods.net/showthread.php?t=137397)) **l4d_silenced_infected.sp**
 
+([ALLM](https://forums.alliedmods.net/showthread.php?t=297161)) **ThirdPerson_To_Pov..sp**
+
 ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dmultislots)) **l4dmultislots.sp**
 
 ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_afk_commands)) **l4d_afk_commands.sp**

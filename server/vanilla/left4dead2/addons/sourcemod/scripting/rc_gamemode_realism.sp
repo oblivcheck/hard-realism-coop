@@ -58,6 +58,7 @@ bool  bWam;
 int snum[MAXPLAYERS+1];
 
 bool  bAfk;
+bool  bPOV;
 
 public void OnPluginStart()
 {
@@ -175,6 +176,9 @@ public void ApplyCvars()
     bAfk = true;
     ServerCommand("sm plugins load l4d_afk_commands");
 
+    bPOV = true;    
+    ServerCommand("sm plugins load ThirdPerson_To_Pov");
+
     ServerCommand("sm_cvar z_pounce_stumble_radius 160");
 //    ServerCommand("sm_cvar z_max_stagger_duration 1.0");
 
@@ -249,7 +253,9 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tank_burn_duration_expert \"340\"");  
     ServerCommand("sm_cvar tank_stuck_time_suicide \"60\"");  
     
-    ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"75\"");  
+    ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"150\"");
+    ServerCommand("sm_cvar z_shotgun_bonus_damage_multiplier \"2.0\"");
+      
 //    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.25f\"");  
 
     ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.85\"");
@@ -297,6 +303,9 @@ public void ApplyCvars()
 
     bAfk = false;
     ServerCommand("sm plugins unload l4d_afk_commands");
+
+    bPOV = false;
+    ServerCommand("sm plugins unload ThirdPerson_To_Pov");
 
     ServerCommand("sm_cvar z_pounce_stumble_radius 0");
 //    ServerCommand("sm_cvar z_max_stagger_duration 6.0");
@@ -384,7 +393,8 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tank_stuck_time_suicide \"10\"");  
     
     ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"100\"");  
-    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.6f\"");  
+    ServerCommand("sm_cvar z_shotgun_bonus_damage_multiplier \"5\"");
+    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.25f\"");  
 
     ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.4\"");
     ServerCommand("sm_cvar l4d_weapon_auto_fire_enable \"0\"");
@@ -454,6 +464,12 @@ public void OnClientPutInServer(iClient)
       PrintToServer("\n%s: 卸载默认不启用的插件", PLUGIN_NAME);
       ServerCommand("sm plugins unload l4d_afk_commands");  
     }
+    if(!bPOV)
+    {
+      PrintToServer("\n%s: 卸载默认不启用的插件", PLUGIN_NAME);
+      ServerCommand("sm plugins unload ThirdPerson_To_Pov");  
+    }
+
   }
 }
 
