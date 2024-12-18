@@ -17,7 +17,7 @@ void WEAPON_ResetWeaponAttr()
   L4D2_SetIntWeaponAttribute("weapon_smg_mp5", L4D2IWA_Damage, 26);
   
 
-  L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2IWA_ClipSize, 8);
+  L4D2_SetIntWeaponAttribute("weapon_pistol_magnum", L4D2IWA_ClipSize, 8);
   L4D2_SetIntWeaponAttribute("weapon_pistol_magnum", L4D2IWA_DefaultSize, 8);
   L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2FWA_PenetrationMaxDist, 0.0);
   
@@ -108,7 +108,7 @@ void WEAPON_AdjWeaponAttr()
   L4D2_SetIntWeaponAttribute("weapon_smg_silenced", L4D2IWA_Damage, 36);
   L4D2_SetIntWeaponAttribute("weapon_smg_mp5", L4D2IWA_Damage, 33);
 
-  L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2IWA_ClipSize, 7);
+  L4D2_SetIntWeaponAttribute("weapon_pistol_magnum", L4D2IWA_ClipSize, 7);
   L4D2_SetIntWeaponAttribute("weapon_pistol_magnum", L4D2IWA_DefaultSize, 7);
   L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2FWA_PenetrationMaxDist, 200.0);
    // - 步枪
@@ -149,20 +149,20 @@ void WEAPON_AdjWeaponAttr()
   L4D2_SetIntWeaponAttribute("weapon_sniper_scout", L4D2IWA_DefaultSize, 10);
   L4D2_SetIntWeaponAttribute("weapon_hunting_rifle", L4D2IWA_DefaultSize, 12);
   // - 霰弹
-  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_PenetrationNumLayers, 1.0);
-  L4D2_SetFloatWeaponAttribute("weapon_shotgun_chrome", L4D2FWA_PenetrationNumLayers, 1.0);
-  L4D2_SetFloatWeaponAttribute("weapon_autoshotgun", L4D2FWA_PenetrationNumLayers, 1.0);
-  L4D2_SetFloatWeaponAttribute("weapon_shotgun_spas", L4D2FWA_PenetrationNumLayers, 1.0);
+//  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_PenetrationNumLayers, 1.0);
+//  L4D2_SetFloatWeaponAttribute("weapon_shotgun_chrome", L4D2FWA_PenetrationNumLayers, 1.0);
+//  L4D2_SetFloatWeaponAttribute("weapon_autoshotgun", L4D2FWA_PenetrationNumLayers, 1.0);
+//  L4D2_SetFloatWeaponAttribute("weapon_shotgun_spas", L4D2FWA_PenetrationNumLayers, 1.0);
 
-  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_CharPenetrationMaxDist, 1.0);
-  L4D2_SetFloatWeaponAttribute("weapon_shotgun_chrome", L4D2FWA_CharPenetrationMaxDist, 1.0);
-  L4D2_SetFloatWeaponAttribute("weapon_autoshotgun", L4D2FWA_CharPenetrationMaxDist, 1.0);
-  L4D2_SetFloatWeaponAttribute("weapon_shotgun_spas", L4D2FWA_CharPenetrationMaxDist, 1.0);
+  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_CharPenetrationMaxDist, 100.0);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_chrome", L4D2FWA_CharPenetrationMaxDist, 100.0);
+  L4D2_SetFloatWeaponAttribute("weapon_autoshotgun", L4D2FWA_CharPenetrationMaxDist, 100.0);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_spas", L4D2FWA_CharPenetrationMaxDist, 100.0);
 
-  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_PenetrationMaxDist, 1.0);
-  L4D2_SetFloatWeaponAttribute("weapon_shotgun_chrome", L4D2FWA_PenetrationMaxDist, 1.0);
-  L4D2_SetFloatWeaponAttribute("weapon_autoshotgun", L4D2FWA_PenetrationMaxDist, 1.0);
-  L4D2_SetFloatWeaponAttribute("weapon_shotgun_spas", L4D2FWA_PenetrationMaxDist, 1.0);
+  L4D2_SetFloatWeaponAttribute("weapon_pumpshotgun", L4D2FWA_PenetrationMaxDist, 200.0);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_chrome", L4D2FWA_PenetrationMaxDist, 200.0);
+  L4D2_SetFloatWeaponAttribute("weapon_autoshotgun", L4D2FWA_PenetrationMaxDist, 200.0);
+  L4D2_SetFloatWeaponAttribute("weapon_shotgun_spas", L4D2FWA_PenetrationMaxDist, 200.0);
 
   L4D2_SetIntWeaponAttribute("weapon_pumpshotgun", L4D2IWA_ClipSize, 7);
   L4D2_SetIntWeaponAttribute("weapon_shotgun_chrome", L4D2IWA_ClipSize, 7);
