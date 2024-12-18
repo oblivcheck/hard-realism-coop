@@ -49,6 +49,7 @@ jobs:
 
       - name: 编译插件
         run: |
+          unzip *.zip
           tar -xzvf *.tar.gz 
           NAME=$(basename *.tar.gz .tar.gz) 
           cd "$NAME"
