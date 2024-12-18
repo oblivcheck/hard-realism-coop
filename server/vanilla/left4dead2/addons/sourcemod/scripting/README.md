@@ -12,7 +12,7 @@
 
 ## 链接
 
-已修改:
+已修改的插件:
 
 ([ALLM](https://forums.alliedmods.net/showthread.php?t=334274)) **l4d_reservecontrol.sp**
 
@@ -44,7 +44,6 @@
 ([GitHub](https://github.com/fbef0102/L4D2-Plugins/tree/master/lfd_both_fixUpgradePack)) **lfd_both_fixUpgradePack.sp**
 
 ([GitHub](https://github.com/nosoop/SMExt-SourceScramble)) **sourcescramble_manager.sp**
-  - 服务器实际使用以前在本地构建的旧版本，链接仅参考
 
 ([ALLM](https://forums.alliedmods.net/showthread.php?t=315482)) **Charger_Collision_patch.sp**
 

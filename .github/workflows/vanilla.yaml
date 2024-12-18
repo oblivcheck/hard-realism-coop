@@ -21,7 +21,18 @@ jobs:
         id: script
         run: |
           mkdir action-tmp/ && cd action-tmp
- 
+          bash ../.github/scripts/vanilla/testing.sh $(pwd) "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+          echo "FILE_NAME=$(cat ../PACKAGE_NAME)" >> $GITHUB_ENV
+          rm ../PACKAGE_NAME
+          echo "name=$FILE_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: 上传包裹
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.FILE_NAME }} 
+          path: "action-tmp/*.tar.gz"
+          compression-level: 0
+
   Server-Packing:
     runs-on: ubuntu-20.04
     needs: ENV-Packaging
@@ -37,8 +48,6 @@ jobs:
 
       - name: 编译插件
         shell: bash
-        env:
-          NAME: ${{ needs.ENV-Packaging.outputs.devenv_name }}
         run: |
           cd devenv-*
           tar -xzvf *.tar.gz > /dev/null
@@ -54,6 +63,12 @@ jobs:
             find ../ >> ../log.txt
             exit 1
           fi
+          
+          # 回到存储库根目录
+          cd $GITHUB_WORKSPACE
+          # 保证工作路径是脚本预期的
+          mkdir root && cd root
+          mv ../$NAME/$NAME/* .
 
       - name: 上传日志
         uses: actions/upload-artifact@v4
@@ -64,8 +79,6 @@ jobs:
 
       - name: 打包服务器目录
         shell: bash
-        env:
-          NAME: ${{ needs.ENV-Packaging.outputs.devenv_name }}
         run: |
             echo "VERSION=$(cat SERVER_VERSION)" >> $GITHUB_ENV
             bash ../.github/scripts/vanilla/full-package.sh "$NAME" "$(pwd)" $(cat SERVER_VERSION)
