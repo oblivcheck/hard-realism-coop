@@ -10,7 +10,7 @@ concurrency:
 jobs:
   ENV-Packaging:
     runs-on: ubuntu-20.04
-    output:
+    outputs:
       devenv_name: ${{ steps.script.outputs.name }}
     steps:
       - name: 提取存储库
@@ -21,18 +21,7 @@ jobs:
         id: script
         run: |
           mkdir action-tmp/ && cd action-tmp
-          bash ../.github/scripts/vanilla/testing.sh $(pwd) "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
-          echo "FILE_NAME=$(cat PACKAGE_NAME)" >> $GITHUB_ENV
-          rm PACKAGE_NAME
-          echo "name=$FILE_NAME" >> "$GITHUB_OUTPUT"
-
-      - name: 上传包裹
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.FILE_NAME }} 
-          path: *.tar.gz
-          compression-level: 0
-
+ 
   Server-Packing:
     runs-on: ubuntu-20.04
     needs: ENV-Packaging
@@ -40,8 +29,7 @@ jobs:
     steps:
       - name: 提取存储库
         uses: actions/checkout@v4
-
-    steps:
+        
       - name: 下载开发环境包
         uses: actions/download-artifact@v4
         with:
@@ -52,7 +40,10 @@ jobs:
         env:
           NAME: ${{ needs.ENV-Packaging.outputs.devenv_name }}
         run: |
-          tar -xzvf $NAME.tar.gz && ls -lR && cd $NAME
+          cd devenv-*
+          tar -xzvf *.tar.gz > /dev/null
+          NAME=$(basename *.tar.gz .tar.gz) 
+          cd "$NAME"
           echo "####  ####"
           cd left4dead2/addons/sourcemod/scripting/
           ./compile.sh *.sp > log.txt
@@ -63,15 +54,13 @@ jobs:
             find ../ >> ../log.txt
             exit 1
           fi
-          # 回到devenv根目录
-          cd $GITHUB_WORKSPACE/$NAME
 
       - name: 上传日志
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: log
-          path: left4dead2/addons/sourcemod/scripting/log.txt
+          path: devenv-*/devenv-*/left4dead2/addons/sourcemod/scripting/log.txt
 
       - name: 打包服务器目录
         shell: bash

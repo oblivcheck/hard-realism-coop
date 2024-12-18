@@ -15,7 +15,7 @@ concurrency:
 jobs:
   ENV-Packaging:
     runs-on: ubuntu-20.04
-    output:
+    outputs:
       devenv_name: ${{ steps.script.outputs.name }}
     steps:
       - name: 提取存储库
@@ -27,15 +27,15 @@ jobs:
         run: |
           mkdir action-tmp/ && cd action-tmp
           bash ../.github/scripts/vanilla/testing.sh $(pwd) "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
-          echo "FILE_NAME=$(cat PACKAGE_NAME)" >> $GITHUB_ENV
-          rm PACKAGE_NAME
+          echo "FILE_NAME=$(cat ../PACKAGE_NAME)" >> $GITHUB_ENV
+          rm ../PACKAGE_NAME
           echo "name=$FILE_NAME" >> "$GITHUB_OUTPUT"
 
       - name: 上传包裹
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.FILE_NAME }} 
-          path: *.tar.gz
+          path: "action-tmp/*.tar.gz"
           compression-level: 0
 
   Plugin-Compiling:
@@ -48,12 +48,12 @@ jobs:
           name: ${{ needs.ENV-Packaging.outputs.devenv_name }}
 
       - name: 编译插件
-        shell: bash
-        env:
-          NAME: ${{ needs.ENV-Packaging.outputs.devenv_name }} 
         run: |
-          tar -xzvf $NAME.tar.gz && ls -lR && cd $NAME
-          echo "####  ####"
+          cd devenv-*
+          tar -xzvf *.tar.gz > /dev/null
+          NAME=$(basename *.tar.gz .tar.gz) 
+          cd "$NAME"
+          echo "#### ####"
           cd left4dead2/addons/sourcemod/scripting/
           ./compile.sh *.sp > log.txt
           cd compiled
@@ -69,5 +69,5 @@ jobs:
         if: always()
         with:
           name: log
-          path: left4dead2/addons/sourcemod/scripting/log.txt
+          path: devenv-*/devenv-*/left4dead2/addons/sourcemod/scripting/log.txt
  

@@ -9,7 +9,7 @@ PACKAGE_NAME="$1"
 PACKAGE_DIR="$2"
 # 服务器文件根目录的绝对路径
 SERVER_DIR="$2/../server/vanilla/"
-TIMESTAMP="$3"
+TIME_STAMP="$3"
 
  # 将不使用的插件关闭
   cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/compiled/"
@@ -32,10 +32,15 @@ LIST_DISABLE_PLUGIN="$(cat $SERVER_DIR/LIST_DISABLE_PLUGIN)"
   cp -r $SERVER_DIR/left4dead2/ems/* $PACKAGE_DIR/left4dead2/ems/
   cp -r $SERVER_DIR/left4dead2/host.txt $PACKAGE_DIR/left4dead2/host.txt
   cp -r $SERVER_DIR/left4dead2/motd.txt $PACKAGE_DIR/left4dead2/motd.txt
-
+  
 # 所有的配置文件
   cp -rf "$SERVER_DIR/left4dead2/addons/sourcemod"/* "$PACKAGE_DIR/left4dead2/addons/sourcemod/"
-
+ 
+# 应该保留的服务器配置
+  cd "$SERVER_DIR"
+  sed -n 'n;p' LIST_IGNORE | xargs -I {} cp -rf {} "$PACKAGE_DIR/"
+  cd "$PACKAGE_DIR"
+  
 # 准备更新存储库
   git config --global user.name "GitHub Actions"
   git config --global user.email "actions@github.com"
@@ -43,12 +48,12 @@ LIST_DISABLE_PLUGIN="$(cat $SERVER_DIR/LIST_DISABLE_PLUGIN)"
   cd $PACKAGE_DIR
   rm PACKAGE_NAME
   cd ../
-  mv "$PACKAGE_NAME"  "package-$TIMESTAMP"
-PACKAGE_NAME="package-$TIMESTAMP"
+  mv "$PACKAGE_NAME"  "package-$TIME_STAMP"
+PACKAGE_NAME="package-$TIME_STAMP"
   tar -czvf "$PACKAGE_NAME.tar.gz" $PACKAGE_NAME/ > /dev/null
 
   git rm -rf "$PACKAGE_NAME"
-  git commit -m "Vanilla: $TIMESTAMP 生成包裹并更新存储库"
+  git commit -m "Vanilla: $TIME_STAMP 生成包裹并更新存储库"
   cd $SERVER_DIR
-  echo "$TIMESTAMP" > SERVER_VERSION
+  echo "$TIME_STAMP" > SERVER_VERSION
   git add -A .
