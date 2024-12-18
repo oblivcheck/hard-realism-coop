@@ -21,12 +21,12 @@ TIME_STAMP=$(TZ='Asia/Shanghai' date +"%y%m%d")
 # 这个脚本的当前绝对路径
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 # 目标包裹根目录的绝对路径
-PACKAGE_DIR="$1/devenv/"
+PACKAGE_DIR="$1/devenv"
 # 服务器文件根目录的绝对路径
-SERVER_DIR="$1/../server/vanilla/"
+SERVER_DIR="$1/../server/vanilla"
 
 
-cd "$PACKAGE_DIR"
+mkdir -p "$PACKAGE_DIR" && cd "$PACKAGE_DIR"
 
 mkdir left4dead2 left4dead2/l4dtoolz README
 
@@ -107,8 +107,7 @@ fi
 ####
 # 移动已知的 MMS/SM/L4DToolZ/Left4Dhooks 的 许可证,README,更新记录 文件并重命名保存它们
   cd "$SERVER_DIR"
-LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
-  cat LIST_RDMD_LICENSE | sed '2~2s|^|package/README/|' | sed '1~2s|^|package/|' | xargs -L 2 mv
+  cat LIST_RDMD_LICENSE | sed "2~2s|^|${PACKAGE_DIR}/README/|" | sed "1~2s|^|${PACKAGE_DIR}/|" | xargs -L 2 mv
 
 # 移动Left4Dhooks到正确的位置
   cd $PACKAGE_DIR/left4dead2/left4dhooks/
@@ -120,7 +119,7 @@ LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
   cp -rf ../origin/* .
 
 # 移动存储库的插件源代码到包裹
-  cp -rf "$SCRIPT_DIR/left4dead2/addons/sourcemod/scripting"/* .
+  cp -rf "$SERVER_DIR/left4dead2/addons/sourcemod/scripting"/* .
 
 # 删除MMS/SM的压缩包与URL临时文件
   cd $PACKAGE_DIR/left4dead2
@@ -146,7 +145,7 @@ LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
     exit -1
   fi
 
-  if [ ! -e "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/origin" ]; then
+  if [ ! -e "$PACKAGE_DIR/left4dead2/addons/sourcemod/origin" ]; then
     echo "目录 scripting/ 的原始备份不在正确的位置"
     touch $SCRIPT_DIR/SCRIPT_FAIL
     exit -1
@@ -158,25 +157,25 @@ LIST_RDMD_LICENSE="$(cat LIST_RDMD_LICENSE)"
   cd $SERVER_DIR
 # 获取服务器之前的版本号
 VER=$(cat SERVER_VERSION)
-VER_TIMESTAMP=$( echo $VER | cut -d '-' -f 1)
+VER_TIME_STAMP=$( echo $VER | cut -d '-' -f 1)
 VER_NUM=$( echo $VER | cut -d '-' -f 2)
 
 # 构造新的版本号
 NUM=0
-  if [[ $VER_TIMESTAMP == $TIMESTAMP ]]; then
+  if [[ $VER_TIME_STAMP == $TIME_STAMP ]]; then
     let NUM=$((VER_NUM+1));
   else
      NUM=0
   fi
-PACKAGE_NMAE="devenv-$TIMESTAMP-$NUM"
+PACKAGE_NAME="devenv-$TIME_STAMP-$NUM"
 
 # 创建版本标识文件
   cd "$PACKAGE_DIR/../"
-  echo "$TIMESTAMP-$NUM" > devenv/SERVER_VERSION
+  echo "$TIME_STAMP-$NUM" > devenv/SERVER_VERSION
   mv devenv "$PACKAGE_NAME"
 
 # 打包
   tar -czvf "$PACKAGE_NAME.tar.gz" "$PACKAGE_NAME" > /dev/null
 
 # 让Runner知道这个包裹的名字
-  cat "$PACKAGE_NAME" > ../PACKAGE_NAME
+  echo "$PACKAGE_NAME" > ../PACKAGE_NAME

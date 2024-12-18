@@ -1,0 +1,6 @@
+# 数据库
+left4dead2/addons/sourcemod/data/sqlite
+# 权限配置文件
+left4dead2/addons/sourcemod/configs/admins_simple.ini
+# 现在请忽略 data/vscripts_override.cfg
+
