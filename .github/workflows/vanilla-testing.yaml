@@ -50,7 +50,7 @@ jobs:
       - name: 编译插件
         run: |
           cd devenv-*
-          tar -xzvf *.tar.gz 
+          tar -xzvf *.tar.gz > /dev/null
           NAME=$(basename *.tar.gz .tar.gz) 
           cd "$NAME"
           echo "#### ####"
@@ -69,5 +69,5 @@ jobs:
         if: always()
         with:
           name: log
-          path: left4dead2/addons/sourcemod/scripting/log.txt
+          path: devenv-*/devenv-*/left4dead2/addons/sourcemod/scripting/log.txt
  
