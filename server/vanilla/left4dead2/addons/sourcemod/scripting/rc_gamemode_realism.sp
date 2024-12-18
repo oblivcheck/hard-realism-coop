@@ -249,7 +249,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tank_burn_duration_expert \"340\"");  
     ServerCommand("sm_cvar tank_stuck_time_suicide \"60\"");  
     
-    ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"75\"");  
+//    ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"75\"");  
 //    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.25f\"");  
 
     ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.85\"");
@@ -843,6 +843,7 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
   {
     char buf[24];
     GetClientWeapon(attacker, buf, sizeof(buf) );
+/*
     if(StrContains(buf, "_mag") != -1 )
     {
       if(snum[attacker] == 2) return Plugin_Handled;
@@ -852,6 +853,7 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
       damagetype = 2;
       return Plugin_Changed;
     }
+*/
     if(StrContains(buf, "_awp") != -1 )
     {
       if(snum[attacker] == 2) return Plugin_Handled;
@@ -880,12 +882,13 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
       damage = 200.0;
       return Plugin_Changed;
     }
+/*  如果近战不明显，那么就可以取消它
     if(StrContains(buf, "shotgun") == -1 || StrContains(buf, "melee") == -1)
       return Plugin_Continue;
-
-
     damagetype = damagetype & ~DMG_CLUB;
+
     return Plugin_Changed;
+*/
   }
   return Plugin_Continue;
 }
