@@ -32,10 +32,15 @@ LIST_DISABLE_PLUGIN="$(cat $SERVER_DIR/LIST_DISABLE_PLUGIN)"
   cp -r $SERVER_DIR/left4dead2/ems/* $PACKAGE_DIR/left4dead2/ems/
   cp -r $SERVER_DIR/left4dead2/host.txt $PACKAGE_DIR/left4dead2/host.txt
   cp -r $SERVER_DIR/left4dead2/motd.txt $PACKAGE_DIR/left4dead2/motd.txt
-
+  
 # 所有的配置文件
   cp -rf "$SERVER_DIR/left4dead2/addons/sourcemod"/* "$PACKAGE_DIR/left4dead2/addons/sourcemod/"
-
+ 
+# 应该保留的服务器配置
+  cd "$SERVER_DIR"
+  sed -n 'n;p' LIST_IGNORE | xargs -I {} cp -rf {} "$PACKAGE_DIR/"
+  cd "$PACKAGE_DIR"
+  
 # 准备更新存储库
   git config --global user.name "GitHub Actions"
   git config --global user.email "actions@github.com"

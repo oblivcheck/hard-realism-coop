@@ -48,12 +48,11 @@ jobs:
           name: ${{ needs.ENV-Packaging.outputs.devenv_name }}
 
       - name: 编译插件
-# what can i say?
-#        shell: bash
         run: |
-          NAME="${{ needs.ENV-Packaging.outputs.devenv_name }}"
-          tar -xzvf "$NAME.tar.gz" && ls -lR && cd "$NAME"
-          echo "####  ####"
+          tar -xzvf *.tar.gz" 
+          NAME=$(basename *.tar.gz .tar.gz) 
+          cd "$NAME"
+          echo "#### ####"
           cd left4dead2/addons/sourcemod/scripting/
           ./compile.sh *.sp > log.txt
           cd compiled
