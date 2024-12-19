@@ -63,6 +63,7 @@
 
 ([ALLM](https://forums.alliedmods.net/showthread.php?t=309656)) **command_buffer.sp**
 
+([Github](https://github.com/fdxx/l4d2_nativevote)) **l4d2_nativevote**
 
 ## 未上传的部分:
 
@@ -97,7 +98,6 @@ rc_asd_limit.smx
 rc_cpr.smx
 rc_dsp.smx
 rc_fun.smx
-rc_menu.smx
 rc_onechance.smx
 rc_stati.smx
 SaveChat-Ver-3.smx
