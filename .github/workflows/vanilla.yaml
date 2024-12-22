@@ -80,6 +80,7 @@ jobs:
       - name: 打包服务器目录
         shell: bash
         run: |
+            cd devenv-*/
             echo "VERSION=$(cat SERVER_VERSION)" >> $GITHUB_ENV
             bash ../.github/scripts/vanilla/full-package.sh "$NAME" "$(pwd)" $(cat SERVER_VERSION)
             echo "${{ secrets.ACTION_KEY }}" > id_rsa
