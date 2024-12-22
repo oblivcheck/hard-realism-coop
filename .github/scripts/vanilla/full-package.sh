@@ -11,17 +11,22 @@ PACKAGE_DIR="$2"
 SERVER_DIR="$2/../server/vanilla/"
 TIME_STAMP="$3"
 
+ mkdir $PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled/
+
  # 将不使用的插件关闭
   cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/compiled/"
 LIST_DISABLE_PLUGIN="$(cat $SERVER_DIR/LIST_DISABLE_PLUGIN)"
   echo "$LIST_DISABLE_PLUGIN" | xargs -I {} -n 1 mv {} "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled/"
 
+# 移动编译好的插件
+  mv *.smx $PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/
+   
 # 移动服务器配置文件
   cd $PACKAGE_DIR  
 # 确保目录存在
   mkdir left4dead2/ems
   mkdir -p left4dead2/cfg
-  mkdir left4dead2/scripts
+  mkdir -p left4dead2/scripts/vscripts
 # 资源文件
   cp -r $SERVER_DIR/left4dead2/models $PACKAGE_DIR/left4dead2/
   cp -r $SERVER_DIR/left4dead2/materials $PACKAGE_DIR/left4dead2/
@@ -42,18 +47,22 @@ LIST_DISABLE_PLUGIN="$(cat $SERVER_DIR/LIST_DISABLE_PLUGIN)"
   cd "$PACKAGE_DIR"
   
 # 准备更新存储库
-  git config --global user.name "GitHub Actions"
-  git config --global user.email "actions@github.com"
-  git add -A .
+#  git config --global user.name "GitHub Actions"
+#  git config --global user.email "actions@github.com"
+#  git add -A .
   cd $PACKAGE_DIR
-  rm PACKAGE_NAME
+  rm admins_simple.ini
+  # 在workflow中就已经被删除
+  # rm PACKAGE_NAME
   cd ../
-  mv "$PACKAGE_NAME"  "package-$TIME_STAMP"
+  # workflow中命名为root?
+  mv "$PACKAGE_NAME" "package-$TIME_STAMP"
+  # mv root  "package-$TIME_STAMP"
 PACKAGE_NAME="package-$TIME_STAMP"
   tar -czvf "$PACKAGE_NAME.tar.gz" $PACKAGE_NAME/ > /dev/null
-
-  git rm -rf "$PACKAGE_NAME"
-  git commit -m "Vanilla: $TIME_STAMP 生成包裹并更新存储库"
+#  同样，目录已经被重命名为root
+#  git rm -rf "$PACKAGE_NAME"
+#  git commit -m "Vanilla: $TIME_STAMP 生成包裹并更新存储库"
   cd $SERVER_DIR
   echo "$TIME_STAMP" > SERVER_VERSION
-  git add -A .
+#  git add -A .

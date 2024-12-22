@@ -8,8 +8,7 @@
 #include <sdktools>
 #include <multicolors>
 #include <left4dhooks>
-#undef REQUIRE_PLUGIN
-#include <CreateSurvivorBot>
+#include <l4d_CreateSurvivorBot>
 
 #define PLUGIN_VERSION 				"6.7-2024/11/6"
 
@@ -155,21 +154,21 @@ public void OnPluginStart()
 
 	BufferHP = FindSendPropInfo( "CTerrorPlayer", "m_healthBuffer" );
 	
-	g_hMaxSurvivors	= CreateConVar(				"l4d_multislots_max_survivors", 				"8", 	"Total survivors allowed on the server. If numbers of survivors reached limit, no any new bots would be created.\nMust be greater then or equal to 'l4d_multislots_min_survivors'", CVAR_FLAGS, true, 4.0, true, float(MaxClients));
+	g_hMaxSurvivors	= CreateConVar(				"l4d_multislots_max_survivors", 				"10", 	"Total survivors allowed on the server. If numbers of survivors reached limit, no any new bots would be created.\nMust be greater then or equal to 'l4d_multislots_min_survivors'", CVAR_FLAGS, true, 4.0, true, float(MaxClients));
 	g_hMinSurvivors	= CreateConVar(				"l4d_multislots_min_survivors", 				"4", 	"Set minimum # of survivors in game.(Override official cvar 'survivor_limit')\nKick AI survivor bots if numbers of survivors has exceeded the certain value. (does not kick real player, minimum is 1)", CVAR_FLAGS, true, 1.0, true, float(MaxClients));
 	hStripBotWeapons = CreateConVar(			"l4d_multislots_bot_items_delete", 				"1", 	"Delete all items form survivor bots when they got kicked by this plugin. (0=off)", CVAR_FLAGS, true, 0.0, true, 1.0);
-	hDeadBotTime = CreateConVar(				"l4d_multislots_alive_bot_time", 				"1", 	"When 5+ new player joins the server but no any bot can be taken over, the player will appear as a dead survivor if survivors have left start safe area for at least X seconds. (0=Always spawn alive bot for new player)", CVAR_FLAGS, true, 0.0);
-	hSpecCheckInterval = CreateConVar(			"l4d_multislots_spec_message_interval", 		"0", 	"Setup time interval the instruction message to spectator.(0=off)", CVAR_FLAGS, true, 0.0);
-	hRespawnHP 		= CreateConVar(				"l4d_multislots_respawnhp", 					"60", 	"Amount of HP a new 5+ Survivor will spawn with (Def 80)", CVAR_FLAGS, true, 0.0);
+	hDeadBotTime = CreateConVar(				"l4d_multislots_alive_bot_time", 				"0", 	"When 5+ new player joins the server but no any bot can be taken over, the player will appear as a dead survivor if survivors have left start safe area for at least X seconds. (0=Always spawn alive bot for new player)", CVAR_FLAGS, true, 0.0);
+	hSpecCheckInterval = CreateConVar(			"l4d_multislots_spec_message_interval", 		"25", 	"Setup time interval the instruction message to spectator.(0=off)", CVAR_FLAGS, true, 0.0);
+	hRespawnHP 		= CreateConVar(				"l4d_multislots_respawnhp", 					"80", 	"Amount of HP a new 5+ Survivor will spawn with (Def 80)", CVAR_FLAGS, true, 0.0);
 	hRespawnBuffHP 	= CreateConVar(				"l4d_multislots_respawnbuffhp", 				"20", 	"Amount of buffer HP a new 5+ Survivor will spawn with (Def 20)", CVAR_FLAGS, true, 0.0);
 	hSpawnSurvivorsAtStart = CreateConVar(		"l4d_multislots_spawn_survivors_roundstart", 	"0", 	"If 1, Spawn 5+ survivor bots when round starts. (Numbers depends on Convar l4d_multislots_min_survivors)", CVAR_FLAGS, true, 0.0, true, 1.0);
 	
 	if ( g_bLeft4Dead2 ) {
-		hFirstWeapon 			= CreateConVar(	"l4d_multislots_firstweapon", 					"18", 	"First slot weapon for new 5+ Survivor (1-Autoshot, 2-SPAS, 3-M16, 4-SCAR, 5-AK47, 6-SG552, 7-Mil Sniper, 8-AWP, 9-Scout, 10=Hunt Rif, 11=M60, 12=GL, 13-SMG, 14-Sil SMG, 15=MP5, 16-Pump Shot, 17=Chrome Shot, 18=Rand T1, 19=Rand T2, 20=Rand T3, 0=off)", CVAR_FLAGS, true, 0.0, true, 20.0);
-		hSecondWeapon 			= CreateConVar(	"l4d_multislots_secondweapon", 					"0", 	"Second slot weapon for new 5+ Survivor (1- Dual Pistol, 2-Magnum, 3-Chainsaw, 4=Melee weapon from map, 5=Random, 0=Only Pistol)", CVAR_FLAGS, true, 0.0, true, 5.0);
-		hThirdWeapon 			= CreateConVar(	"l4d_multislots_thirdweapon", 					"0", 	"Third slot item for new 5+ Survivor (1 - Moltov, 2 - Pipe Bomb, 3 - Bile Jar, 4=Random, 0=off)", CVAR_FLAGS, true, 0.0, true, 4.0);
+		hFirstWeapon 			= CreateConVar(	"l4d_multislots_firstweapon", 					"19", 	"First slot weapon for new 5+ Survivor (1-Autoshot, 2-SPAS, 3-M16, 4-SCAR, 5-AK47, 6-SG552, 7-Mil Sniper, 8-AWP, 9-Scout, 10=Hunt Rif, 11=M60, 12=GL, 13-SMG, 14-Sil SMG, 15=MP5, 16-Pump Shot, 17=Chrome Shot, 18=Rand T1, 19=Rand T2, 20=Rand T3, 0=off)", CVAR_FLAGS, true, 0.0, true, 20.0);
+		hSecondWeapon 			= CreateConVar(	"l4d_multislots_secondweapon", 					"5", 	"Second slot weapon for new 5+ Survivor (1- Dual Pistol, 2-Magnum, 3-Chainsaw, 4=Melee weapon from map, 5=Random, 0=Only Pistol)", CVAR_FLAGS, true, 0.0, true, 5.0);
+		hThirdWeapon 			= CreateConVar(	"l4d_multislots_thirdweapon", 					"4", 	"Third slot item for new 5+ Survivor (1 - Moltov, 2 - Pipe Bomb, 3 - Bile Jar, 4=Random, 0=off)", CVAR_FLAGS, true, 0.0, true, 4.0);
 		hFourthWeapon 			= CreateConVar(	"l4d_multislots_forthweapon", 					"0", 	"Fourth slot item for new 5+ Survivor (1 - Medkit, 2 - Defib, 3 - Incendiary Pack, 4 - Explosive Pack, 5=Random, 0=off)", CVAR_FLAGS, true, 0.0, true, 5.0);
-		hFifthWeapon 			= CreateConVar(	"l4d_multislots_fifthweapon", 					"3", 	"Fifth slot item for new 5+ Survivor (1 - Pills, 2 - Adrenaline, 3=Random, 0=off)", CVAR_FLAGS, true, 0.0, true, 3.0);
+		hFifthWeapon 			= CreateConVar(	"l4d_multislots_fifthweapon", 					"0", 	"Fifth slot item for new 5+ Survivor (1 - Pills, 2 - Adrenaline, 3=Random, 0=off)", CVAR_FLAGS, true, 0.0, true, 3.0);
 		} else {
 		hFirstWeapon 			= CreateConVar(	"l4d_multislots_firstweapon", 					"6", 	"First slot weapon for new 5+ Survivor (1 - Autoshotgun, 2 - M16, 3 - Hunting Rifle, 4 - smg, 5 - shotgun, 6=Random T1, 7=Random T2, 0=off)", CVAR_FLAGS, true, 0.0, true, 7.0);
 		hSecondWeapon 			= CreateConVar(	"l4d_multislots_secondweapon", 					"1", 	"Second slot weapon for new 5+ Survivor (1 - Dual Pistol, 0=Only Pistol)", CVAR_FLAGS, true, 0.0, true, 1.0);
@@ -179,13 +178,13 @@ public void OnPluginStart()
 	}
 	g_hGiveKitSafeRoom 			= CreateConVar(	"l4d_multislots_saferoom_extra_first_aid", 		"1", 	"If 1, allow extra first aid kits for 5+ players when in start saferoom, One extra kit per player above four. (0=No extra kits)", CVAR_FLAGS, true, 0.0, true, 1.0);
 	g_hGiveKitFinalStart 		= CreateConVar(	"l4d_multislots_finale_extra_first_aid", 		"1" , 	"If 1, allow extra first aid kits for 5+ players when the finale is activated, One extra kit per player above four. (0=No extra kits)", CVAR_FLAGS, true, 0.0, true, 1.0);
-	g_hNoSecondChane 			= CreateConVar(	"l4d_multislots_no_second_free_spawn",	 		"1" , 	"If 1, when same player reconnect the server or rejoin survivor team but no any bot can be taken over, give him a dead bot. (0=Always spawn alive bot for same player)\nTake effect after survivor has left safe zone", CVAR_FLAGS, true, 0.0, true, 1.0);
+	g_hNoSecondChane 			= CreateConVar(	"l4d_multislots_no_second_free_spawn",	 		"0" , 	"If 1, when same player reconnect the server or rejoin survivor team but no any bot can be taken over, give him a dead bot. (0=Always spawn alive bot for same player)\nTake effect after survivor has left safe zone", CVAR_FLAGS, true, 0.0, true, 1.0);
 	g_hCvar_InvincibleTime 		= CreateConVar(	"l4d_multislots_respawn_invincibletime", 		"3.0", 	"Invincible time after new 5+ Survivor spawn by this plugin. (0=off)\nTake effect after survivor has left safe zone",  FCVAR_NOTIFY, true, 0.0);
-	g_hCvar_JoinSurvivrMethod 	= CreateConVar(	"l4d_multislots_join_survior_method", 			"1", 	"How to join the game for new player. \n0: Old method. Spawn an alive bot first -> new player takes over. \n1: Switch new player to survivor team (dead state) -> player respawns.", CVAR_FLAGS, true, 0.0, true, 1.0);
+	g_hCvar_JoinSurvivrMethod 	= CreateConVar(	"l4d_multislots_join_survior_method", 			"0", 	"How to join the game for new player. \n0: Old method. Spawn an alive bot first -> new player takes over. \n1: Switch new player to survivor team (dead state) -> player respawns.", CVAR_FLAGS, true, 0.0, true, 1.0);
 	g_hCvar_JoinCommandBlock  	= CreateConVar(	"l4d_multislots_join_command_block", 			"0", 	"If 1, Block 'Join Survivors' commands (sm_join, sm_js)", CVAR_FLAGS, true, 0.0, true, 1.0);
 	//g_hCvar_VSAutoBalance  		= CreateConVar(	"l4d_multislots_versus_auto_balance", 		"0", 	"If 1, Enable auto team balance when new player joins the server in versus/scavenge.\nThis could cause both team mess after map change", CVAR_FLAGS, true, 0.0, true, 1.0);
 	g_hCvar_VSCommandBalance  	= CreateConVar(	"l4d_multislots_versus_command_balance", 		"1", 	"If 1, Check team balance when player tries to use 'Join Survivors' command to join survivor team in versus/scavenge.\nIf team is unbanlance, will fail to join survivor team!", CVAR_FLAGS, true, 0.0, true, 1.0);
-	g_hCvar_VSUnBalanceLimit  	= CreateConVar(	"l4d_multislots_versus_teams_unbalance_limit", 	"0", 	"Teams are unbalanced when one team has this many more players than the other team in versus/scavenge.", CVAR_FLAGS, true, 1.0);
+	g_hCvar_VSUnBalanceLimit  	= CreateConVar(	"l4d_multislots_versus_teams_unbalance_limit", 	"1", 	"Teams are unbalanced when one team has this many more players than the other team in versus/scavenge.", CVAR_FLAGS, true, 1.0);
 	CreateConVar(								"l4d_multislots_version",						PLUGIN_VERSION,	"MultiSlots Improved plugin version.", FCVAR_NOTIFY|FCVAR_DONTRECORD);
 	// AutoExecConfig(true, 						"l4dmultislots");
 
@@ -240,7 +239,7 @@ public void OnPluginStart()
 	HookEvent("finale_vehicle_leaving", finale_vehicle_leaving); //救援載具離開之時  (沒有觸發round_end)
 	HookEvent("map_transition", Event_MapTransition); //戰役過關到下一關的時候 (沒有觸發round_end)	
 
-	RegAdminCmd("sm_muladdbot", ADMAddBot, ADMFLAG_KICK, "Usage: sm_muladdbot <number> - Attempt to add a survivor bot (will not be kicked by this plugin until someone takes over)");
+	RegAdminCmd("sm_muladdbot", ADMAddBot, ADMFLAG_ROOT, "Usage: sm_muladdbot <number> - Attempt to add a survivor bot (will not be kicked by this plugin until someone takes over)");
 	RegConsoleCmd("sm_join", JoinTeam, "Attempt to join Survivors");
 	RegConsoleCmd("sm_js", JoinTeam, "Attempt to join Survivors");
 
@@ -273,8 +272,6 @@ public void OnPluginEnd()
 	delete g_hSteamIDs;
 	ClearDefault();
 	ResetTimer();
-
-	survivor_limit.RestoreDefault();
 }
 
 public void OnMapStart()
@@ -673,7 +670,6 @@ void Event_FinaleStart(Event event, const char[] name, bool dontBroadcast)
 		if( amount > 0 && client > 0 )
 		{
 			GetClientAbsOrigin(client, vPos);
-      PrintToChatAll("额外的医疗包已经在 %N 的位置生成", client);
 			for(int i = 1; i <= amount; i++)
 			{
 				weapon = CreateEntityByName("weapon_first_aid_kit");
@@ -975,7 +971,6 @@ Action Timer_PluginStart(Handle timer)
 	if( g_bGiveKitSafeRoom && amount > 0 && client > 0 )
 	{
 		GetClientAbsOrigin(client, vPos);
-    PrintToChatAll("额外的医疗包已经在 %N 的位置生成", client);
 		for(int i = 1; i <= amount; i++)
 		{
 			weapon = CreateEntityByName("weapon_first_aid_kit");
@@ -1358,14 +1353,6 @@ int FindBotToTakeOver(bool alive)
 	return 0;
 }
 
-void BypassAndExecuteCommand(int client, char[] strCommand, char[] strParam1)
-{
-	int flags = GetCommandFlags(strCommand);
-	SetCommandFlags(strCommand, flags & ~FCVAR_CHEAT);
-	FakeClientCommand(client, "%s %s", strCommand, strParam1);
-	SetCommandFlags(strCommand, flags);
-}
-
 void StripWeapons(int client) // strip all items from client
 {
 	int itemIdx;
@@ -1572,9 +1559,6 @@ void SetHealth( int client )
 
 void GiveItems(int client) // give client weapon
 {
-	int flags = GetCommandFlags("give");
-	SetCommandFlags("give", flags & ~FCVAR_CHEAT);
-	
 	int iRandom = g_iCvarSecondWeapon;
 	if(g_bLeft4Dead2 && iRandom == 5) iRandom = GetRandomInt(1,4);
 		
@@ -1582,11 +1566,11 @@ void GiveItems(int client) // give client weapon
 	{
 		case 1:
 		{
-			FakeClientCommand( client, "give pistol" );
-			FakeClientCommand( client, "give pistol" );
+			GivePlayerItem( client, "weapon_pistol" );
+			GivePlayerItem( client, "weapon_pistol" );
 		}
-		case 2: FakeClientCommand(client, "give pistol_magnum");
-		case 3: FakeClientCommand(client, "give chainsaw");
+		case 2: GivePlayerItem(client, "weapon_pistol_magnum");
+		case 3: GivePlayerItem(client, "weapon_chainsaw");
 		case 4: 
 		{
 			int entity = CreateEntityByName("weapon_melee");
@@ -1599,7 +1583,7 @@ void GiveItems(int client) // give client weapon
 			EquipPlayerWeapon(client, entity);
 		}
 		default: {
-			FakeClientCommand( client, "give pistol" );
+			GivePlayerItem( client, "weapon_pistol" );
 		}
 	}
 
@@ -1612,23 +1596,23 @@ void GiveItems(int client) // give client weapon
 		
 		switch ( iRandom )
 		{
-			case 1: FakeClientCommand(client, "give autoshotgun");
-			case 2: FakeClientCommand(client, "give shotgun_spas");
-			case 3: FakeClientCommand(client, "give rifle");
-			case 4: FakeClientCommand(client, "give rifle_desert");
-			case 5: FakeClientCommand(client, "give rifle_ak47");
-			case 6: FakeClientCommand(client, "give rifle_sg552");
-			case 7: FakeClientCommand(client, "give sniper_military");
-			case 8: FakeClientCommand(client, "give sniper_awp");
-			case 9: FakeClientCommand(client, "give sniper_scout");
-			case 10: FakeClientCommand(client, "give hunting_rifle");
-			case 11: FakeClientCommand(client, "give rifle_m60");
-			case 12: FakeClientCommand(client, "give grenade_launcher");
-			case 13: FakeClientCommand(client, "give smg");
-			case 14: FakeClientCommand(client, "give smg_silenced");
-			case 15: FakeClientCommand(client, "give smg_mp5");
-			case 16: FakeClientCommand(client, "give pumpshotgun");
-			case 17: FakeClientCommand(client, "give shotgun_chrome");
+			case 1: GivePlayerItem(client, "weapon_autoshotgun");
+			case 2: GivePlayerItem(client, "weapon_shotgun_spas");
+			case 3: GivePlayerItem(client, "weapon_rifle");
+			case 4: GivePlayerItem(client, "weapon_rifle_desert");
+			case 5: GivePlayerItem(client, "weapon_rifle_ak47");
+			case 6: GivePlayerItem(client, "weapon_rifle_sg552");
+			case 7: GivePlayerItem(client, "weapon_sniper_military");
+			case 8: GivePlayerItem(client, "weapon_sniper_awp");
+			case 9: GivePlayerItem(client, "weapon_sniper_scout");
+			case 10: GivePlayerItem(client, "weapon_hunting_rifle");
+			case 11: GivePlayerItem(client, "weapon_rifle_m60");
+			case 12: GivePlayerItem(client, "weapon_grenade_launcher");
+			case 13: GivePlayerItem(client, "weapon_smg");
+			case 14: GivePlayerItem(client, "weapon_smg_silenced");
+			case 15: GivePlayerItem(client, "weapon_smg_mp5");
+			case 16: GivePlayerItem(client, "weapon_pumpshotgun");
+			case 17: GivePlayerItem(client, "weapon_shotgun_chrome");
 			default: {}//nothing
 		}
 	}
@@ -1639,11 +1623,11 @@ void GiveItems(int client) // give client weapon
 		
 		switch ( iRandom )
 		{
-			case 1: FakeClientCommand( client, "give autoshotgun" );
-			case 2: FakeClientCommand( client, "give rifle" );
-			case 3: FakeClientCommand( client, "give hunting_rifle" );
-			case 4: FakeClientCommand( client, "give smg" );
-			case 5: FakeClientCommand( client, "give pumpshotgun" );
+			case 1: GivePlayerItem(client, "weapon_autoshotgun");
+			case 2: GivePlayerItem(client, "weapon_rifle");
+			case 3: GivePlayerItem(client, "weapon_hunting_rifle");
+			case 4: GivePlayerItem(client, "weapon_smg");
+			case 5: GivePlayerItem(client, "weapon_pumpshotgun");
 			default: {}//nothing
 		}
 	}
@@ -1654,9 +1638,9 @@ void GiveItems(int client) // give client weapon
 	
 	switch ( iRandom )
 	{
-		case 1: FakeClientCommand( client, "give molotov" );
-		case 2: FakeClientCommand( client, "give pipe_bomb" );
-		case 3: FakeClientCommand( client, "give vomitjar" );
+		case 1: GivePlayerItem(client, "weapon_molotov");
+		case 2: GivePlayerItem(client, "weapon_pipe_bomb");
+		case 3: GivePlayerItem(client, "weapon_vomitjar");
 		default: {}//nothing
 	}
 	
@@ -1666,10 +1650,10 @@ void GiveItems(int client) // give client weapon
 	
 	switch ( iRandom )
 	{
-		case 1: FakeClientCommand( client, "give first_aid_kit" );
-		case 2: FakeClientCommand( client, "give defibrillator" );
-		case 3: FakeClientCommand( client, "give weapon_upgradepack_incendiary" );
-		case 4: FakeClientCommand( client, "give weapon_upgradepack_explosive" );
+		case 1: GivePlayerItem(client, "weapon_first_aid_kit");
+		case 2: GivePlayerItem(client, "weapon_defibrillator");
+		case 3: GivePlayerItem(client, "weapon_upgradepack_incendiary");
+		case 4: GivePlayerItem(client, "weapon_upgradepack_explosive");
 		default: {}//nothing
 	}
 	
@@ -1678,12 +1662,10 @@ void GiveItems(int client) // give client weapon
 	
 	switch ( iRandom )
 	{
-		case 1: FakeClientCommand( client, "give pain_pills" );
-		case 2: FakeClientCommand( client, "give adrenaline" );
+		case 1: GivePlayerItem(client, "weapon_pain_pills");
+		case 2: GivePlayerItem(client, "weapon_adrenaline");
 		default: {}//nothing
 	}
-	
-	SetCommandFlags( "give", flags);
 }
 
 int GetRandomAliveSurvivor()
@@ -1828,12 +1810,13 @@ Action Timer_GiveRandomT1Weapon(Handle timer, int userid)
 			int random;
 			if(g_bLeft4Dead2) random = GetRandomInt(1,4);
 			else random = GetRandomInt(1,2);
+
 			switch(random)
 			{
-				case 1: BypassAndExecuteCommand(client, "give", "smg");
-				case 2: BypassAndExecuteCommand(client, "give", "pumpshotgun");
-				case 3: BypassAndExecuteCommand(client, "give", "smg_silenced");
-				case 4: BypassAndExecuteCommand(client, "give", "shotgun_chrome");
+				case 1: GivePlayerItem(client, "weapon_smg");
+				case 2: GivePlayerItem(client, "weapon_pumpshotgun");
+				case 3: GivePlayerItem(client, "weapon_smg_silenced");
+				case 4: GivePlayerItem(client, "weapon_shotgun_chrome");
 			}
 		}
 	}
