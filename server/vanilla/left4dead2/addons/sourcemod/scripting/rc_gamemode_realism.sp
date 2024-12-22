@@ -558,13 +558,14 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
           return Plugin_Changed;
         }
         // jockey
+        // 什么时候双生？
         if(Class == 5) {
-          fDamage = fDamage * 1.0;
+          fDamage = fDamage * 0.5;
           return Plugin_Changed;
         }
         // hunter
         if(Class == 3) {
-          fDamage = fDamage * 2.0;
+          fDamage = fDamage * 1.5;
           return Plugin_Changed;
         }
       }
