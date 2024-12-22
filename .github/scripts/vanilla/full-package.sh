@@ -18,6 +18,9 @@ TIME_STAMP="$3"
 LIST_DISABLE_PLUGIN="$(cat $SERVER_DIR/LIST_DISABLE_PLUGIN)"
   echo "$LIST_DISABLE_PLUGIN" | xargs -I {} -n 1 mv {} "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/disabled/"
 
+# 移动编译好的插件
+  mv *.smx $PACKAGE_DIR/left4dead2/addons/sourcemod/plugins/
+   
 # 移动服务器配置文件
   cd $PACKAGE_DIR  
 # 确保目录存在
