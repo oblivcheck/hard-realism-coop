@@ -52,7 +52,7 @@ jobs:
           cd devenv-*
           tar -xzvf *.tar.gz > /dev/null
           NAME=$(basename *.tar.gz .tar.gz) 
-#          echo "NAME=$NAME" >> $GITHUB_ENV
+          # echo "NAME=$NAME" >> $GITHUB_ENV
           cd "$NAME"
           echo "####  ####"
           cd left4dead2/addons/sourcemod/scripting/
