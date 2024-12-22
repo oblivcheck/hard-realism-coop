@@ -23,7 +23,7 @@ LIST_DISABLE_PLUGIN="$(cat $SERVER_DIR/LIST_DISABLE_PLUGIN)"
 # 确保目录存在
   mkdir left4dead2/ems
   mkdir -p left4dead2/cfg
-  mkdir left4dead2/scripts
+  mkdir -p left4dead2/scripts/vscripts
 # 资源文件
   cp -r $SERVER_DIR/left4dead2/models $PACKAGE_DIR/left4dead2/
   cp -r $SERVER_DIR/left4dead2/materials $PACKAGE_DIR/left4dead2/
@@ -52,7 +52,8 @@ LIST_DISABLE_PLUGIN="$(cat $SERVER_DIR/LIST_DISABLE_PLUGIN)"
   # 在workflow中就已经被删除
   # rm PACKAGE_NAME
   cd ../
-  # workflow中命名为root
+  # workflow中命名为root?
+  mv "$PACKAGE_NAME" "package-$TIME_STAMP"
   # mv root  "package-$TIME_STAMP"
 PACKAGE_NAME="package-$TIME_STAMP"
   tar -czvf "$PACKAGE_NAME.tar.gz" $PACKAGE_NAME/ > /dev/null
