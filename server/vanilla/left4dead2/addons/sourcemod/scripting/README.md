@@ -26,6 +26,8 @@
 
 ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dinfectedbots)) **l4dinfectedbots.sp**
 
+([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_CreateSurvivorBot)) **l4d_CreateSurvivorBot_fbef0102.smx**
+
 
 无修改:
 
