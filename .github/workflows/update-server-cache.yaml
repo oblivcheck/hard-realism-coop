@@ -1,0 +1,132 @@
+name:  "Update Server Cache"
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: false
+# 可能需要遵循steamcmd的一些修复步骤
+# 下载srcds到硬盘(不确定是否需要检查下载是否完整，加上validata应该没有问题)
+# 解压为2个文件是考虑解压时的不确定的内存要求
+# tar -cf - -C 相对路径 | split -b 6G - srcds- # 标准14GB的硬盘配额，4C16G
+# 打包压缩包到内存，然后删除硬盘上的文件 
+# 移动压缩包到硬盘
+# 如果可能，丢弃内存缓存，否则我们将尝试强制压缩
+# 压缩完成一个切片后考虑将其移动到磁盘，
+# xz --memory=14G -8e  -T0 srcds-* #xz 默认不会保留原始文件
+# 预计有2个压缩好的切片文件，计算sha256，逐个上传cache，包括校验码，服务端版本号，可能需要删除旧缓存
+# 下载至此完成
+# 
+# 下面是2步可以视作一步：负责检查是否有更新，需要更新则直接下载，直接调用API删除旧的cache
+# 从cache下载压缩包到磁盘，解压完成后删除压缩包 #逐个操作
+# 磁盘有可能不够，可能需要将的后一个压缩下载到内存，然后解压到磁盘
+# 使用cat srcds-* > package-srcds.tar 拼接文件，需要输出到内存
+# 删除所有的压缩包，准备进一步测试流程
+
+# 测试SRCDS服务器是否需要更新，我们设置定时自动启动解压流程，然后运行srcds查看是否存在更新
+# 如果可能，也从steamcmd或其他地方直接查看，节省空间
+
+jobs:
+  ENV-Packaging:
+    runs-on: ubuntu-20.04
+    outputs:
+      devenv_name: ${{ steps.script.outputs.name }}
+    steps:
+      - name: 提取存储库
+        uses: actions/checkout@v4
+
+      - name: 执行脚本
+        shell: bash
+        id: script
+        run: |
+          mkdir action-tmp/ && cd action-tmp
+          bash ../.github/scripts/vanilla/testing.sh $(pwd) "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+          echo "FILE_NAME=$(cat ../PACKAGE_NAME)" >> $GITHUB_ENV
+          rm ../PACKAGE_NAME
+          echo "name=$FILE_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: 上传包裹
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.FILE_NAME }} 
+          path: "action-tmp/*.tar.gz"
+          compression-level: 0
+
+  Server-Packing:
+    runs-on: ubuntu-20.04
+    needs: ENV-Packaging
+
+    steps:
+      - name: 提取存储库
+        uses: actions/checkout@v4
+        
+      - name: 下载开发环境包
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.ENV-Packaging.outputs.devenv_name }}
+
+      - name: 编译插件
+        shell: bash
+        run: |
+          cd devenv-*
+          tar -xzvf *.tar.gz > /dev/null
+          NAME=$(basename *.tar.gz .tar.gz) 
+          # echo "NAME=$NAME" >> $GITHUB_ENV
+          cd "$NAME"
+          echo "####  ####"
+          cd left4dead2/addons/sourcemod/scripting/
+          ./compile.sh *.sp > log.txt
+          cd compiled
+          if grep -q " Error." ../log.txt; then
+            echo "S # #" >> ../log.txt
+            echo "E # #" >> ../log.txt
+            find ../ >> ../log.txt
+            exit 1
+          fi
+          
+          # 回到存储库根目录
+           cd $GITHUB_WORKSPACE
+          # 保证工作路径是脚本预期的
+          mkdir root && cd root
+          mv ../$NAME/$NAME/* .
+
+      - name: 上传日志
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: log
+          path: root/left4dead2/addons/sourcemod/scripting/log.txt
+
+      - name: 打包服务器目录
+        shell: bash
+        run: |
+            # 以防万一，这让我头晕
+            cd $GITHUB_WORKSPACE/root/
+            echo "VERSION=$(cat SERVER_VERSION)" >> $GITHUB_ENV
+            bash ../.github/scripts/vanilla/full-package.sh root "$(pwd)" $(cat SERVER_VERSION)
+#            echo "${{ secrets.ACTION_KEY }}" > id_rsa
+#            chmod 600 id_rsa
+#            ssh-keyscan github.com >> ~/.ssh/known_hosts
+#            GIT_SSH_COMMAND="ssh -i id_rsa" git push 
+           
+      - name: 上传包裹
+        uses: actions/upload-artifact@v4
+        env:
+          NAME: "package-${{ env.VERSION }}"
+        with:
+          name: "${{ env.NAME }}"
+          path: "${{ env.NAME }}.tar.gz"
+          compression-level: 0
+
+
+
+
+
+
+
+
+
+
+
+
