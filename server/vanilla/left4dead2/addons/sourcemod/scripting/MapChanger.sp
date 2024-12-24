@@ -1263,7 +1263,7 @@ void CreateMenu_DefCampaign(int client, int itemIndex = 0)
 
 	Menu menu = new Menu(Menu_DefCampaignHandler, MENU_ACTIONS_DEFAULT);
 	menu.SetTitle("%T", "Choose_campaign", client); // - Выберите кампанию -
-	
+	// 从这里开始调查	
 	g_kvdef.Rewind();
 	g_kvdef.GotoFirstSubKey();
 	do
