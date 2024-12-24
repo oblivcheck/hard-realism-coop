@@ -162,11 +162,13 @@ void rPlayerSpawn(any userid)
       GetClientModel(client, modelname, sizeof(modelname));
       switch(modelname[29])
       {
+      /*
         // nick
         case 'b':
         {
           modelname = "models/215/survivors/survivor_gambler.mdl";
         }
+        */
         // francis
         case 'e':
         {
@@ -177,7 +179,6 @@ void rPlayerSpawn(any userid)
         {
           modelname = "models/280/survivors/survivor_manager.mdl";
         }
-
       }
       SetEntityModel(client, modelname);
       return;
