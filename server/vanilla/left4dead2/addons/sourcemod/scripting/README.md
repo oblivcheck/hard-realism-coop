@@ -2,6 +2,8 @@
 
 ...
 
+**L4D2_Survivor_Legs.smx** 已于 1224.0 更新禁用
+
 ## 扩展
 
 [ALLM](https://forums.alliedmods.net/showthread.php?t=336374) 
