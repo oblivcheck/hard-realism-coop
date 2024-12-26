@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME       "Gamemode: Realism++"
 #define PLUGIN_DESCRIPTION    "Realism++"
-#define PLUGIN_VERSION      "1.3.26"
+#define PLUGIN_VERSION      "1.3.27"
 #define PLUGIN_AUTHOR       "oblivcheck"
 #define PLUGIN_URL        "https://github.com/oblivcheck/hard-realism-coop/"
 
@@ -141,6 +141,9 @@ public void ApplyCvars()
   if(g_bModeEnable && !old_g_bModeEnable)
   {
     PrintToServer("\n #%s# 变量变更，开始设置...",  PLUGIN_NAME);
+    ServerCommand("sm_cvar rc_gamemode_realism_ai 1");
+    ServerCommand("sm plugins load l4d2_sb_ai_improver");
+
     ServerCommand("sm_cvar tongue_break_from_damage_amount 250");
     ServerCommand("sm_cvar smoker_tongue_delay 0.1");
     ServerCommand("sm_cvar boomer_exposed_time_tolerance 1000.0");
@@ -249,7 +252,7 @@ public void ApplyCvars()
     ServerCommand("sm_cvar tank_burn_duration_expert \"340\"");  
     ServerCommand("sm_cvar tank_stuck_time_suicide \"60\"");  
     
-    ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"75\"");  
+//    ServerCommand("sm_cvar z_shotgun_bonus_damage_range \"75\"");  
 //    ServerCommand("sm_cvar survivor_damage_speed_factor \"0.25f\"");  
 
     ServerCommand("sm_cvar upgrade_laser_sight_spread_factor \"0.85\"");
@@ -277,6 +280,9 @@ public void ApplyCvars()
   else if(!g_bModeEnable && old_g_bModeEnable)
   {  
     PrintToServer("\n #%s# 变量变更，撤销设置...",  PLUGIN_NAME);
+    ServerCommand("sm_cvar rc_gamemode_realism_ai 0");
+    ServerCommand("sm plugins unload l4d2_sb_ai_improver");
+
     ServerCommand("sm_cvar tongue_break_from_damage_amount 50");
     ServerCommand("sm_cvar smoker_tongue_delay 1.5");
     ServerCommand("sm_cvar boomer_exposed_time_tolerance 1.0");
@@ -558,13 +564,14 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
           return Plugin_Changed;
         }
         // jockey
+        // 什么时候双生？
         if(Class == 5) {
-          fDamage = fDamage * 1.0;
+          fDamage = fDamage * 0.5;
           return Plugin_Changed;
         }
         // hunter
         if(Class == 3) {
-          fDamage = fDamage * 2.0;
+          fDamage = fDamage * 1.5;
           return Plugin_Changed;
         }
       }
@@ -843,6 +850,7 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
   {
     char buf[24];
     GetClientWeapon(attacker, buf, sizeof(buf) );
+/*
     if(StrContains(buf, "_mag") != -1 )
     {
       if(snum[attacker] == 2) return Plugin_Handled;
@@ -852,6 +860,7 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
       damagetype = 2;
       return Plugin_Changed;
     }
+*/
     if(StrContains(buf, "_awp") != -1 )
     {
       if(snum[attacker] == 2) return Plugin_Handled;
@@ -880,12 +889,13 @@ public Action:eOnTraceAttack(int victim, int &attacker, int &inflictor, float &d
       damage = 200.0;
       return Plugin_Changed;
     }
+/*  如果近战不明显，那么就可以取消它
     if(StrContains(buf, "shotgun") == -1 || StrContains(buf, "melee") == -1)
       return Plugin_Continue;
-
-
     damagetype = damagetype & ~DMG_CLUB;
+
     return Plugin_Changed;
+*/
   }
   return Plugin_Continue;
 }
