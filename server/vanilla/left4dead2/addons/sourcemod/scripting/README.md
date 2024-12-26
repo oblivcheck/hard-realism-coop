@@ -108,7 +108,6 @@ rc_onechance.smx
 rc_stati.smx
 SaveChat-Ver-3.smx
 sm_dev_cmds.smx
-sm_RestartEmpty.smx
 ThirdPersonShoulder_Detect.smx
 vscript_replacer.smx
 WeaponHandling.smx

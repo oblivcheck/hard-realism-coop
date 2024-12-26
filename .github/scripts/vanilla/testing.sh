@@ -47,7 +47,7 @@ if [ $? -ne 0 ]; then
   touch $SCRIPT_DIR/SCRIPT_FAIL
   exit -1
 fi
-tar -xzvf "$(cat URL)" > /dev/null
+tar -xzf "$(cat URL)"
 
 curl -s "${URL_SM}" > URL
 if [ $? -ne 0 ]; then
@@ -61,7 +61,7 @@ if [ $? -ne 0 ]; then
   touch $SCRIPT_DIR/SCRIPT_FAIL
   exit -1
 fi
-tar -xzvf "$(cat URL)" > /dev/null
+tar -xzvf "$(cat URL)"
 
 # 获取L4DtoolZ
 cd l4dtoolz
@@ -176,7 +176,7 @@ PACKAGE_NAME="devenv-$TIME_STAMP-$NUM"
   mv devenv "$PACKAGE_NAME"
 
 # 打包
-  tar -czvf "$PACKAGE_NAME.tar.gz" "$PACKAGE_NAME" > /dev/null
+  tar --xz -cf "$PACKAGE_NAME.tar.xz" "$PACKAGE_NAME" > /dev/null
 
 # 让Runner知道这个包裹的名字
   echo "$PACKAGE_NAME" > ../PACKAGE_NAME
