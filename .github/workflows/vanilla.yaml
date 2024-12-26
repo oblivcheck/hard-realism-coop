@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.FILE_NAME }} 
-          path: "action-tmp/*.tar.gz"
+          path: "action-tmp/*.tar.xz"
           compression-level: 0
 
   Server-Packing:
@@ -50,8 +50,8 @@ jobs:
         shell: bash
         run: |
           cd devenv-*
-          tar -xzvf *.tar.gz > /dev/null
-          NAME=$(basename *.tar.gz .tar.gz) 
+          tar -xf *.tar.xz
+          NAME=$(basename *.tar.xz .tar.xz) 
           # echo "NAME=$NAME" >> $GITHUB_ENV
           cd "$NAME"
           echo "####  ####"
@@ -96,7 +96,7 @@ jobs:
           NAME: "package-${{ env.VERSION }}"
         with:
           name: "${{ env.NAME }}"
-          path: "${{ env.NAME }}.tar.gz"
+          path: "${{ env.NAME }}.tar.xz"
           compression-level: 0
 
 
