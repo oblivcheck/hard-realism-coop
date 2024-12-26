@@ -30,6 +30,8 @@
 
 ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_CreateSurvivorBot)) **l4d_CreateSurvivorBot_fbef0102.smx**
 
+([ALLM](https://forums.alliedmods.net/showthread.php?t=315367)) **sm_RestartEmpty.smx**
+
 
 无修改:
 
