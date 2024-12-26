@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME       "Gamemode: Realism++"
 #define PLUGIN_DESCRIPTION    "Realism++"
-#define PLUGIN_VERSION      "1.3.26"
+#define PLUGIN_VERSION      "1.3.27"
 #define PLUGIN_AUTHOR       "oblivcheck"
 #define PLUGIN_URL        "https://github.com/oblivcheck/hard-realism-coop/"
 
@@ -141,6 +141,9 @@ public void ApplyCvars()
   if(g_bModeEnable && !old_g_bModeEnable)
   {
     PrintToServer("\n #%s# 变量变更，开始设置...",  PLUGIN_NAME);
+    ServerCommand("sm_cvar rc_gamemode_realism_ai 1");
+    ServerCommand("sm plugins load l4d2_sb_ai_improver");
+
     ServerCommand("sm_cvar tongue_break_from_damage_amount 250");
     ServerCommand("sm_cvar smoker_tongue_delay 0.1");
     ServerCommand("sm_cvar boomer_exposed_time_tolerance 1000.0");
@@ -277,6 +280,9 @@ public void ApplyCvars()
   else if(!g_bModeEnable && old_g_bModeEnable)
   {  
     PrintToServer("\n #%s# 变量变更，撤销设置...",  PLUGIN_NAME);
+    ServerCommand("sm_cvar rc_gamemode_realism_ai 0");
+    ServerCommand("sm plugins unload l4d2_sb_ai_improver");
+
     ServerCommand("sm_cvar tongue_break_from_damage_amount 50");
     ServerCommand("sm_cvar smoker_tongue_delay 1.5");
     ServerCommand("sm_cvar boomer_exposed_time_tolerance 1.0");

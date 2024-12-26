@@ -7,7 +7,8 @@
 URL_MM="https://mms.alliedmods.net/mmsdrop/1.11/mmsource-latest-linux"
 URL_SM="https://sm.alliedmods.net/smdrop/1.12/sourcemod-latest-linux"
 URL_L4DTOOLZ="https://github.com/lakwsh/l4dtoolz/releases/download/2.4.0/l4dtoolz-11977260267.zip"
-URL_LEFT4DOOKS="https://github.com/SilvDev/Left4DHooks/archive/refs/heads/main.zip"
+# 需要对其进行一些小修改
+# URL_LEFT4DOOKS="https://github.com/SilvDev/Left4DHooks/archive/refs/heads/main.zip"
 # 06-12-24
 URL_ACTION="https://forums.alliedmods.net/attachment.php?attachmentid=204593&d=1718157838"
 
@@ -80,15 +81,15 @@ mv * ../addons/
 cd ..
 rm -r l4dtoolz
 
-mkdir left4dhooks && cd left4dhooks
-wget -q "$URL_LEFT4DOOKS"
-if [ $? -ne 0 ]; then
-  echo "DOWNLOAD F Left4Dhooks"
-  touch $SCRIPT_DIR/SCRIPT_FAIL
-  exit -1
-fi
-unzip  main.zip > /dev/null
-rm main.zip
+#mkdir left4dhooks && cd left4dhooks
+#wget -q "$URL_LEFT4DOOKS"
+#if [ $? -ne 0 ]; then
+#  echo "DOWNLOAD F Left4Dhooks"
+#  touch $SCRIPT_DIR/SCRIPT_FAIL
+#  exit -1
+#fi
+#unzip  main.zip > /dev/null
+#rm main.zip
 
 # 删除SM自带的插件SMX
   rm -r "$PACKAGE_DIR/left4dead2/addons/sourcemod/plugins"/*
@@ -110,9 +111,9 @@ fi
   cat LIST_RDMD_LICENSE | sed "2~2s|^|${PACKAGE_DIR}/README/|" | sed "1~2s|^|${PACKAGE_DIR}/|" | xargs -L 2 mv
 
 # 移动Left4Dhooks到正确的位置
-  cd $PACKAGE_DIR/left4dead2/left4dhooks/
-  cp -r Left4DHooks-main/* ../addons/
-  rm -rf $PACKAGE_DIR/left4dead2/left4dhooks
+#  cd $PACKAGE_DIR/left4dead2/left4dhooks/
+#  cp -r Left4DHooks-main/* ../addons/
+#  rm -rf $PACKAGE_DIR/left4dead2/left4dhooks
 
 # 创建一个干净的scripting目录
   cd "$PACKAGE_DIR/left4dead2/addons/sourcemod/scripting/"
