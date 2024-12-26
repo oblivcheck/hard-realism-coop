@@ -2,6 +2,8 @@
 
 ...
 
+**L4D2_Survivor_Legs.smx** 已于 1224.0 更新禁用
+
 ## 扩展
 
 [ALLM](https://forums.alliedmods.net/showthread.php?t=336374) 
@@ -25,6 +27,8 @@
 ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_afk_commands)) **l4d_afk_commands.sp**
 
 ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dinfectedbots)) **l4dinfectedbots.sp**
+
+([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_CreateSurvivorBot)) **l4d_CreateSurvivorBot_fbef0102.smx**
 
 
 无修改:
