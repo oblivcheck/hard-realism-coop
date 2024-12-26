@@ -1,4 +1,4 @@
-/**
+\/**
  * vim  set ts=4
  * =============================================================================
  *
@@ -1939,6 +1939,9 @@ forward Action L4D_OnGetScriptValueFloat(const char[] key, float &retVal);
 forward Action L4D_OnGetScriptValueString(const char[] key, const char[] defaultVal, char retVal[128]);
 
 // These are used for the "L4D2_OnGetScriptValueVoid" forward, and interally for the other "L4D2_OnGetScriptValue*" forwards:
+#if defined _L4D2_SB_AI_IMPROVER
+
+#else
 enum fieldtype_t
 {
 	FIELD_VOID = 0,				// No type or value
@@ -1951,6 +1954,7 @@ enum fieldtype_t
 	FIELD_UNSIGNED = 38,
 	FIELD_QANGLE = 40
 };
+#endif
 
 enum struct VariantBuffer
 {

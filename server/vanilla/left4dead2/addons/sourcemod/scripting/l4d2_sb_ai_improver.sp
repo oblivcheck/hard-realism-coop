@@ -36,7 +36,10 @@
 #include <sdktools>
 #include <sdkhooks>
 #include <dhooks>
+
+#define _L4D2_SB_AI_IMPROVER
 #include <left4dhooks>
+
 #include <profiler>
 #include <adt_trie>
 #include <vscript> //https://github.com/FortyTwoFortyTwo/VScript
