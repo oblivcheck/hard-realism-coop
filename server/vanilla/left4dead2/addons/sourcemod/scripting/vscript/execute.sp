@@ -1,18 +1,4 @@
 // VScriptExecute is an ArrayList, with index 0 as Execute, index 1 to arg count as ExecuteParam, and rest above as value of string
-enum fieldtype_t
-{
-	FIELD_VOID,
-	FIELD_FLOAT,
-	FIELD_VECTOR,
-	FIELD_INTEGER,
-	FIELD_BOOLEAN,
-	FIELD_TYPEUNKNOWN,
-	FIELD_CSTRING,
-	FIELD_HSCRIPT,
-	FIELD_VARIANT,
-	FIELD_QANGLE,
-	FIELD_UINT32,
-};
 
 enum struct ExecuteParam
 {

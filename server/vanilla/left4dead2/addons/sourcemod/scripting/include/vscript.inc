@@ -6,9 +6,6 @@
 #include <sdktools>
 #include <dhooks>
 
-/*
-将这些移动到vscript/execute.sp
-
 // These field values does NOT reflect with actual game values, as it vaires between games.
 // This should only be used with this plugin natives.
 enum fieldtype_t
@@ -25,7 +22,7 @@ enum fieldtype_t
 	FIELD_QANGLE,
 	FIELD_UINT32,
 };
-*/
+
 enum ScriptStatus_t
 {
 	SCRIPT_ERROR = -1,
