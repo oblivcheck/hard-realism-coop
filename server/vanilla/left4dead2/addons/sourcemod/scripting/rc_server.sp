@@ -435,10 +435,7 @@ public Action fuc_CommandListener(int client, const char[] command, int argc)
 
     if(strcmp(command, "sm_maps", false) == 0)
     {
-      PrintToChat(client, "\x03   请使用ESC中的投票来切换官方地图");
-      PrintToChat(client, "\x04   此菜单中的官方地图名称显示存在问题");
-      PrintToChat(client, "\x04   第三方地图名称显示正常");
-
+      PrintToChat(client, "\x03   官方地图名称现在可以正常显示啦！");
       return Plugin_Continue;
     }
     for(int i =0; i<AvaCmdsNum; i++)
