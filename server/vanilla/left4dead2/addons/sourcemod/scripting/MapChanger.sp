@@ -897,6 +897,8 @@ void Menu_ChooseMap(int client)
 	int iCurMapNumber, iTotalMapsNumber;
 	
 	Menu menu = new Menu(Menu_MapTypeHandler, MENU_ACTIONS_DEFAULT);
+
+	menu.ExitButton = false;
 	
 	if( g_hCampaignByMap.GetString(g_sCurMap, sCampaign, sizeof(sCampaign)) )
 	{

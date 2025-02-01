@@ -32,7 +32,7 @@ void ExecVote_WarpAllSurvivorsToSelf(client)
           // 你也不想被shooter硬控吧
           //ServerCommand("sm_slap #%d", GetClientUserId(i) );
         }        
-        TeleportEntity(i, pos, NULL_VECTOR, NULL_VECTOR);
+        TeleportEntity(player, pos, NULL_VECTOR, NULL_VECTOR);
       }
     }
   }
@@ -46,11 +46,13 @@ void ExecVote_WarpAllSurvivorsToSelf(client)
   */
   PrintToChatAll("已传送所有存活的幸存者(Survivors -> %N)", player);
 }
+/*
 Action tDisableNocliplip(Handle Timer)
 {  
   ServerCommand("sm_noclip @all");
   return Plugin_Continue;
 }
+*/
 stock bool L4D_IsPlayerIncapacitated(int client)
 {
   return view_as<bool>(GetEntProp(client, Prop_Send, "m_isIncapacitated", 1));
@@ -101,7 +103,7 @@ void ExecVote_WarpAllSurvivorBotsToSelf(client)
       if(IsFakeClient(i) )
       {
         if(GetClientTeam(i) == 2)
-          TeleportEntity(i, pos, NULL_VECTOR, NULL_VECTOR);
+          TeleportEntity(player, pos, NULL_VECTOR, NULL_VECTOR);
       }
     }
   }

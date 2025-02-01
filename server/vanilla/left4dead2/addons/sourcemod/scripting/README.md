@@ -28,9 +28,9 @@
 
 ([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4dinfectedbots)) **l4dinfectedbots.sp**
 
-([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_CreateSurvivorBot)) **l4d_CreateSurvivorBot_fbef0102.smx**
+([GitHub](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d_CreateSurvivorBot)) **l4d_CreateSurvivorBot_fbef0102.sp**
 
-([ALLM](https://forums.alliedmods.net/showthread.php?t=315367)) **sm_RestartEmpty.smx**
+([ALLM](https://forums.alliedmods.net/showthread.php?t=315367)) **sm_RestartEmpty.sp**
 
 
 无修改:
