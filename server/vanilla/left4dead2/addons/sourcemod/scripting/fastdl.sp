@@ -156,19 +156,20 @@ void rPlayerSpawn(any userid)
       return;
 
     int team = GetClientTeam(client);
+  /*
     if(team == 2)
     {
       char modelname[48];
       GetClientModel(client, modelname, sizeof(modelname));
       switch(modelname[29])
       {
-      /*
+      
         // nick
-        case 'b':
-        {
-          modelname = "models/215/survivors/survivor_gambler.mdl";
-        }
-        */
+      //  case 'b':
+      //  {
+      //    modelname = "models/215/survivors/survivor_gambler.mdl";
+      //  }
+      
         // francis
         case 'e':
         {
@@ -183,7 +184,7 @@ void rPlayerSpawn(any userid)
       SetEntityModel(client, modelname);
       return;
     }
-
+*/
     if(team != 3)
       return;
 

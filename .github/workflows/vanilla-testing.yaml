@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.FILE_NAME }} 
-          path: "action-tmp/*.tar.gz"
+          path: "action-tmp/*.tar.xz"
           compression-level: 0
 
   Plugin-Compiling:
@@ -50,8 +50,8 @@ jobs:
       - name: 编译插件
         run: |
           cd devenv-*
-          tar -xzvf *.tar.gz > /dev/null
-          NAME=$(basename *.tar.gz .tar.gz) 
+          tar -xf *.tar.xz
+          NAME=$(basename *.tar.xz .tar.xz) 
           cd "$NAME"
           echo "#### ####"
           cd left4dead2/addons/sourcemod/scripting/

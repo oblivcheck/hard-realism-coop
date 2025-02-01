@@ -59,7 +59,7 @@ LIST_DISABLE_PLUGIN="$(cat $SERVER_DIR/LIST_DISABLE_PLUGIN)"
   mv "$PACKAGE_NAME" "package-$TIME_STAMP"
   # mv root  "package-$TIME_STAMP"
 PACKAGE_NAME="package-$TIME_STAMP"
-  tar -czvf "$PACKAGE_NAME.tar.gz" $PACKAGE_NAME/ > /dev/null
+  tar --xz -cf "$PACKAGE_NAME.tar.xz" $PACKAGE_NAME/
 #  同样，目录已经被重命名为root
 #  git rm -rf "$PACKAGE_NAME"
 #  git commit -m "Vanilla: $TIME_STAMP 生成包裹并更新存储库"

@@ -9,7 +9,7 @@ if [[ $1 == "sv.sayuri.city" ]]; then
   if ! echo "$info" | grep -q "players : 0 humans,"; then
     MSG="${MSG}#1失败 "
   else
-    ./rcon -e r1 "_restart"
+    ./rcon -e r1 "sm__restart" > /dev/null
     MSG="${MSG}#1成功 "
   fi
 
@@ -17,7 +17,7 @@ if [[ $1 == "sv.sayuri.city" ]]; then
   if ! echo "$info" | grep -q "players : 0 humans,"; then
     MSG="${MSG}#2失败 "
   else
-    ./rcon -e r2 "_restart"
+    ./rcon -e r2 "sm__restart" > /dev/null
     MSG="${MSG}#2成功 "
   fi
 
@@ -25,7 +25,7 @@ if [[ $1 == "sv.sayuri.city" ]]; then
   if ! echo "$info" | grep -q "players : 0 humans,"; then
     MSG="${MSG}#3失败 "
   else
-    ./rcon -e r3 "_restart"
+    ./rcon -e r3 "sm__restart" > /dev/null
     MSG="${MSG}#3成功 "
   fi
 
@@ -33,7 +33,7 @@ if [[ $1 == "sv.sayuri.city" ]]; then
   if ! echo "$info" | grep -q "players : 0 humans,"; then
     MSG="${MSG}#4失败 "
   else
-    ./rcon -e r4 "_restart"
+    ./rcon -e r4 "sm__restart" > /dev/null
     MSG="${MSG}#4成功 "
   fi
 else
@@ -41,7 +41,7 @@ else
   if ! echo "$info" | grep -q "players : 0 humans,"; then
     MSG="${MSG}#5失败 "
   else
-    ./rcon -e r13 "_restart"
+    ./rcon -e r13 "sm__restart" > /dev/null
     MSG="${MSG}#5成功 "
   fi
 
@@ -49,7 +49,7 @@ else
   if ! echo "$info" | grep -q "players : 0 humans,"; then
     MSG="${MSG}#6失败 "
   else
-    ./rcon -e r14 "_restart"
+    ./rcon -e r14 "sm__restart" > /dev/null
     MSG="${MSG}#6成功 "
   fi
 fi

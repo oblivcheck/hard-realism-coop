@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME             "RC Server"
 #define PLUGIN_DESCRIPTION      "Realism Coop 服务器上的小功能集合"
-#define PLUGIN_VERSION          "1.5.3"
+#define PLUGIN_VERSION          "1.5.4a"
 #define PLUGIN_AUTHOR           "oblivcheck"
 #define PLUGIN_URL              ""
 
@@ -433,6 +433,11 @@ public Action fuc_CommandListener(int client, const char[] command, int argc)
     if(strcmp(command, "sm_isee", false) == 0)
       return Plugin_Continue;
 
+    if(strcmp(command, "sm_maps", false) == 0)
+    {
+      PrintToChat(client, "\x03   官方地图名称现在可以正常显示啦！");
+      return Plugin_Continue;
+    }
     for(int i =0; i<AvaCmdsNum; i++)
     {
       if(strcmp(command, "sm_join", false) == 0)
