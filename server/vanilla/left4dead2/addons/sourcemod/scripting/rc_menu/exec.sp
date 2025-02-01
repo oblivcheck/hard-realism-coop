@@ -208,4 +208,67 @@ void ExecVote_SetVoiceMark()
 }
 
 // 模式投票
-
+void ExecVote_SwitchToCampaign()
+{
+  ServerExecute();
+  ServerCommand("sm_cvar mp_gamemode \"coop\"");
+  ServerCommand("sm_slay @all");
+  PrintToChatAll("切换至战役模式，重启回合...");
+}
+void ExecVote_SwitchToRealism()
+{
+  ServerCommand("sm_cvar mp_gamemode \"realism\"");
+  ServerCommand("sm_slay @all");
+  PrintToChatAll("切换至写实模式，重启回合...");
+}
+void ExecVote_SwitchToRpp()
+{
+  ServerCommand("sm_rpp true");
+  ServerExecute()
+  CreateTimer(1.5, tDelayEx, 1);
+  CreateTimer(1.0, tDelaySetMode, false);
+}
+void ExecVote_SwitchToRpp_full()
+{
+  ServerCommand("sm_rpp true");
+  ServerExecute()
+  CreateTimer(1.5, tDelayEx, 2);
+  CreateTimer(1.0, tDelaySetMode, false);
+}
+void ExecVote_SwitchToRpp_disable()
+{
+  ServerCommand("sm_cvar rc_gamemode_realism_enable 0");
+  ServerCommand("sm_rpp false");
+  ServerExecute();
+  ServerCommand("sm_cvar hrc_hud_enable 0");
+  ServerCommand("sm_cvar hide_hud_enable 0");
+}
+Action tDelayEx(Handle Timer, any type)
+{
+  if (type == 1)
+  {
+    ServerCommand("sm_cvar hrc_hud_enable \"0\""); 
+		ServerCommand("sm plugins load hideHUD");
+    ServerCommand("sm_cvar hide_hud_enable 1");
+    ServerExecute();
+    PrintToChatAll("\x05按下\x04静步键\x05来显示HUD");
+  }
+  else
+  {
+    ServerCommand("sm_cvar hide_hud_enable 0");
+		ServerCommand("sm plugins unload hideHUD");
+    ServerExecute();
+    CreateTimer(1.0, tDelaySetMode, true);
+		ServerCommand("sm_cvar hrc_hud_show_key \"1\"");
+    PrintToChatAll("\x04如果无法切换武器，请长按\x03R键\x053秒以上，也请确保聊天框是关闭的(尽管它现在不可见)");
+    PrintToChatAll("\x05聊天可以使用开发者控制台say命令，或者按下\x03数字键7\x05(非小键盘)可以短暂显示HUD");
+}
+  return Plugin_Continue;
+}
+Action tDelaySetMode(Handle Timer, any hud)
+{
+	if(hud)
+		ServerCommand("sm_cvar hrc_hud_enable \"1\"");
+	ServerCommand("sm_cvar rc_gamemode_realism_enable \"1\"");
+	return Plugin_Continue;
+}
