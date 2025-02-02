@@ -26,7 +26,7 @@ void WEAPON_ResetWeaponAttr()
   //L4D2_SetFloatWeaponAttribute("weapon_rifle", L4D2FWA_CycleTime, 0.1);
   L4D2_SetFloatWeaponAttribute("weapon_rifle_sg552", L4D2FWA_CycleTime, 0.0825);
   L4D2_SetFloatWeaponAttribute("weapon_rifle_ak47", L4D2FWA_CycleTime, 0.13);
-  L4D2_SetFloatWeaponAttribute("weapon_rifle_desert", L4D2FWA_CycleTime, 0.07);
+  //L4D2_SetFloatWeaponAttribute("weapon_rifle_desert", L4D2FWA_CycleTime, 0.07);
   L4D2_SetFloatWeaponAttribute("weapon_sniper_military", L4D2FWA_CycleTime, 0.25);
 
   L4D2_SetIntWeaponAttribute("weapon_rifle", L4D2IWA_ClipSize, 50);
@@ -125,7 +125,7 @@ void WEAPON_AdjWeaponAttr()
   // L4D2_SetIntWeaponAttribute("weapon_rifle_sg552", L4D2IWA_Tier, 1);
   L4D2_SetIntWeaponAttribute("weapon_rifle_sg552", L4D2IWA_ClipSize, 40);
   L4D2_SetIntWeaponAttribute("weapon_rifle_ak47", L4D2IWA_ClipSize, 45);
-  L4D2_SetIntWeaponAttribute("weapon_rifle_desert", L4D2IWA_ClipSize, 30);
+ //L4D2_SetIntWeaponAttribute("weapon_rifle_desert", L4D2IWA_ClipSize, 30);
 
   L4D2_SetIntWeaponAttribute("weapon_sniper_military", L4D2IWA_ClipSize, 20);
   L4D2_SetIntWeaponAttribute("weapon_rifle", L4D2IWA_DefaultSize, 45);

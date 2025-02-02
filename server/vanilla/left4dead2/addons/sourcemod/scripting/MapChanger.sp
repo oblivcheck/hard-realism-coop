@@ -884,7 +884,7 @@ public Action Command_MapChoose(int client, int args)
 	if(client == 0)
 		return Plugin_Handled;
 
-	PrintToChat(client, "/x05按下数字键0（非小键盘）来退出大多数菜单");
+	PrintToChat(client, "\x05按下数字键0（非小键盘）来退出大多数菜单");
 	
 	Menu_ChooseMap(client);
 	return Plugin_Handled;
