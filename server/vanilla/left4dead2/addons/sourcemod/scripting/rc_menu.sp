@@ -322,7 +322,7 @@ void Mode_StartVote(int client)
   {
     L4D2NativeVote hVote = L4D2NativeVote(Mode_VoteHandler);
     hVote.Initiator = client;
-    hVote.SetDisplayText("Test Displayer text", mode_VoteTitle[g_iVoteType]);
+    hVote.SetDisplayText("%s", mode_VoteTitle[g_iVoteType]);
     int clients[MAXPLAYERS+1], num;
     GetInGamePlayers(clients, num)
    
