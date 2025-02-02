@@ -552,12 +552,12 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
             fDamage = 150.0;
             return Plugin_Changed;
           }
-          if(StrContains(weaponName, "m60") == 0)
+          if(StrContains(buf, "m60") == 0)
           {
             fDamage = 400.0;            
             return Plugin_Changed;
           }
-          if(StrContains(weaponName, "e_launcher") == 0)
+          if(StrContains(buf, "e_launcher") == 0)
           {
             fDamage = fDamage * 8.0;
             if(isTank)
@@ -565,6 +565,7 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
               
             return Plugin_Changed;
           }
+        }
       }
 
       if(GetClientTeam(iVictim) != 2) return Plugin_Continue;
