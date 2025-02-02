@@ -881,6 +881,11 @@ stock char[] Translate(int client, const char[] format, any ...)
 public Action Command_MapChoose(int client, int args)
 {
 	client = iGetListenServerHost(client, g_bDedicated);
+	if(client == 0)
+		return Plugin_Handled;
+
+	PrintToChat(client, "/x05按下数字键0（非小键盘）来退出大多数菜单");
+	
 	Menu_ChooseMap(client);
 	return Plugin_Handled;
 }
@@ -897,7 +902,7 @@ void Menu_ChooseMap(int client)
 	int iCurMapNumber, iTotalMapsNumber;
 	
 	Menu menu = new Menu(Menu_MapTypeHandler, MENU_ACTIONS_DEFAULT);
-	
+
 	if( g_hCampaignByMap.GetString(g_sCurMap, sCampaign, sizeof(sCampaign)) )
 	{
 		g_hNameByMap.GetString(g_sCurMap, sMapDisplay, sizeof(sMapDisplay));
@@ -950,6 +955,8 @@ void Menu_ChooseMap(int client)
 		if( iNumCampaignsCustom != 0 )
 			menu.AddItem("rating", Translate(client, "%t", "By_rating")); 		// По рейтингу
 	}
+	
+	menu.ExitButton = false;
 	menu.DisplayAt(client, 0, MENU_TIME_FOREVER);
 }
 
@@ -1016,7 +1023,8 @@ void CreateMenuRating(int client)
 	menu.AddItem("5", Translate(client, "%t", "Rating_5")); 	// баллов (очень хорошая)
 	menu.AddItem("6", Translate(client, "%t", "Rating_6")); 	// баллов (блестящая)
 	menu.AddItem("0", Translate(client, "%t", "Rating_No")); 	// Ещё без оценки
-	menu.ExitBackButton = true;
+	menu.ExitBackButton = true;	
+	menu.ExitButton = false;
 	menu.DisplayAt( client, 0, MENU_TIME_FOREVER);
 }
 
@@ -1125,6 +1133,7 @@ void CreateMenuCampaigns(int client, int ChosenGroup, int ChosenRating, int menu
 	
 	if( bAtLeastOne )
 	{
+	  menu.ExitButton = false;
 		menu.DisplayAt(client, menuIndex, MENU_TIME_FOREVER);
 	}
 	else {
@@ -1263,7 +1272,7 @@ void CreateMenu_DefCampaign(int client, int itemIndex = 0)
 
 	Menu menu = new Menu(Menu_DefCampaignHandler, MENU_ACTIONS_DEFAULT);
 	menu.SetTitle("%T", "Choose_campaign", client); // - Выберите кампанию -
-	// 从这里开始调查	
+	
 	g_kvdef.Rewind();
 	g_kvdef.GotoFirstSubKey();
 	do
@@ -1276,6 +1285,7 @@ void CreateMenu_DefCampaign(int client, int itemIndex = 0)
 	} while( g_kvdef.GotoNextKey() );
 	
 	menu.ExitBackButton = true;
+	menu.ExitButton = false;
 	menu.DisplayAt(client, itemIndex, MENU_TIME_FOREVER);
 }
 
@@ -1349,7 +1359,8 @@ void CreateMenu_DefMaps(int client, char[] campaign, char[] campaign_title)
 			}
 		} while( g_kvdef.GotoNextKey() );
 		
-		menu.ExitBackButton = true;
+		menu.ExitBackButton = true;		
+		menu.ExitButton = false;
 		menu.DisplayAt(client, 0, MENU_TIME_FOREVER);
 	}
 }
@@ -1443,7 +1454,8 @@ void CreateMenuMark(int client)
 	menu.AddItem("6", Translate(client, "%t", "Rating_6")); // баллов (блестящая)
 	if( HasRemoveRatingAccess(client) )
 		menu.AddItem("0", Translate(client, "%t", "Rating_remove")); // Удалить рейтинг
-	menu.ExitBackButton = true;
+	menu.ExitBackButton = true;	
+	menu.ExitButton = false;
 	menu.DisplayAt( client, 0, MENU_TIME_FOREVER);
 }
 
@@ -1554,6 +1566,7 @@ void CreateCustomMapMenu(int client, char[] campaign)
 		}
 		menu.AddItem("mark", Translate(client, "%t", "set_rating2"));  // Поставить оценку
 		menu.ExitBackButton = true;
+		menu.ExitButton = false;
 		menu.DisplayAt(client, 0, MENU_TIME_FOREVER);
 	}
 }
@@ -1685,7 +1698,8 @@ Action Timer_VoteDelayed(Handle timer, Menu menu)
 	}
 	else {
 		if( !IsVoteInProgress() ) {
-			g_bVoteInProgress = true;
+			g_bVoteInProgress = true;			
+			menu.ExitButton = false;
 			menu.DisplayVoteToAll(g_hCvarTimeout.IntValue);
 			g_bVoteDisplayed = true;
 		}
