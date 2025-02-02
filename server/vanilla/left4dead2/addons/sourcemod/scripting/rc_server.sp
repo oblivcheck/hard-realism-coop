@@ -400,7 +400,7 @@ public Action OnPlayerRunCmd(int client, int& buttons)
 //              命令白名单
 //---------------------------------------------------------------------------||
 
-#define	AvaCmdsNum		18
+#define	AvaCmdsNum		24
 char AvailableCmds[][]=
 {
   "sm_maps",
@@ -420,7 +420,11 @@ char AvailableCmds[][]=
   "sm_cvar",
   "sm_join",
   "sm_away",
-  "sm_ob"
+  "sm_ob",
+  "sm_kick",
+  "sm_ban",
+  "sm_slay",
+  "sm_slap"
 };
 
 public Action fuc_CommandListener(int client, const char[] command, int argc)
