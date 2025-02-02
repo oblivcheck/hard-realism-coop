@@ -38,7 +38,7 @@ Action CMD_rc(int client, int args)
     
   if(GetClientTeam(client) == 1)
   {
-    PrintToCHat(client, "观察者不能使用此菜单，要切换地图请使用!maps");
+    PrintToChat(client, "观察者不能使用此菜单，要切换地图请使用!maps");
     return Plugin_Handled;
   }
   
