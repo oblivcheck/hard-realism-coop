@@ -881,6 +881,11 @@ stock char[] Translate(int client, const char[] format, any ...)
 public Action Command_MapChoose(int client, int args)
 {
 	client = iGetListenServerHost(client, g_bDedicated);
+	if(client == 0)
+		return Plugin_Handled;
+
+	PrintToChat(client, "/x05按下数字键0（非小键盘）来退出大多数菜单");
+	
 	Menu_ChooseMap(client);
 	return Plugin_Handled;
 }

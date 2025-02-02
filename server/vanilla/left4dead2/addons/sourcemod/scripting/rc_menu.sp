@@ -33,6 +33,15 @@ public void OnPluginStart()
 
 Action CMD_rc(int client, int args)
 {
+  if(client == 0)
+    return Plugin_Handled;
+    
+  if(GetClientTeam(client) == 1)
+  {
+    PrintToCHat(client, "观察者不能使用此菜单，要切换地图请使用!maps");
+    return Plugin_Handled;
+  }
+  
   Menu rc = CreateMenu(Menu_rc);
   rc.ExitButton = false;
   rc.SetTitle("☦ 服务器菜单 ☦", PLUGIN_VERSION);
