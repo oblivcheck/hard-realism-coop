@@ -552,7 +552,19 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
             fDamage = 150.0;
             return Plugin_Changed;
           }
-        }
+          if(StrContains(weaponName, "m60") == 0)
+          {
+            fDamage = 400.0;            
+            return Plugin_Changed;
+          }
+          if(StrContains(weaponName, "e_launcher") == 0)
+          {
+            fDamage = fDamage * 8.0;
+            if(isTank)
+              fDamage = fDamage * 2.0;
+              
+            return Plugin_Changed;
+          }
       }
 
       if(GetClientTeam(iVictim) != 2) return Plugin_Continue;
@@ -590,7 +602,8 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
           }  
           if(strcmp(weaponName, "weapon_pistol_magnum") == 0)
           {
-            fDamage = 100.0;
+            fDamage = 1000.0;
+            iDamagetype = iDamagetype | DMG_FALL;            
             return Plugin_Changed;
           }
           if(StrContains(weaponName, "_awp") != -1 )
@@ -614,7 +627,22 @@ public Action eOnTakeDamage(int iVictim, int &iAttacker, int &iInflictor, float 
             fDamage = 80.0 ;
             return Plugin_Changed;
           }
- 
+          if(StrContains(weaponName, "m60") == 0)
+          {
+            fDamage = 1000.0;
+            iDamagetype = iDamagetype | DMG_FALL;            
+            return Plugin_Changed;
+          }
+          if(StrContains(weaponName, "e_launcher") == 0)
+          {
+            fDamage = fDamage * 4.0;
+            if(fDamage >= 100.0)
+            {
+              fDamage = 1000.0;
+              iDamagetype = iDamagetype | DMG_FALL;
+            }            
+            return Plugin_Changed;
+          }
         }
       }
     }

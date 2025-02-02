@@ -20,6 +20,7 @@ void WEAPON_ResetWeaponAttr()
   L4D2_SetIntWeaponAttribute("weapon_pistol_magnum", L4D2IWA_ClipSize, 8);
   L4D2_SetIntWeaponAttribute("weapon_pistol_magnum", L4D2IWA_DefaultSize, 8);
   L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2FWA_PenetrationMaxDist, 0.0);
+  L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2FWA_CycleTime, 0.3);
   
   // - 步枪
   //L4D2_SetFloatWeaponAttribute("weapon_rifle", L4D2FWA_CycleTime, 0.1);
@@ -111,7 +112,8 @@ void WEAPON_AdjWeaponAttr()
   L4D2_SetIntWeaponAttribute("weapon_pistol_magnum", L4D2IWA_ClipSize, 7);
   L4D2_SetIntWeaponAttribute("weapon_pistol_magnum", L4D2IWA_DefaultSize, 7);
   L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2FWA_PenetrationMaxDist, 200.0);
-   // - 步枪
+  L4D2_SetFloatWeaponAttribute("weapon_pistol_magnum", L4D2FWA_CycleTime, 0.35);
+    // - 步枪
   //L4D2_SetFloatWeaponAttribute("weapon_rifle", L4D2FWA_CycleTime, 0.1);
   L4D2_SetFloatWeaponAttribute("weapon_rifle_sg552", L4D2FWA_CycleTime, 0.0875);
   L4D2_SetFloatWeaponAttribute("weapon_rifle_ak47", L4D2FWA_CycleTime, 0.095);
