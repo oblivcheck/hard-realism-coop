@@ -170,6 +170,9 @@ public void ApplyCvars()
     ServerCommand("sm_cvar z_jockey_leap_range 1000");
     ServerCommand("sm_cvar jockey_pounce_air_speed 4000");
 
+
+    ServerCommand("sm_cvar sv_alltalk 1");
+
     // 需要一个加速奔跑的功能
     //ServerCommand("sm_cvar  z_forwardspeed 300");
     //ServerCommand("sm_cvar  sv_accelerate 4");
@@ -290,6 +293,8 @@ public void ApplyCvars()
     PrintToServer("\n #%s# 变量变更，撤销设置...",  PLUGIN_NAME);
     ServerCommand("sm_cvar rc_gamemode_realism_ai 0");
     ServerCommand("sm plugins unload l4d2_sb_ai_improver");
+    
+    ServerCommand("sm_cvar sv_alltalk 0");
 
     ServerCommand("sm_cvar tongue_break_from_damage_amount 50");
     ServerCommand("sm_cvar smoker_tongue_delay 1.5");
