@@ -70,7 +70,9 @@
 
 ([ALLM](https://forums.alliedmods.net/showthread.php?t=309656)) **command_buffer.sp**
 
-([Github](https://github.com/fdxx/l4d2_nativevote)) **l4d2_nativevote**
+([Github](https://github.com/fdxx/l4d2_nativevote)) **l4d2_nativevote.sp**
+
+([ALLM](https://forums.alliedmods.net/showthread.php?t=343978)) **l4d2_dynamic_jump.smx**
 
 ## 未上传的部分:
 
@@ -80,9 +82,7 @@ hideHUD.smx
 hrc_hud.smx
 idle_antispam.smx
 l4d2_drop.smx
-l4d2_dynamic_jump.smx
 l4d2_incapped_crawling.smx
-l4d2_item_hint.smx
 l4d2_limit_jump.smx
 l4d2_sb_fix.smx
 L4D2_Survivor_Legs.smx

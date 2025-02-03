@@ -1,0 +1,254 @@
+"Games"
+{
+	"left4dead"
+	{
+		"Offsets"
+		{
+			"ACT_JUMP"
+			{
+				"windows" "1173"
+				"linux" "1173"
+			}
+			
+			"ILocomotion::m_velocity"
+			{
+				"windows" "96"
+				"linux" "96"
+			}
+			
+			"ILocomotion::m_acceleration"
+			{
+				"windows" "136"
+				"linux" "136"
+			}
+			
+			"ILocomotion::m_isJumping"
+			{
+				"windows" "180"
+				"linux" "180"
+			}
+			
+			"ILocomotion::m_isJumpingAcrossGap"
+			{
+				"windows" "181"
+				"linux" "181"
+			}
+			
+			"ILocomotion::m_isClimbingUpToLedge"
+			{
+				"windows" "200"
+				"linux" "200"
+			}
+			
+			"CBaseEntity::MyNextBotPointer"
+			{
+				"windows" "71"
+				"linux" "72"
+			}
+			
+			"INextBot::GetLocomotionInterface"
+			{
+				"windows" "42"
+				"linux" "43"
+			}
+			
+			"INextBot::GetBodyInterface"
+			{
+				"windows" "43"
+				"linux" "44"
+			}
+
+			"ILocomotion::IsClimbingOrJumping"
+			{
+				"windows" "44"
+				"linux" "45"
+			}
+			
+			"ILocomotion::GetFeet"
+			{
+				"windows" "69"
+				"linux" "70"
+			}
+			
+			"INextBotEventResponder::OnLeaveGround"
+			{
+				"windows" "3"
+				"linux" "4"
+			}
+			
+			"IBody::StartActivity"
+			{
+				"windows" "48"
+				"linux" "49"
+			}
+			
+			"IBody::GetHullMins"
+			{
+				"windows" "68"
+				"linux" "69"
+			}
+			
+			"IBody::GetHullMaxs"
+			{
+				"windows" "69"
+				"linux" "70"
+			}
+			
+			"PathFollower::IsDiscontinuityAhead"
+			{
+				"windows" "30"
+				"linux" "31"
+			}
+			
+			"Path::GetCurrentGoal"
+			{
+				"windows" "7"
+				"linux" "8"
+			}
+			
+			"Path::NextSegment"
+			{
+				"windows" "20"
+				"linux" "21"
+			}
+			
+			"Path::IsValid"
+			{
+				"windows" "15"
+				"linux" "16"
+			}
+			
+			"PathFollower::Invalidate"
+			{
+				"windows" "16"
+				"linux" "17"
+			}
+		}
+	}
+	
+	"left4dead2"
+	{
+		"Offsets"
+		{
+			"ACT_JUMP"
+			{
+				"windows" "661"
+				"linux" "661"
+			}
+			
+			"ILocomotion::m_velocity"
+			{
+				"windows" "108"
+				"linux" "108"
+			}
+			
+			"ILocomotion::m_acceleration"
+			{
+				"windows" "148"
+				"linux" "148"
+			}
+			
+			"ILocomotion::m_isJumping"
+			{
+				"windows" "192"
+				"linux" "192"
+			}
+			
+			"ILocomotion::m_isJumpingAcrossGap"
+			{
+				"windows" "193"
+				"linux" "193"
+			}
+			
+			"ILocomotion::m_isClimbingUpToLedge"
+			{
+				"windows" "212"
+				"linux" "212"
+			}
+			
+			"CBaseEntity::MyNextBotPointer"
+			{
+				"windows" "81"
+				"linux" "82"
+			}
+			
+			"INextBot::GetLocomotionInterface"
+			{
+				"windows" "47"
+				"linux" "48"
+			}
+			
+			"INextBot::GetBodyInterface"
+			{
+				"windows" "48"
+				"linux" "49"
+			}
+
+			"ILocomotion::IsClimbingOrJumping"
+			{
+				"windows" "49"
+				"linux" "50"
+			}
+			
+			"ILocomotion::GetFeet"
+			{
+				"windows" "74"
+				"linux" "75"
+			}
+			
+			"INextBotEventResponder::OnLeaveGround"
+			{
+				"windows" "4"
+				"linux" "5"
+			}
+			
+			"IBody::StartActivity"
+			{
+				"windows" "53"
+				"linux" "54"
+			}
+			
+			"IBody::GetHullMins"
+			{
+				"windows" "73"
+				"linux" "74"
+			}
+			
+			"IBody::GetHullMaxs"
+			{
+				"windows" "74"
+				"linux" "75"
+			}
+			
+			"PathFollower::IsDiscontinuityAhead"
+			{
+				"windows" "31"
+				"linux" "32"
+			}
+			
+			"Path::GetCurrentGoal"
+			{
+				"windows" "8"
+				"linux" "9"
+			}
+			
+			"Path::NextSegment"
+			{
+				"windows" "21"
+				"linux" "22"
+			}
+			
+			"Path::IsValid"
+			{
+				"windows" "16"
+				"linux" "17"
+			}
+			
+			"PathFollower::Invalidate"
+			{
+				"windows" "17"
+				"linux" "18"
+			}
+		}
+	}
+}
