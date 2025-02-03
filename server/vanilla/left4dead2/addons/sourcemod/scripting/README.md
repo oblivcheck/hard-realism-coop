@@ -32,6 +32,7 @@
 
 ([ALLM](https://forums.alliedmods.net/showthread.php?t=315367)) **sm_RestartEmpty.sp**
 
+([ALLM](https://forums.alliedmods.net/showpost.php?p=2784704&postcount=6) **l4d2_null_cusercmd_fix.sp**)
 
 无修改:
 

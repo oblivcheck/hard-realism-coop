@@ -32,7 +32,7 @@ void ExecVote_WarpAllSurvivorsToSelf(client)
           // 你也不想被shooter硬控吧
           //ServerCommand("sm_slap #%d", GetClientUserId(i) );
         }        
-        TeleportEntity(player, pos, NULL_VECTOR, NULL_VECTOR);
+        TeleportEntity(i, pos, NULL_VECTOR, NULL_VECTOR);
       }
     }
   }
@@ -74,7 +74,7 @@ stock void ExecuteCheatCommand(int client, const char[] cmd)
       SetCommandFlags(buffer[0], flag & ~FCVAR_CHEAT);
       FakeClientCommand(client, cmd_buffer);
       SetCommandFlags(buffer[0], flag | FCVAR_CHEAT);
-      ServerCommand("say 执行作弊命令: %s", cmd_buffer);
+      // ServerCommand("say 执行作弊命令: %s", cmd_buffer);
     }
   }
   else  PrintToChat(client, "不是有效的命令");
@@ -103,7 +103,7 @@ void ExecVote_WarpAllSurvivorBotsToSelf(client)
       if(IsFakeClient(i) )
       {
         if(GetClientTeam(i) == 2)
-          TeleportEntity(player, pos, NULL_VECTOR, NULL_VECTOR);
+          TeleportEntity(i, pos, NULL_VECTOR, NULL_VECTOR);
       }
     }
   }
@@ -159,7 +159,7 @@ void ExecVote_SetVoiceMark()
    int Status = hStatus.IntValue;
     if(Status != 0)
     {
-     ServerCommand("l4d2_infected_marker_announce_type \"0\"");
+      ServerCommand("l4d2_infected_marker_announce_type \"0\"");
       ServerCommand("l4d2_infected_marker_glow_color \"\"");
       ServerCommand("l4d2_infected_marker_witch_enable \"0\"");
       ServerCommand("l4d2_item_hint_announce_type \"0\"");

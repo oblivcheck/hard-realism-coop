@@ -1,0 +1,14 @@
+"Games"
+{
+	"left4dead2"
+	{
+		"Offsets"
+		{
+			"FindUseEntity"
+			{
+				"windows"	"439"
+				"linux"		"440"
+			}
+		}
+	}
+}
