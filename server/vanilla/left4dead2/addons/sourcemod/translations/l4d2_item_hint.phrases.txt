@@ -7,7 +7,13 @@
 		"zho"		"[{green}物品{default}] {blue}{1}{default}: {2}"
 		"chi"		"[{green}物品{default}] {blue}{1}{default}: {2}"
 	}
-
+  "RPP_Announce_Vocalize_ITEM (C)"
+  {
+          "#format"       "{1:N},{2:T}"
+          "en"            "{green}*{default} {blue}{1}{default}: {2}"
+          "zho"           "{green}*{default} {blue}{1}{default}: {2}"
+          "chi"           "{green}*{default} {blue}{1}{default}: {2}"
+  }
 	"Announce_Vocalize_ITEM"
 	{
 		"#format"	"{1:N},{2:T}"

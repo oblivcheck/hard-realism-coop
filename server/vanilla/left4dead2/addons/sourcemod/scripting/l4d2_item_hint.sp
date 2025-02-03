@@ -18,6 +18,32 @@ public Plugin myinfo =
 	url         = "https://forums.alliedmods.net/showpost.php?p=2765332&postcount=30"
 };
 
+ConVar g_hModeRealism;
+bool g_bModeRealism_Load;
+bool ModeEnable;
+
+public void OnLibraryAdded(const char[] name)
+{
+  if(strcmp("rc_gamemode_realism", name) == 0)
+  {
+    g_bModeRealism_Load = true;
+    g_hModeRealism = FindConVar("rc_gamemode_realism_enable");
+    g_hModeRealism.AddChangeHook(Event_ConVarChanged);
+  }
+}
+public void OnLibraryRemoved(const char[] name)
+{
+  if(strcmp("rc_gamemode_realism", name) == 0)
+  {
+    g_bModeRealism_Load = false;
+    g_hModeRealism.RemoveChangeHook(Event_ConVarChanged);
+  }
+}
+public void Event_ConVarChanged(ConVar convar, const char[] oldValue, const char[] newValue)
+{
+  ModeEnable = g_hModeRealism.BoolValue;
+}
+
 bool bLate;
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
@@ -135,8 +161,8 @@ public void OnPluginStart()
 	g_hItemAnnounceType		= CreateConVar("l4d2_item_hint_announce_type", "1", "Changes how Item Hint displays. (0: Disable, 1:In chat, 2: In Hint Box, 3: In center text)", FCVAR_NOTIFY, true, 0.0, true, 3.0);
 	g_hItemGlowTimer		= CreateConVar("l4d2_item_hint_glow_timer", "10.0", "Item Glow Time.", FCVAR_NOTIFY, true, 0.0);
 	g_hItemGlowRange		= CreateConVar("l4d2_item_hint_glow_range", "800", "Item Glow Range.", FCVAR_NOTIFY, true, 0.0);
-	g_hItemCvarColor		= CreateConVar("l4d2_item_hint_glow_color", "", "Item Glow Color, Three values between 0-255 separated by spaces. (Empty = Disable Item Glow)", FCVAR_NOTIFY);
-	g_hItemInstructorHint	= CreateConVar("l4d2_item_instructorhint_enable", "0", "If 1, Create instructor hint on marked item.", FCVAR_NOTIFY, true, 0.0, true, 1.0);
+	g_hItemCvarColor		= CreateConVar("l4d2_item_hint_glow_color", "255 120 203", "Item Glow Color, Three values between 0-255 separated by spaces. (Empty = Disable Item Glow)", FCVAR_NOTIFY);
+	g_hItemInstructorHint	= CreateConVar("l4d2_item_instructorhint_enable", "1", "If 1, Create instructor hint on marked item.", FCVAR_NOTIFY, true, 0.0, true, 1.0);
 	g_hItemInstructorColor	= CreateConVar("l4d2_item_instructorhint_color", "255 192 203", "Instructor hint color on marked item.", FCVAR_NOTIFY);
 	g_hItemInstructorIcon	= CreateConVar("l4d2_item_instructorhint_icon", "icon_interact", "Instructor icon name on marked item. (For more icons: https://developer.valvesoftware.com/wiki/Env_instructor_hint)", FCVAR_NOTIFY);
 
@@ -145,9 +171,9 @@ public void OnPluginStart()
 	g_hSpotMarkUseSound     	= CreateConVar("l4d2_spot_marker_use_sound", "buttons/blip1.wav", "Spot Marker Sound. (relative to to sound/, Empty = OFF)", FCVAR_NOTIFY);
 	g_hSpotMarkAnnounceType		= CreateConVar("l4d2_spot_marker_announce_type", "0", "Changes how Spot Marker Hint displays. (0: Disable, 1:In chat, 2: In Hint Box, 3: In center text)", FCVAR_NOTIFY, true, 0.0, true, 3.0);
 	g_hSpotMarkGlowTimer		= CreateConVar("l4d2_spot_marker_duration", "6.0", "Spot Marker Duration.", FCVAR_NOTIFY, true, 0.0);
-	g_hSpotMarkCvarColor		= CreateConVar("l4d2_spot_marker_color", "", "Spot Marker Glow Color, Three values between 0-255 separated by spaces. (Empty = Disable Spot Marker)", FCVAR_NOTIFY);
-	g_hSpotMarkSpriteModel      = CreateConVar("l4d2_spot_marker_sprite_model", "", "Spot Marker Sprite model. (Empty=Disable)");
-	g_hSpotMarkInstructorHint	= CreateConVar("l4d2_spot_marker_instructorhint_enable", "0", "If 1, Create instructor hint on Spot Marker.", FCVAR_NOTIFY, true, 0.0, true, 1.0);
+	g_hSpotMarkCvarColor		= CreateConVar("l4d2_spot_marker_color", "255 120 203", "Spot Marker Glow Color, Three values between 0-255 separated by spaces. (Empty = Disable Spot Marker)", FCVAR_NOTIFY);
+	g_hSpotMarkSpriteModel      = CreateConVar("l4d2_spot_marker_sprite_model", "materials/vgui/icon_arrow_down.vmt", "Spot Marker Sprite model. (Empty=Disable)");
+	g_hSpotMarkInstructorHint	= CreateConVar("l4d2_spot_marker_instructorhint_enable", "1", "If 1, Create instructor hint on Spot Marker.", FCVAR_NOTIFY, true, 0.0, true, 1.0);
 	g_hSpotMarkInstructorColor	= CreateConVar("l4d2_spot_marker_instructorhint_color", "255 192 203", "Instructor hint color on Spot Marker.", FCVAR_NOTIFY);
 	g_hSpotMarkInstructorIcon	= CreateConVar("l4d2_spot_marker_instructorhint_icon", "icon_info", "Instructor icon name on Spot Marker.", FCVAR_NOTIFY);
 
@@ -157,7 +183,7 @@ public void OnPluginStart()
 	g_hInfectedMarkAnnounceType	= CreateConVar("l4d2_infected_marker_announce_type", "1", "Changes how infected marker hint displays. (0: Disable, 1:In chat, 2: In Hint Box, 3: In center text)", FCVAR_NOTIFY, true, 0.0, true, 3.0);
 	g_hInfectedMarkGlowTimer   	= CreateConVar("l4d2_infected_marker_glow_timer", "10.0", "Infected Marker Glow Time.", FCVAR_NOTIFY, true, 0.0);
 	g_hInfectedMarkGlowRange   	= CreateConVar("l4d2_infected_marker_glow_range", "2500", "Infected Marker Glow Range", FCVAR_NOTIFY, true, 0.0);
-	g_hInfectedMarkCvarColor   	= CreateConVar("l4d2_infected_marker_glow_color", "", "Infected Marker Glow Color, Three values between 0-255 separated by spaces. (Empty = Disable Infected Marker)", FCVAR_NOTIFY);
+	g_hInfectedMarkCvarColor   	= CreateConVar("l4d2_infected_marker_glow_color", "255 120 203", "Infected Marker Glow Color, Three values between 0-255 separated by spaces. (Empty = Disable Infected Marker)", FCVAR_NOTIFY);
 	g_hInfectedMarkWitch    	= CreateConVar("l4d2_infected_marker_witch_enable", "1", "If 1, Enable 'Look' Infected Marker on witch.", FCVAR_NOTIFY, true, 0.0, true, 1.0);
 
 	// AutoExecConfig(true, "l4d2_item_hint");
@@ -1259,7 +1285,9 @@ void NotifyMessage(int client, const char[] sItemPhrase, EHintType eType)
 				{
 					if (IsClientInGame(i) && !IsFakeClient(i) && GetClientTeam(i) != TEAM_INFECTED)
 					{
-						CPrintToChat(i, "%T", "Announce_Vocalize_ITEM (C)", i, client, sItemPhrase, i);
+						if(ModeEnable)
+							CPrintToChat(i, "%T", "RPP_Announce_Vocalize_ITEM (C)", i, client, sItemPhrase, i);
+						else CPrintToChat(i, "%T", "Announce_Vocalize_ITEM (C)", i, client, sItemPhrase, i);
 					}
 				}
 			}
@@ -1626,6 +1654,12 @@ bool TRDontHitSelf(int entity, int mask, any data) {
 
 void PlayerMarkHint(int client)
 {
+	if(GetEngineTime() > g_fItemHintCoolDownTime[client])
+	{
+		ShowTargetHealth(client);
+		// g_fItemHintCoolDownTime[client] = GetEngineTime() + g_fItemHintCoolDown;
+	}
+				
 	bool bIsAimInfeced = false, bIsAimWitch = false, bIsVaildItem = false;
 	static char sItemPhrase[64], sEntModelName[PLATFORM_MAX_PATH];
 
@@ -1701,7 +1735,6 @@ void PlayerMarkHint(int client)
 				{
 					bIsVaildItem = false;
 				}
-
 				if(bIsVaildItem)
 				{
 					if(GetEngineTime() > g_fItemHintCoolDownTime[client])
@@ -1745,9 +1778,118 @@ void PlayerMarkHint(int client)
 
 	// client / world / witch
 	CreateSpotMarker(client, bIsAimInfeced);
-} 
+}
+ 
+void ShowTargetHealth(int client)
+{
+	if(ModeEnable)
+	{
+		// mpds_server.sp
+	  int target = GetClientAimTarget(client);
+		if(! (0 < target <= MaxClients) )
+			return;
+		if(! IsClientInGame(target) )
+			return;
+		
+		if(GetClientTeam(target) != 2)
+			return;
+			
+    float mPos[3], tPos[3];
+    GetClientAbsOrigin(client, mPos);
+    GetClientAbsOrigin(target, tPos);
+		// 近距离
+    if(GetVectorDistance(mPos, tPos) <= 150.0 )
+    {
+			// 建议查看hrc_hud.sp (70.sv)
+			// int hp[3];
+    	// PrintToChat(client, "%N, ", target, GetEntProp(client, Prop_Send, "m_bIsOnThirdStrike") ? "黑白" : "", GetClientRealHealth(target), GetClientRealHealth(), );
+    	// Realism++会取消黑白屏幕
+    	// 建议使用heartbeat插件，现在地图转换后可能心跳声会消失，无法辨认是否黑白(调查)
+    	bool bws =  GetEntProp(target, Prop_Send, "m_currentReviveCount") == 2;
+			char buf[8];
+			if(bws)
+				Format(buf, sizeof(buf), "黑白");
+
+   		PrintToChat(client, "%N, %d  %s", target, GetClientRealHealth(target), buf );
+	  } 
+	}
+}
 
 int GetZombieClass(int client) 
 {
 	return GetEntProp(client, Prop_Send, "m_zombieClass");
 }
+
+
+/**
+* @brief Will return a survivors health, including also the temporal health.
+*
+* @client            Client index to retrieve the health from.
+*
+* @return            Returns the client's health as an integer.
+* @error             Will return -1 if there was any problem.
+*/
+//https://forums.alliedmods.net/showthread.php?t=315826
+stock int GetClientRealHealth(int client, int type = 0)
+{
+    //First filter -> Must be a valid client, successfully in-game and not an spectator (The dont have health).
+    if(!client
+    || !IsValidEntity(client)
+    || !IsClientInGame(client)
+    || !IsPlayerAlive(client)
+    || IsClientObserver(client))
+    {
+        return -1;
+    }
+
+    //If the client is not on the survivors team, then just return the normal client health.
+    if(GetClientTeam(client) != 2)
+    {
+        return GetClientHealth(client);
+    }
+
+    //First, we get the amount of temporal health the client has
+    float buffer = GetEntPropFloat(client, Prop_Send, "m_healthBuffer");
+
+    //We declare the permanent and temporal health variables
+    float TempHealth;
+    int PermHealth = GetClientHealth(client);
+
+    //In case the buffer is 0 or less, we set the temporal health as 0, because the client has not used any pills or adrenaline yet
+    if(buffer <= 0.0)
+    {
+        TempHealth = 0.0;
+    }
+
+    //In case it is higher than 0, we proceed to calculate the temporl health
+    else
+    {
+        //This is the difference between the time we used the temporal item, and the current time
+        float difference = GetGameTime() - GetEntPropFloat(client, Prop_Send, "m_healthBufferTime");
+
+        //We get the decay rate from this convar (Note: Adrenaline uses this value)
+        float decay = GetConVarFloat(FindConVar("pain_pills_decay_rate"));
+
+        //This is a constant we create to determine the amount of health. This is the amount of time it has to pass
+        //before 1 Temporal HP is consumed.
+        float constant = 1.0/decay;
+
+        //Then we do the calcs
+        TempHealth = buffer - (difference / constant);
+    }
+
+    //If the temporal health resulted less than 0, then it is just 0.
+    if(TempHealth < 0.0)
+    {
+        TempHealth = 0.0;
+    }
+
+		if(type == 1)
+			return PermHealth;
+		if(type == 2)
+    	return RoundToFloor(TempHealth);
+
+    //Return the value
+    return RoundToFloor(PermHealth + TempHealth);
+}
+
