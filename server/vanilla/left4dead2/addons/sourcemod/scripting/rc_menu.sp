@@ -350,24 +350,6 @@ void Mode_VoteHandler(L4D2NativeVote vote, VoteAction action, int param1, int pa
       PrintToChatAll("\x04====================");
       PrintToChatAll("\x03  %N 发起了一项投票", vote.Initiator);
       PrintToChatAll("  %s", mode_VoteTitle[g_iVoteType] );
-
-      // 关于正在进行的投票的一些说明
-      switch(g_iVoteType)
-      {
-        case rcVoteType_WarpSurvivorToStartArea:
-        {
-          PrintToChatAll("  尝试传送所有玩家至开始区域...");
-          PrintToChatAll("  一些第三方地图可能会让玩家生成在不应该出现的地方（地下...）");
-          PrintToChatAll("  如果不成功或是没有传送到开始区域（如消逝/短暂时刻战役）");
-          PrintToChatAll("  请重新发起投票，此操作会从多种可行方式中随机抽取一个执行.");
-        }
-        case rcVoteType_ForceSkipScriptPhase:
-        {
-          PrintToChatAll("  适用于大部分的正在进行的救援与少部分机关");
-          PrintToChatAll("  进入Vscript中的下一个脚本阶段(如果有)");
-          PrintToChatAll("  如果卡关请多次尝试这个");
-        }
-      }
       
       PrintToChatAll("\x04====================");
     }
@@ -440,6 +422,8 @@ void GetInGamePlayers(int clients[MAXPLAYERS+1], int &num)
 	for (int i = 1; i <= MaxClients; i++)
 	{
 		if (IsClientInGame(i) && !IsFakeClient(i))
+      // 还是忽略观察者吧
+      if( GetClientTeam(i) != 1)
     			  clients[num++] = i;
 	}
 }
