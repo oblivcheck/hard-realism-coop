@@ -3,49 +3,49 @@
 	"Announce_Vocalize_ITEM (C)"
 	{
 		"#format"	"{1:N},{2:T}"
-		"en"		"({green}Item{default}) {olive}{1}{default}: {2}"
-		"zho"		"({green}物品{default}) {olive}{1}{default}: {2}"
-		"chi"		"({green}物品{default}) {olive}{1}{default}: {2}"
+		"en"		"[{green}Item{default}] {blue}{1}{default}: {2}"
+		"zho"		"[{green}物品{default}] {blue}{1}{default}: {2}"
+		"chi"		"[{green}物品{default}] {blue}{1}{default}: {2}"
 	}
 
 	"Announce_Vocalize_ITEM"
 	{
 		"#format"	"{1:N},{2:T}"
-		"en"		"(Item) {1}: {2}"
-		"zho"		"(物品) {1}: {2}"
-		"chi"		"(物品) {1}: {2}"
+		"en"		"[Item] {1}: {2}"
+		"zho"		"[物品] {1}: {2}"
+		"chi"		"[物品] {1}: {2}"
 	}
 
 	"Announce_Vocalize_INFECTED (C)"
 	{
 		"#format"	"{1:N},{2:T}"
-		"en"		"({green}Infected{default}) {olive}{1}{default}: {red}{2}"
-		"zho"		"({green}特感{default}) {olive}{1}{default}: {red}{2}"
-		"chi"		"({green}特感{default}) {olive}{1}{default}: {red}{2}"
+		"en"		"[{green}Infected{default}] {blue}{1}{default}: {olive}{2}"
+		"zho"		"[{green}特感{default}] {blue}{1}{default}: {olive}{2}"
+		"chi"		"[{green}特感{default}] {blue}{1}{default}: {olive}{2}"
 	}
 
 	"Announce_Vocalize_INFECTED"
 	{
 		"#format"	"{1:N},{2:T}"
-		"en"		"(Infected) {1}: {2}"
-		"zho"		"(特感) {1}: {2}"
-		"chi"		"(特感) {1}: {2}"
+		"en"		"[Infected] {1}: {2}"
+		"zho"		"[特感] {1}: {2}"
+		"chi"		"[特感] {1}: {2}"
 	}
 
 	"Announce_Spot_Marker (C)"
 	{
 		"#format"	"{1:N}"
-		"en"		"({green}Spot{default}) {olive}{1}{default} marked a position"
-		"zho"		"({green}標記{default}) {olive}{1}{default} 標記了一個位置"
-		"chi"		"({green}标记{default}) {olive}{1}{default} 标记了一个位置"
+		"en"		"[{green}Spot{default}] {blue}{1}{default} marked a position"
+		"zho"		"[{green}標記{default}] {blue}{1}{default} 標記了一個位置"
+		"chi"		"[{green}标记{default}] {blue}{1}{default} 标记了一个位置"
 	}
 
 	"Announce_Spot_Marker"
 	{
 		"#format"	"{1:N}"
-		"en"		"(Spot) {1} marked a position"
-		"zho"		"(標記) {1} 標記了一個位置"
-		"chi"		"(标记) {1} 标记了一个位置"
+		"en"		"[Spot] {1} marked a position"
+		"zho"		"[標記] {1} 標記了一個位置"
+		"chi"		"[标记] {1} 标记了一个位置"
 	}
 
 	"Spot_Maker"
@@ -437,9 +437,9 @@
 		"chi"			"高尔夫球棍!"
 	}
 
-	"Pitckfork"
+	"Pitchfork"
 	{
-		"en"			"Pitckfork!"
+		"en"			"Pitchfork!"
 		"zho"			"草叉!"
 		"chi"			"干草叉!"
 	}
