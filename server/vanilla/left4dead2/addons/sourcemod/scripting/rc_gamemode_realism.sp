@@ -59,6 +59,9 @@ int snum[MAXPLAYERS+1];
 
 bool  bAfk;
 
+ConVar g_hRemoveUpgradePack;
+bool g_bRemoveUpgradePack;
+
 public void OnPluginStart()
 {
   //https://forums.alliedmods.net/showthread.php?t=337799
@@ -69,19 +72,22 @@ public void OnPluginStart()
   g_hCIDMG_Multi_Incap = CreateConVar("rc_gamemode_realism_cidmg_incap", "0.50");
   g_hTankHP_Multi = CreateConVar("rc_gamemode_realism_tankhp", "2.5");
   g_hBotFF = CreateConVar("rc_gamemode_realism_bot_friendly_fire", "0");
-
+  g_hRemoveUpgradePack = CreateConVar("rc_gamemode_realism_rmup", "1");
+  
   g_bModeEnable = hCvarModeEnable.BoolValue;
   g_fCIDMG_Multi = g_hCIDMG_Multi.FloatValue;
   g_fCIDMG_Multi_Incap = g_hCIDMG_Multi_Incap.FloatValue;
   g_fTankHP_Multi = g_hTankHP_Multi.FloatValue;
   g_bBotFF = g_hBotFF.BoolValue;
-
+  g_bRemoveUpgradePack = g_hRemoveUpgradePack.BoolValue;
+  
   g_hCIDMG_Multi.AddChangeHook(Event_ConVarChanged);
   g_hCIDMG_Multi_Incap.AddChangeHook(Event_ConVarChanged);
   hCvarModeEnable.AddChangeHook(Event_ConVarChanged);
   g_hTankHP_Multi.AddChangeHook(Event_ConVarChanged);
   g_hBotFF.AddChangeHook(Event_ConVarChanged);
-
+  g_hRemoveUpgradePack.AddChangeHook(Event_ConVarChanged);
+  
   //暂时这样了
   hAi = CreateConVar("rc_gamemode_realism_ai", "0");  
   bAi = hAi.BoolValue;
@@ -132,6 +138,8 @@ public void ApplyCvars()
   g_fCIDMG_Multi_Incap = g_hCIDMG_Multi_Incap.FloatValue;
   g_fTankHP_Multi = g_hTankHP_Multi.FloatValue;
   g_bBotFF = g_hBotFF.BoolValue;
+  g_bRemoveUpgradePack = g_hRemoveUpgradePack.BoolValue;
+  
   bAi = hAi.BoolValue;
   bDynJump = hDynJump.BoolValue;
   if(bDynJump)
@@ -846,8 +854,18 @@ public void OnEntityCreated(int entity, const char[] classname)
         SDKHook(entity, SDKHook_TraceAttack, eOnTraceAttack);
         // CreateTimer(0.5, tDelayChangeSpeed, entity, TIMER_FLAG_NO_MAPCHANGE)
     }
+    else
+    {
+      if(g_bRemoveUpgradePack)
+        if(IsValidEdict(entity) )
+         RemoveUpgradePack(entity, classname);
+    }
   }
-}
+
+   //if (entity <= MaxClients || entity > 2048) return;
+   //if(IsValidEdict(entity) )
+   //  RemoveUpgradePack(entity, classname);
+ }
 
 Action tDelayChangeSpeed(Handle Timer, any entity)
 {
@@ -983,3 +1001,51 @@ public Action OnCloseCaption(UserMsg msg_id, Handle bf, const players[], players
     // 阻止全部还是一部分警告？
     return Plugin_Handled;
 }
+
+#define REMOVE_DELAY 2.0
+void RemoveUpgradePack(int entity, const char[] name)
+{
+  // if(sizeof(name) < 12) return;
+  // PrintToServer("## !!! name >= 12");
+  
+  // upgrade_ammo_incendiary
+  if(strncmp(name[11], "o_i", 3, false) == 0) 
+  {  
+    KillEntity(EntIndexToEntRef(entity));
+  }
+  // upgrade_ammo_explosive
+  if(strncmp(name[11], "o_e", 3, false) == 0) 
+  {
+    KillEntity(EntIndexToEntRef(entity));
+   }
+  
+  // if(sizeof(name) < 18) return;
+  
+  // PrintToServer("## !!! name >= 18");
+  
+  // 包括其实体与_spawn
+  // weapon_upgradepack_explosive_spawn
+  if(strncmp(name[17], "k_e", 3, false) == 0) 
+  {
+    KillEntity(EntIndexToEntRef(entity));
+  }
+  if(strncmp(name[17], "k_i", 3, false) == 0) 
+  {
+    KillEntity(EntIndexToEntRef(entity));
+  }
+}
+
+void KillEntity(int entity_ref)
+{ 
+  int entity = EntRefToEntIndex(entity_ref)
+  //char buf[48]
+  //GetEntityClassname(fire, buf, sizeof buf);
+  //PrintToServer("## !!! kill %d %s", fire, buf);
+  if(!IsValidEntity(entity) ) return;
+
+  char addoutput[48];
+  Format(addoutput, sizeof(addoutput), "OnUser1 !self:kill::%f:1", REMOVE_DELAY); 
+  SetVariantString(addoutput);
+  AcceptEntityInput(entity, "AddOutput");
+  AcceptEntityInput(entity, "FireUser1");
+ }
