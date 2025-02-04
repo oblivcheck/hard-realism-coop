@@ -32,7 +32,9 @@
 
 ([ALLM](https://forums.alliedmods.net/showthread.php?t=315367)) **sm_RestartEmpty.sp**
 
-([ALLM](https://forums.alliedmods.net/showpost.php?p=2784704&postcount=6) **l4d2_null_cusercmd_fix.sp**)
+([ALLM](https://forums.alliedmods.net/showpost.php?p=2784704&postcount=6)) **l4d2_null_cusercmd_fix.sp**
+
+([GitHub A](https://github.com/fbef0102/L4D2-Plugins/tree/122b82bb5dc96dd7edd1b752e0f5106c72ba4337/l4d2_item_hint/scripting)|[Github B](https://github.com/fbef0102/L4D1_2-Plugins/tree/master/l4d2_item_hint)) **l4d2_item_hint.sp**
 
 无修改:
 
