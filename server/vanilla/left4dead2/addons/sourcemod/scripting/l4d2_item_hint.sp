@@ -1654,11 +1654,7 @@ bool TRDontHitSelf(int entity, int mask, any data) {
 
 void PlayerMarkHint(int client)
 {
-	if(GetEngineTime() > g_fItemHintCoolDownTime[client])
-	{
-		ShowTargetHealth(client);
-		// g_fItemHintCoolDownTime[client] = GetEngineTime() + g_fItemHintCoolDown;
-	}
+	ShowTargetHealth(client);
 				
 	bool bIsAimInfeced = false, bIsAimWitch = false, bIsVaildItem = false;
 	static char sItemPhrase[64], sEntModelName[PLATFORM_MAX_PATH];
