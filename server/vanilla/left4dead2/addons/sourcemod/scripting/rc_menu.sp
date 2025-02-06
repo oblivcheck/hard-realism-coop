@@ -125,6 +125,7 @@ void RC_CreateVote(int client)
   rc_createvote.AddItem("杀死所有玩家", "杀死所有玩家");
   rc_createvote.AddItem("传送所有幸存者", "传送所有幸存者");
   rc_createvote.AddItem("传送幸存者机器人", "传送幸存者机器人");
+  rc_createvote.AddItem("拍打/击飞自己", "拍打/击飞自己");
   rc_createvote.AddItem("传送幸存者至起始区域", "传送幸存者至起始区域");
   rc_createvote.AddItem("强制进入下一个脚本阶段", "强制进入下一个脚本阶段");
   rc_createvote.AddItem("设置幸存者机器人自瞄", "设置幸存者机器人自瞄");
@@ -140,6 +141,7 @@ enum rcVoteType
   rcVoteType_KillAllPlayer,
   rcVoteType_WarpAllSurvivorsToSelf,
   rcVoteType_WarpAllSurvivorBotsToSelf,
+  rcVoteType_SlapSelf,
   rcVoteType_WarpSurvivorToStartArea,
   rcVoteType_ForceSkipScriptPhase,
   rcVoteType_SetSurvivorBotAutoAim,
@@ -151,6 +153,7 @@ char rc_VoteTitle[][]={
   "杀死所有的玩家",
   "传送所有玩家到自己的位置",
   "传送所有生还者机器人到自己的位置",
+  "拍打/击飞此投票的发起人",
   "传送所有幸存者到起始安全区域/安全屋",
   "强制进入下一个脚本阶段，防止卡关",
   "设置生还者机器人辅助瞄准",
@@ -186,6 +189,10 @@ void VoteHandler(L4D2NativeVote vote, VoteAction action, int param1, int param2)
       // 关于正在进行的投票的一些说明
       switch(g_iVoteType)
       {
+        case rcVoteType_SlapSelf:
+        {
+          PrintToChatAll("  %N 似乎卡住了？。。。", vote.Initiator);
+        }
         case rcVoteType_WarpSurvivorToStartArea:
         {
           PrintToChatAll("  一些第三方地图可能会让玩家生成在不应该出现的地方（地下...）");
@@ -217,6 +224,8 @@ void VoteHandler(L4D2NativeVote vote, VoteAction action, int param1, int param2)
               ExecVote_WarpAllSurvivorsToSelf(vote.Initiator);              
           case rcVoteType_WarpAllSurvivorBotsToSelf:
               ExecVote_WarpAllSurvivorBotsToSelf(vote.Initiator);
+          case rcVoteType_SlapSelf:
+              ExecVote_SlapSelf(vote.Initiator);
           case rcVoteType_WarpSurvivorToStartArea:
               ExecVote_WarpSurvivorToStartArea();
           case rcVoteType_ForceSkipScriptPhase:

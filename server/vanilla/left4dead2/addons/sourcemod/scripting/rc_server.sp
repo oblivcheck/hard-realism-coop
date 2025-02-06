@@ -515,8 +515,9 @@ Action Event_PlayerDisconnect(Event event, const char[] name, bool dontBroadcast
     Format(message,sizeof(message),"游戏文件验证失败");
   else	message = reason;
 
-  PrintToChatAll("%N 已离开游戏：%s", client, message);
-  //	ServerCommand("say %N 已断开连接：%s", client, message);
+  PrintToChatAll("%N 已离开游戏，因为 ↓↓↓", client);
+  PrintToChatAll("  %s", message);
+   //	ServerCommand("say %N 已断开连接：%s", client, message);
 
   SetEventBroadcast(event, true)
 

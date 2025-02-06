@@ -74,7 +74,7 @@
 
 ([Github](https://github.com/fdxx/l4d2_nativevote)) **l4d2_nativevote.sp**
 
-([ALLM](https://forums.alliedmods.net/showthread.php?t=343978)) **l4d2_dynamic_jump.smx**
+([ALLM](https://forums.alliedmods.net/showthread.php?t=343978)) **l4d2_dynamic_jump.sp**
 
 ## 未上传的部分:
 

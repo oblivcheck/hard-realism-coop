@@ -3,7 +3,7 @@ void ExecVote_KillAllPlayer()
 {
   ServerCommand("sm_slay @all");
 }
-void ExecVote_WarpAllSurvivorsToSelf(client)
+void ExecVote_WarpAllSurvivorsToSelf(int client)
 {
   // ?
   int player = client
@@ -80,7 +80,7 @@ stock void ExecuteCheatCommand(int client, const char[] cmd)
   else  PrintToChat(client, "不是有效的命令");
 }
 
-void ExecVote_WarpAllSurvivorBotsToSelf(client)
+void ExecVote_WarpAllSurvivorBotsToSelf(int client)
 {
   // ?
   int player = client
@@ -108,6 +108,14 @@ void ExecVote_WarpAllSurvivorBotsToSelf(client)
     }
   }
   PrintToChatAll("已传送所有存活的幸存者机器人(Survivor Bots -> %N)", player);
+}
+
+void ExecVote_SlapSelf(int client)
+{
+  SlapPlayer(client, 0);
+  // 服务器命令缓冲区自带延迟 O_O
+  ServerCommand("sm_slap #%d 0", GetClientUserId(client) );
+  PrintToChatAll("%N 可能需要继续被敲打，直到他认为他没有卡住", client);
 }
 
 void ExecVote_WarpSurvivorToStartArea()
